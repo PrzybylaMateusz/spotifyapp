@@ -3,25 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SpotifyApp.API.Data;
 
 namespace SpotifyApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class AlbumsController : ControllerBase
     {
+        private readonly DataContext _context;
+        public AlbumsController(DataContext context)
+        {
+            _context = context;
+
+        }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<IActionResult> GetAlbums()
         {
-            return new string[] { "value1", "value2" };
+            var albums = await _context.Albums.ToListAsync();
+            return Ok(albums);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<IActionResult> GetAlbum(string id)
         {
-            return "value";
+            var album = await _context.Albums.FirstOrDefaultAsync(x => x.Id.ToString() == id);
+            return Ok(album);
         }
 
         // POST api/values

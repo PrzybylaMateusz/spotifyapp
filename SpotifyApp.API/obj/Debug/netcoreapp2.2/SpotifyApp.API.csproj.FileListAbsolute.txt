@@ -1,0 +1,14 @@
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\bin\Debug\netcoreapp2.2\SpotifyApp.API.deps.json
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\bin\Debug\netcoreapp2.2\SpotifyApp.API.runtimeconfig.json
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\bin\Debug\netcoreapp2.2\SpotifyApp.API.runtimeconfig.dev.json
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\bin\Debug\netcoreapp2.2\SpotifyApp.API.dll
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\bin\Debug\netcoreapp2.2\SpotifyApp.API.pdb
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.csprojAssemblyReference.cache
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.csproj.CoreCompileInputs.cache
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.RazorAssemblyInfo.cache
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.RazorAssemblyInfo.cs
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.AssemblyInfoInputs.cache
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.AssemblyInfo.cs
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.RazorTargetAssemblyInfo.cache
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.dll
+E:\Programowanie\SpotifyApp\spotifyapp\SpotifyApp.API\obj\Debug\netcoreapp2.2\SpotifyApp.API.pdb
