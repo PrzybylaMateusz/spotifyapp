@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpotifyApp.API.Data;
 
 namespace SpotifyApp.API.Controllers
 {
+    //Possible to remove later
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumsController : ControllerBase
@@ -27,6 +30,8 @@ namespace SpotifyApp.API.Controllers
         }
 
         // GET api/values/5
+        // Also possible to remove later
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAlbum(string id)
         {
