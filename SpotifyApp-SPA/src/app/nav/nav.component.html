@@ -1,33 +1,31 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Your Music Corner</a> 
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']"><i class="fa fa-music"></i>Music Corner</a> 
 
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Albums</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/albums']">Albums</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Artists</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/artists']">Artists</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Rankings</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/rankings']">Rankings</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Music Corner</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
-        </li>    
+      <li *ngIf="loggedIn()" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/my']">My Music Corner</a>
+      </li>     
      </ul>
 
-     <div *ngIf="loggedIn()" class="dropdown">
-        <a class="dropdown-toggle text-light">
-          Welcome User
+     <div *ngIf="loggedIn()" class="dropdown" dropdown>
+        <a class="dropdown-toggle text-light" dropdownToggle>
+          Welcome {{authService.decodedToken?.unique_name | titlecase}}
         </a>
       
-        <div class="dropdown-menu">
+        <div class="dropdown-menu mt-3" *dropdownMenu> 
           <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Profile</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+          <a class="dropdown-item enabled" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
         </div>
       </div>
 
@@ -36,12 +34,19 @@
       <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required [(ngModel)]="model.password">
       <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
-</nav>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-      <form class="form-inline my-2 my-md-0">
-          <input class="form-control" type="text" placeholder="Search music">
-        </form> 
   </div>
 </nav>
+<nav class="navbar navbar-center navbar-dark bg-dark navbar-lower">
+  <div class="form-group">
+    <!-- <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Search music">
+      </form>  -->
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Search music">
+      </div>
+</div>
+</nav>
+
+
+

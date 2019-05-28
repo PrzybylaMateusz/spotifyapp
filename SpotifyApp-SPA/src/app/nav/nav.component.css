@@ -1,5 +1,41 @@
-.container {
+/* .container {
     width: 21%;
     margin-left: auto;
     margin-right: auto;
+} */
+
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
 }
+
+.form-group {
+    width: 600px;
+}
+
+.form-control {
+    width: 200px;
+}
+
+.navbar-center {
+    position: relative;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.fa-music {
+    margin-right: 10px;
+}
+
+.dropdown-item.enabled{
+    color: #1a1a1a;
+    background-color: transparent;
+  }
+
+  .dropdown-item.enabled:hover{
+    color: #0d0d0d;
+    text-decoration: none;
+    background-color: #f8f9fa;
+  }
+  
