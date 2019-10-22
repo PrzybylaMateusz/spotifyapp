@@ -8,5 +8,8 @@ namespace SpotifyApp.API.Models
 
         public string Name { get; set; }
         public string Artist { get; set; }
+
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }

@@ -9,5 +9,6 @@ namespace SpotifyApp.API.Data
 
         public DbSet<Album> Albums { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }

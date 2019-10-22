@@ -25,15 +25,44 @@ namespace SpotifyApp.API.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("SpotifyApp.API.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("SpotifyApp.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("About");
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<byte[]>("PasswordHash");
 
@@ -44,6 +73,22 @@ namespace SpotifyApp.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SpotifyApp.API.Models.Album", b =>
+                {
+                    b.HasOne("SpotifyApp.API.Models.User", "User")
+                        .WithMany("Albums")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SpotifyApp.API.Models.Photo", b =>
+                {
+                    b.HasOne("SpotifyApp.API.Models.User", "User")
+                        .WithOne("Photo")
+                        .HasForeignKey("SpotifyApp.API.Models.Photo", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
