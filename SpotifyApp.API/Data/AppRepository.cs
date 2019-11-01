@@ -40,14 +40,14 @@ namespace SpotifyApp.API.Data
 
         public Task<User> GetUser(int id)
         {
-            var user = this.context.Users.Include(p => p.Albums).FirstOrDefaultAsync(u => u.Id == id);
+            var user = this.context.Users.Include(a => a.Albums).Include(p => p.Photo).FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
         }
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await this.context.Users.Include(p => p.Albums).ToListAsync();
+            var users = await this.context.Users.Include(a => a.Albums).Include(p => p.Photo).ToListAsync();
 
             return users;
         }

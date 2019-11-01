@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SpotifyApp.API.Data;
+using SpotifyApp.API.Dtos;
 
 namespace SpotifyApp.API.Controllers
 {
@@ -15,10 +15,12 @@ namespace SpotifyApp.API.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        private readonly DataContext _context;
-        public AlbumsController(DataContext context)
+        private readonly IMapper _mapper;
+        private readonly IAppRepository _repo;
+        public AlbumsController(IAppRepository repo, IMapper mapper)
         {
-            _context = context;
+            _repo = repo;
+            _mapper = mapper;
 
         }
         // GET api/values
@@ -26,8 +28,11 @@ namespace SpotifyApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAlbums()
         {
-            var albums = await _context.Albums.ToListAsync();
-            return Ok(albums);
+            var albums = await _repo.GetAlbums();
+
+            var albumsToReturn = _mapper.Map<IEnumerable<AlbumDto>>(albums);
+
+            return Ok(albumsToReturn);
         }
 
         // GET api/values/5
@@ -36,8 +41,11 @@ namespace SpotifyApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAlbum(string id)
         {
-            var album = await _context.Albums.FirstOrDefaultAsync(x => x.Id.ToString() == id);
-            return Ok(album);
+            var album = await _repo.GetAlbum(Guid.Parse(id));
+
+            var albumToReturn = _mapper.Map<AlbumDto>(album);
+
+            return Ok(albumToReturn);
         }
 
         // POST api/values
