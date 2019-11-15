@@ -1,13 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../_services/auth.service";
-import { AlertifyService } from "../_services/alertify.service";
-import { Router } from "@angular/router";
-import { SearchService } from "../_services/search.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
+import { SearchService } from '../_services/search.service';
+import { PlayerService } from '../_services/player.service';
 
 @Component({
-  selector: "app-nav",
-  templateUrl: "./nav.component.html",
-  styleUrls: ["./nav.component.css"]
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
   model: any = {};
@@ -16,21 +17,23 @@ export class NavComponent implements OnInit {
     public authService: AuthService,
     private alertify: AlertifyService,
     private searchService: SearchService,
+    private playerService: PlayerService,
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   login() {
     this.authService.login(this.model).subscribe(
       next => {
-        this.alertify.success("Logged in successfully");
+        this.alertify.success('Logged in successfully');
       },
       error => {
         this.alertify.error(error);
       },
       () => {
-        this.router.navigate(["/my"]);
+        this.router.navigate(['/my']);
       }
     );
   }
@@ -40,13 +43,12 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem("token");
-    this.alertify.message("logged out");
-    this.router.navigate(["/home"]);
+    localStorage.removeItem('token');
+    this.alertify.message('logged out');
+    this.router.navigate(['/home']);
   }
 
   onKey(event: any) {
     this.searchService.search(event.target.value);
   }
 }
-

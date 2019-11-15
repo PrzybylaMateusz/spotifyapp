@@ -17,21 +17,23 @@ namespace SpotifyApp.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAppRepository _repo;
-        public AlbumsController(IAppRepository repo, IMapper mapper)
+        private readonly ISpotifyData _spotifyData;
+        public AlbumsController(IAppRepository repo, IMapper mapper, ISpotifyData spotifyData)
         {
             _repo = repo;
             _mapper = mapper;
-
+            _spotifyData = spotifyData;
         }
         // GET api/values
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAlbums()
         {
-            var albums = await _repo.GetAlbums();
+            // var albums = await _repo.GetAlbums();
 
+            // var albumsToReturn = _mapper.Map<IEnumerable<AlbumDto>>(albums);
+            var albums = await _spotifyData.GetSpotifyAlbums();
             var albumsToReturn = _mapper.Map<IEnumerable<AlbumDto>>(albums);
-
             return Ok(albumsToReturn);
         }
 

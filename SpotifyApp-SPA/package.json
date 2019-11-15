@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^8.2.11",
     "@angular/router": "^8.2.11",
     "@auth0/angular-jwt": "^3.0.0",
+    "@types/spotify-web-playback-sdk": "^0.1.7",
     "alertifyjs": "^1.12.0",
     "bootstrap": "^4.3.1",
     "bootswatch": "^4.3.1",

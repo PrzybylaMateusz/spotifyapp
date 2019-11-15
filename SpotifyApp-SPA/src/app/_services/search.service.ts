@@ -1,15 +1,16 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { HttpHeaders } from "@angular/common/http";
-import { tap } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SearchService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = "http://localhost:5001/api/search/";
+  baseUrl = environment.apiUrl + 'search/';
   // url =
   //   "https://api.spotify.com/v1/search?q=album%3Aarrival%20artist%3Aabba&type=album";
 
@@ -23,7 +24,8 @@ export class SearchService {
 
   search(searchKey: string) {
     console.log(searchKey);
-    this.http.get(this.baseUrl + searchKey).subscribe(data => { console.log(data)});
-
+    this.http.get(this.baseUrl + searchKey).subscribe(data => {
+      console.log(data);
+    });
   }
 }

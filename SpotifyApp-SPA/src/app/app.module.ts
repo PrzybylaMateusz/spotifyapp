@@ -13,42 +13,40 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { RankingsComponent } from './rankings/rankings.component';
-import { AlbumComponent } from './album/album.component';
 import { ArtistComponent } from './artist/artist.component';
-import { AlbumListComponent } from './album-list/album-list.component';
+import { AlbumListComponent } from './albums/album-list/album-list.component';
 import { ArtistListComponent } from './artist-list/artist-list.component';
 import { appRoutes } from './routes';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { AlbumCardComponent } from './albums/album-card/album-card.component';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      RegisterComponent,
-      RankingsComponent,
-      AlbumComponent,
-      ArtistComponent,
-      AlbumListComponent,
-      ArtistListComponent,
-      UserBoardComponent
-   ],
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
-   ],
-   providers: [
-      AuthService,
-      ErrorInterceptorProvider,
-      AlertifyService,
-      AuthGuard
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    RegisterComponent,
+    RankingsComponent,
+    ArtistComponent,
+    AlbumListComponent,
+    ArtistListComponent,
+    UserBoardComponent,
+    AlbumCardComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    RouterModule.forRoot(appRoutes)
+  ],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    AlertifyService,
+    AuthGuard
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
