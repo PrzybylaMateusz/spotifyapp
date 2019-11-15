@@ -46,6 +46,7 @@ namespace SpotifyApp.API
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<ISpotifyData, SpotifyData>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

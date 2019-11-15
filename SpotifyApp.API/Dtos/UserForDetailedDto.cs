@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using SpotifyApp.API.Models;
 
 namespace SpotifyApp.API.Dtos
 {
