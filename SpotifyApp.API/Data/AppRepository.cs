@@ -56,5 +56,11 @@ namespace SpotifyApp.API.Data
         {
             return await this.context.SaveChangesAsync() > 0;
         }
+
+        public async Task RateAlbum(AlbumRate albumRate)
+        {
+            await this.context.AlbumRates.AddAsync(albumRate);
+            await this.context.SaveChangesAsync();
+        }
     }
 }
