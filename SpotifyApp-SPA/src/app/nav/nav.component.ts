@@ -3,7 +3,7 @@ import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
 import { SearchService } from '../_services/search.service';
-import { PlayerService } from '../_services/player.service';
+// import { PlayerService } from '../_services/player.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,12 +17,11 @@ export class NavComponent implements OnInit {
     public authService: AuthService,
     private alertify: AlertifyService,
     private searchService: SearchService,
-    private playerService: PlayerService,
+    // private playerService: PlayerService,
     private router: Router
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
     this.authService.login(this.model).subscribe(
@@ -49,6 +48,6 @@ export class NavComponent implements OnInit {
   }
 
   onKey(event: any) {
-    this.searchService.search(event.target.value);
+    this.router.navigate(['/search', { id: event.target.value }]);
   }
 }

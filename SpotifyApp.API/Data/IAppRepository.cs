@@ -14,5 +14,6 @@ namespace SpotifyApp.API.Data
         Task<User> GetUser(int id);
         Task<IEnumerable<Album>> GetAlbums();
         Task<Album> GetAlbum(Guid id);
+        Task RateAlbum(AlbumRate albumRate);
     }
 }

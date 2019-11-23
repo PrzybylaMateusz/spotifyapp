@@ -9,5 +9,6 @@ namespace SpotifyApp.API.Dtos
         public string Artist { get; set; }
         public int UserId { get; set; }
         public string CoverUrl { get; set; }
+        public string Year { get; set; }
     }
 }

@@ -3,10 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SpotifyApp.API.Migrations
 {
-    public partial class InitialMigrationAfterDrop : Migration
+    public partial class newOne : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AlbumRates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Album = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    Rate = table.Column<int>(nullable: false),
+                    RatedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AlbumRates", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -32,7 +48,9 @@ namespace SpotifyApp.API.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Artist = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    Year = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
+                    CoverUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,6 +98,9 @@ namespace SpotifyApp.API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AlbumRates");
+
             migrationBuilder.DropTable(
                 name: "Albums");
 

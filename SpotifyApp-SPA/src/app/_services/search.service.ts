@@ -3,6 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { Album } from '../_models/album';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    Authorization: 'Bearer ' + localStorage.getItem('token')
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +30,15 @@ export class SearchService {
   //   })
   // };
 
-  search(searchKey: string) {
-    console.log(searchKey);
-    this.http.get(this.baseUrl + searchKey).subscribe(data => {
-      console.log(data);
-    });
+  search(searchKey: string): Observable<Album[]> {
+    // console.log(searchKey);
+    // this.http.get(this.baseUrl + searchKey).subscribe(data => {
+    //   console.log(data);
+    // });
+    return this.http.get<Album[]>(this.baseUrl + searchKey, httpOptions);
   }
+
+  // getAlbums(): Observable<Album[]> {
+  //   return this.http.get<Album[]>(this.baseUrl + 'albums', httpOptions);
+  // }
 }

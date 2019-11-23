@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, RatingModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -20,33 +20,38 @@ import { appRoutes } from './routes';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AlbumCardComponent } from './albums/album-card/album-card.component';
+import { SearchPanelComponent } from './search-panel/search-panel.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    HomeComponent,
-    RegisterComponent,
-    RankingsComponent,
-    ArtistComponent,
-    AlbumListComponent,
-    ArtistListComponent,
-    UserBoardComponent,
-    AlbumCardComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
-  ],
-  providers: [
-    AuthService,
-    ErrorInterceptorProvider,
-    AlertifyService,
-    AuthGuard
-  ],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      NavComponent,
+      HomeComponent,
+      RegisterComponent,
+      RankingsComponent,
+      ArtistComponent,
+      AlbumListComponent,
+      ArtistListComponent,
+      UserBoardComponent,
+      AlbumCardComponent,
+      SearchPanelComponent
+   ],
+   imports: [
+      BrowserModule,
+      HttpClientModule,
+      FormsModule,
+      BsDropdownModule.forRoot(),
+      RatingModule.forRoot(),
+      RouterModule.forRoot(appRoutes)
+   ],
+   providers: [
+      AuthService,
+      ErrorInterceptorProvider,
+      AlertifyService,
+      AuthGuard
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule {}
