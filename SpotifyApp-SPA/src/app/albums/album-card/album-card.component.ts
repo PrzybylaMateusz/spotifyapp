@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Album } from 'src/app/_models/album';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { RatesService } from 'src/app/_services/rates.service';
+import { AlbumRate } from 'src/app/_models/albumRate';
 
 @Component({
   selector: 'app-album-card',
@@ -23,7 +26,29 @@ export class AlbumCardComponent implements OnInit {
   resetStar(): void {
     this.overStar = void 0;
   }
-  constructor() {}
+
+  saveRate(): void {
+    const albumRate: AlbumRate = {
+      rate: this.rate,
+      ratedDate: new Date(),
+      album: this.album.id,
+      userId: 1
+    };
+
+    this.ratesService.rateAlbum(albumRate).subscribe(
+      () => {
+        this.alertify.success('registration successful');
+      },
+      error => {
+        this.alertify.error(error);
+      }
+    );
+  }
+
+  constructor(
+    private alertify: AlertifyService,
+    private ratesService: RatesService
+  ) {}
 
   ngOnInit() {}
 }

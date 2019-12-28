@@ -33,7 +33,7 @@ namespace SpotifyApp.API.Data
                 var albumToReturn = new Album();
                 albumToReturn.Artist = album.Artists[0].Name;
                 albumToReturn.Name = album.Name;
-                albumToReturn.Id = Guid.NewGuid();
+                albumToReturn.Id = album.Id;
                 albumToReturn.UserId = 1;
                 albumToReturn.CoverUrl = album.Images[0].Url;
                 albumToReturn.Year = album.ReleaseDate.Substring(0, 4);
@@ -43,16 +43,8 @@ namespace SpotifyApp.API.Data
             return albumsToReturn;
         }
 
-        public async Task<IEnumerable<Album>> GetSpotifyAlbums()
+        public async Task<IEnumerable<Album>> GetSpotifyAlbums(List<string> albumsIdToGet)
         {
-            var listOfAlbums = new List<string>();
-            listOfAlbums.Add("1F8y2bg9V9nRoy8zuxo3Jt");
-            listOfAlbums.Add("2Dnli6R27dyVX1GBLMudpN");
-            listOfAlbums.Add("6b1HPtDuYioXwmw5xLLFQ9");
-            listOfAlbums.Add("2T64N96AVfsrRFJCUXQEoZ");
-            listOfAlbums.Add("79dL7FLiJFOO0EoehUHQBv");
-            listOfAlbums.Add("1ZFjvEN3C2J1Q1xVhu2YaC");
-
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
             Token token = await auth.GetToken();
             SpotifyWebAPI api = new SpotifyWebAPI()
@@ -61,7 +53,7 @@ namespace SpotifyApp.API.Data
                 AccessToken = token.AccessToken
             };
 
-            SeveralAlbums albumsFromSpotify = await api.GetSeveralAlbumsAsync(listOfAlbums);
+            SeveralAlbums albumsFromSpotify = await api.GetSeveralAlbumsAsync(albumsIdToGet);
 
             var albumsToReturn = new List<Album>();
 
@@ -70,7 +62,7 @@ namespace SpotifyApp.API.Data
                 var albumToReturn = new Album();
                 albumToReturn.Artist = album.Artists[0].Name;
                 albumToReturn.Name = album.Name;
-                albumToReturn.Id = Guid.NewGuid();
+                albumToReturn.Id = album.Id;
                 albumToReturn.UserId = 1;
                 albumToReturn.CoverUrl = album.Images[0].Url;
                 albumToReturn.Year = album.ReleaseDate.Substring(0, 4);

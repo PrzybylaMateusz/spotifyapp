@@ -15,6 +15,7 @@
         [readonly]="isReadonly"
         (onHover)="hoveringOver($event)"
         (onLeave)="resetStar()"
+        (ngModelChange)="saveRate()"
         [titles]="['one', 'two', 'three']"
       ></rating>
       <span

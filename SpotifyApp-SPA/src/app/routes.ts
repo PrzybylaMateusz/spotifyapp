@@ -6,6 +6,7 @@ import { RankingsComponent } from './rankings/rankings.component';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
+import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,7 @@ export const appRoutes: Routes = [
     ]
   },
   { path: 'artists', component: ArtistListComponent },
-  { path: 'rankings', component: RankingsComponent },
+  { path: 'rankings', component: AlbumRankingComponent },
   { path: 'users', component: UserBoardComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
