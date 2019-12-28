@@ -6,12 +6,6 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Album } from '../_models/album';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    Authorization: 'Bearer ' + localStorage.getItem('token')
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,26 +13,8 @@ export class SearchService {
   constructor(private http: HttpClient) {}
 
   baseUrl = environment.apiUrl + 'search/';
-  // url =
-  //   "https://api.spotify.com/v1/search?q=album%3Aarrival%20artist%3Aabba&type=album";
-
-  // httpOptions = {
-  //   headers: new HttpHeaders({
-  //     "Content-Type": "application/json",
-  //     Authorization:
-  //       "Bearer BQCbkh54UzptCcFuAW-cjO5VE5B0ZtZGwUU5KSPVfTAHSLUH9p-FUAFflXI2DcvBgr8b6GYG9TH59hdm_2-WOG3qpiIudoJf5gzyN_NKuHmCgSSlMLfkpxSEloWsnu64338UZdUg7tsxOKJQ9A"
-  //   })
-  // };
 
   search(searchKey: string): Observable<Album[]> {
-    // console.log(searchKey);
-    // this.http.get(this.baseUrl + searchKey).subscribe(data => {
-    //   console.log(data);
-    // });
-    return this.http.get<Album[]>(this.baseUrl + searchKey, httpOptions);
+    return this.http.get<Album[]>(this.baseUrl + searchKey);
   }
-
-  // getAlbums(): Observable<Album[]> {
-  //   return this.http.get<Album[]>(this.baseUrl + 'albums', httpOptions);
-  // }
 }

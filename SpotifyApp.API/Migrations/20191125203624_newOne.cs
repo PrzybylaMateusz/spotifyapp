@@ -8,22 +8,6 @@ namespace SpotifyApp.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AlbumRates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Album = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    Rate = table.Column<int>(nullable: false),
-                    RatedDate = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AlbumRates", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -42,25 +26,25 @@ namespace SpotifyApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Albums",
+                name: "AlbumsRates",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Artist = table.Column<string>(nullable: true),
-                    Year = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
-                    CoverUrl = table.Column<string>(nullable: true)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Album = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true),
+                    Rate = table.Column<int>(nullable: false),
+                    RatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Albums", x => x.Id);
+                    table.PrimaryKey("PK_AlbumsRates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Albums_Users_UserId",
+                        name: "FK_AlbumsRates_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,8 +69,8 @@ namespace SpotifyApp.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Albums_UserId",
-                table: "Albums",
+                name: "IX_AlbumsRates_UserId",
+                table: "AlbumsRates",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -99,10 +83,7 @@ namespace SpotifyApp.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AlbumRates");
-
-            migrationBuilder.DropTable(
-                name: "Albums");
+                name: "AlbumsRates");
 
             migrationBuilder.DropTable(
                 name: "Photos");

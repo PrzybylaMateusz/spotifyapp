@@ -8,16 +8,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/1.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/68/200/200.jpg",
-        "Name": "Orbaxter",
-        "Artist": "Wolf"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/924/200/200.jpg",
-        "Name": "Parcoe",
-        "Artist": "Padilla"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -30,16 +30,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/97.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/740/200/200.jpg",
-        "Name": "Flumbo",
-        "Artist": "Herrera"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/85/200/200.jpg",
-        "Name": "Zenolux",
-        "Artist": "Merritt"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -52,16 +52,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/37.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/842/200/200.jpg",
-        "Name": "Zilla",
-        "Artist": "Figueroa"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/420/200/200.jpg",
-        "Name": "Arctiq",
-        "Artist": "Chen"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -74,16 +74,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/73.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/1011/200/200.jpg",
-        "Name": "Boilcat",
-        "Artist": "Sampson"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/790/200/200.jpg",
-        "Name": "Cosmosis",
-        "Artist": "Lopez"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -96,16 +96,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/48.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/535/200/200.jpg",
-        "Name": "Kyagoro",
-        "Artist": "Hancock"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/632/200/200.jpg",
-        "Name": "Zboo",
-        "Artist": "Stewart"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -118,16 +118,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/22.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/711/200/200.jpg",
-        "Name": "Quarmony",
-        "Artist": "Nielsen"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/382/200/200.jpg",
-        "Name": "Rodeocean",
-        "Artist": "Harrison"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -140,16 +140,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/72.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/707/200/200.jpg",
-        "Name": "Overfork",
-        "Artist": "Kline"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/718/200/200.jpg",
-        "Name": "Lumbrex",
-        "Artist": "Shaffer"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -162,16 +162,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/54.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/931/200/200.jpg",
-        "Name": "Anixang",
-        "Artist": "Roberson"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/496/200/200.jpg",
-        "Name": "Geekular",
-        "Artist": "Willis"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -184,16 +184,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/13.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/754/200/200.jpg",
-        "Name": "Zanity",
-        "Artist": "Atkins"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/990/200/200.jpg",
-        "Name": "Geekwagon",
-        "Artist": "Bauer"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   },
@@ -206,16 +206,16 @@
     "Photo": {
       "url": "https://randomuser.me/api/portraits/men/85.jpg"
     },
-    "Albums": [
+    "AlbumsRates": [
       {
-        "url": "https://picsum.photos/id/12/200/200.jpg",
-        "Name": "Panzent",
-        "Artist": "Pittman"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       },
       {
-        "url": "https://picsum.photos/id/938/200/200.jpg",
-        "Name": "Intrawear",
-        "Artist": "Barnett"
+        "Album": "6b1HPtDuYioXwmw5xLLFQ9",
+        "Rate": "7",
+        "RatedDate": "2017-07-13"
       }
     ]
   }

@@ -9,7 +9,7 @@ using SpotifyApp.API.Data;
 namespace SpotifyApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191121193455_newOne")]
+    [Migration("20191125203624_newOne")]
     partial class newOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,41 +18,13 @@ namespace SpotifyApp.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
-            modelBuilder.Entity("SpotifyApp.API.Models.Album", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Artist")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CoverUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Year")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Albums");
-                });
-
             modelBuilder.Entity("SpotifyApp.API.Models.AlbumRate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("Album")
+                    b.Property<string>("Album")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rate")
@@ -61,12 +33,14 @@ namespace SpotifyApp.API.Migrations
                     b.Property<DateTime>("RatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AlbumRates");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AlbumsRates");
                 });
 
             modelBuilder.Entity("SpotifyApp.API.Models.Photo", b =>
@@ -121,13 +95,11 @@ namespace SpotifyApp.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SpotifyApp.API.Models.Album", b =>
+            modelBuilder.Entity("SpotifyApp.API.Models.AlbumRate", b =>
                 {
                     b.HasOne("SpotifyApp.API.Models.User", "User")
-                        .WithMany("Albums")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("AlbumsRates")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SpotifyApp.API.Models.Photo", b =>

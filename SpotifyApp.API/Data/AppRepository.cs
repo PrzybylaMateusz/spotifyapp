@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SpotifyApp.API.Models;
@@ -24,30 +25,45 @@ namespace SpotifyApp.API.Data
             context.Remove(entity);
         }
 
-        public Task<Album> GetAlbum(Guid id)
+        public async Task<double> GetSpecificAlbumAvaregeRate(string id)
         {
-            var album = this.context.Albums.FirstOrDefaultAsync(u => u.Id == id);
+            var albumRate = await this.context.AlbumsRates.Where(x => x.Album == id).AverageAsync(x => x.Rate);
 
-            return album;
+            return albumRate;
         }
 
-        public async Task<IEnumerable<Album>> GetAlbums()
+        public async Task<IEnumerable<AlbumRate>> GetAllRatesForSpecificAlbum(string id)
         {
-            var albums = await this.context.Albums.ToListAsync();
+            var albumRates = await this.context.AlbumsRates.Where(x => x.Album == id).ToListAsync();
 
-            return albums;
+            return albumRates;
+        }
+
+        public async Task<IEnumerable<AlbumRate>> GetAllAlbumsRate()
+        {
+            var allAlbumsRates = await this.context.AlbumsRates.ToListAsync();
+
+            return allAlbumsRates;
+        }
+
+        
+        public async Task<IEnumerable<AlbumRate>> GetUniqueRatedAlbums()
+        {
+            var uniqueRatedAlbums = await this.context.AlbumsRates.GroupBy(x => x.Album).Select(x => x.First()).ToListAsync();
+
+            return uniqueRatedAlbums;
         }
 
         public Task<User> GetUser(int id)
         {
-            var user = this.context.Users.Include(a => a.Albums).Include(p => p.Photo).FirstOrDefaultAsync(u => u.Id == id);
+            var user = this.context.Users.Include(a => a.AlbumsRates).Include(p => p.Photo).FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
         }
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await this.context.Users.Include(a => a.Albums).Include(p => p.Photo).ToListAsync();
+            var users = await this.context.Users.Include(a => a.AlbumsRates).Include(p => p.Photo).ToListAsync();
 
             return users;
         }
@@ -59,7 +75,7 @@ namespace SpotifyApp.API.Data
 
         public async Task RateAlbum(AlbumRate albumRate)
         {
-            await this.context.AlbumRates.AddAsync(albumRate);
+            await this.context.AlbumsRates.AddAsync(albumRate);
             await this.context.SaveChangesAsync();
         }
     }

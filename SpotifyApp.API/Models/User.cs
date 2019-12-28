@@ -12,7 +12,7 @@ namespace SpotifyApp.API.Models
         public DateTime DateOfBirth { get; set; }
         public DateTime Created { get; set; }
         public string About { get; set; }
-        public ICollection<Album> Albums { get; set; }
+        public ICollection<AlbumRate> AlbumsRates { get; set; }
 
         public Photo Photo { get; set;}
     }

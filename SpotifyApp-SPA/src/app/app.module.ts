@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, RatingModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -21,37 +22,48 @@ import { UserBoardComponent } from './user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AlbumCardComponent } from './albums/album-card/album-card.component';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
+import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      RegisterComponent,
-      RankingsComponent,
-      ArtistComponent,
-      AlbumListComponent,
-      ArtistListComponent,
-      UserBoardComponent,
-      AlbumCardComponent,
-      SearchPanelComponent
-   ],
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      BsDropdownModule.forRoot(),
-      RatingModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
-   ],
-   providers: [
-      AuthService,
-      ErrorInterceptorProvider,
-      AlertifyService,
-      AuthGuard
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    RegisterComponent,
+    RankingsComponent,
+    ArtistComponent,
+    AlbumListComponent,
+    ArtistListComponent,
+    UserBoardComponent,
+    AlbumCardComponent,
+    SearchPanelComponent,
+    AlbumRankingComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    RatingModule.forRoot(),
+    RouterModule.forRoot(appRoutes),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:5001'],
+        blacklistedRoutes: ['localhost:5001/api/auth']
+      }
+    })
+  ],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    AlertifyService,
+    AuthGuard
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
