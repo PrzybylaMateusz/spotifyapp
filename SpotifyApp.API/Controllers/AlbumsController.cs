@@ -45,6 +45,12 @@ namespace SpotifyApp.API.Controllers
             return Ok(albumsToReturn);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAlbum(string id)
+        {
+            var album = await _spotifyData.GetSpotifyAlbum(id);
+            return Ok(album);
+        }
  
 
         // POST api/values

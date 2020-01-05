@@ -1,10 +1,12 @@
 <div class="card mb-4" style="width: 22rem;">
   <div class="card-img-wrapper">
-    <img
-      class="card-img-top"
-      src="{{ album.coverUrl }}"
-      alt="{{ album.name }}"
-    />
+    <a [routerLink]="['/albums', album.id]">
+      <img
+        class="card-img-top"
+        src="{{ album.coverUrl }}"
+        alt="{{ album.name }}"
+      />
+    </a>
     <ul
       class="list-inline member-icons animate text-center"
       style="font-size: 28px; color: gold"

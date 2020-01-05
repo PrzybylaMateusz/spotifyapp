@@ -23,6 +23,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AlbumCardComponent } from './albums/album-card/album-card.component';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
 import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
+import { AlbumDetailComponent } from './albums/album-detail/album-detail.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -41,7 +42,8 @@ export function tokenGetter() {
     UserBoardComponent,
     AlbumCardComponent,
     SearchPanelComponent,
-    AlbumRankingComponent
+    AlbumRankingComponent,
+    AlbumDetailComponent
   ],
   imports: [
     BrowserModule,

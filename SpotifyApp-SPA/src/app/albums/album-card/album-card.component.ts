@@ -12,7 +12,7 @@ import { AlbumRate } from 'src/app/_models/albumRate';
 export class AlbumCardComponent implements OnInit {
   @Input() album: Album;
   max = 10;
-  rate = 7;
+  rate = 0;
   isReadonly = false;
 
   overStar: number | undefined;
@@ -36,9 +36,7 @@ export class AlbumCardComponent implements OnInit {
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
-      () => {
-        this.alertify.success('registration successful');
-      },
+      () => {},
       error => {
         this.alertify.error(error);
       }
