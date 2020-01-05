@@ -3,7 +3,12 @@
     *ngFor="let album of albumRanking"
     class="list-group-item d-flex justify-content-between align-items-center"
   >
-    <img class="ranking-image" src="{{ album.album.coverUrl }}" alt="{{ album.album.name }}" />
+    <a [routerLink]="['/albums', album.album.id]"
+      ><img
+        class="ranking-image"
+        src="{{ album.album.coverUrl }}"
+        alt="{{ album.album.name }}"
+    /></a>
     {{ album.album.name }}
     <span class="badge badge-primary badge-pill">{{ album.rate }}</span>
   </li>

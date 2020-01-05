@@ -1,16 +1,17 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { AlbumDetailComponent } from './albums/album-detail/album-detail.component';
 import { AlbumListComponent } from './albums/album-list/album-list.component';
+import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
 import { ArtistListComponent } from './artist-list/artist-list.component';
-import { RankingsComponent } from './rankings/rankings.component';
+import { HomeComponent } from './home/home.component';
+import { SearchPanelComponent } from './search-panel/search-panel.component';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { SearchPanelComponent } from './search-panel/search-panel.component';
-import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'albums', component: AlbumListComponent },
+  { path: 'albums/:id', component: AlbumDetailComponent },
   { path: 'search', component: SearchPanelComponent },
   {
     path: '',

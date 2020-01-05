@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
@@ -41,6 +42,28 @@ namespace SpotifyApp.API.Data
             }
 
             return albumsToReturn;
+        }
+
+        public async Task<Album> GetSpotifyAlbum(string id)
+        {
+            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
+            Token token = await auth.GetToken();
+            SpotifyWebAPI api = new SpotifyWebAPI()
+            {
+                TokenType = token.TokenType,
+                AccessToken = token.AccessToken
+            };
+
+            FullAlbum albumFromSpotify = await api.GetAlbumAsync(id);
+
+            return new Album(){
+                Artist = string.Join(",", albumFromSpotify.Artists.Select((x) => x.Name)),
+                Name = albumFromSpotify.Name,
+                Id = albumFromSpotify.Id,
+                UserId = 1,
+                CoverUrl = albumFromSpotify.Images[0].Url,
+                Year = albumFromSpotify.ReleaseDate.Substring(0, 4)                
+            };
         }
 
         public async Task<IEnumerable<Album>> GetSpotifyAlbums(List<string> albumsIdToGet)

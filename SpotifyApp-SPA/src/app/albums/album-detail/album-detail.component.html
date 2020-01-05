@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img
+          src="{{ album?.coverUrl }}"
+          alt="{{ album?.name }}"
+          class="card-img-top img-thumbnail"
+        />
+        <div class="card-body">
+          <div>
+            <h5 class="card-title">Artist:</h5>
+            <p>{{ album?.artist }}</p>
+          </div>
+          <div>
+            <h5 class="card-title">Title:</h5>
+            <p>{{ album?.name }}</p>
+          </div>
+          <div>
+            <h5 class="card-title">Year:</h5>
+            <p>{{ album?.year }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <ul
+            class="list-inline member-icons animate text-center"
+            style="font-size: 28px; color: gold"
+          >
+            <rating
+              [(ngModel)]="rate"
+              [max]="max"
+              [readonly]="isReadonly"
+              (onHover)="hoveringOver($event)"
+              (onLeave)="resetStar()"
+              (ngModelChange)="saveRate()"
+              [titles]="['one', 'two', 'three']"
+            ></rating>
+            <span
+              class="label"
+              [ngStyle]="{
+                display: overStar && !isReadonly ? 'inline' : 'none'
+              }"
+              >{{ overStar }}/10</span
+            >
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
