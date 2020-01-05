@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule, RatingModule } from 'ngx-bootstrap';
+import { BsDropdownModule, RatingModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -24,6 +24,7 @@ import { AlbumCardComponent } from './albums/album-card/album-card.component';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
 import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
 import { AlbumDetailComponent } from './albums/album-detail/album-detail.component';
+import { AlbumDetailResolver } from './_resolvers/album-detail.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -51,6 +52,7 @@ export function tokenGetter() {
     FormsModule,
     BsDropdownModule.forRoot(),
     RatingModule.forRoot(),
+    TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
@@ -64,7 +66,8 @@ export function tokenGetter() {
     AuthService,
     ErrorInterceptorProvider,
     AlertifyService,
-    AuthGuard
+    AuthGuard,
+    AlbumDetailResolver
   ],
   bootstrap: [AppComponent]
 })

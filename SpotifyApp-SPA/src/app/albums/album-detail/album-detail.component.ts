@@ -28,18 +28,9 @@ export class AlbumDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadAlbum();
-  }
-
-  loadAlbum() {
-    this.albumService.getAlbum(this.route.snapshot.params['id']).subscribe(
-      (album: Album) => {
-        this.album = album;
-      },
-      error => {
-        this.alertify.error(error);
-      }
-    );
+    this.route.data.subscribe(data => {
+      this.album = data['album'];
+    });
   }
 
   hoveringOver(value: number): void {

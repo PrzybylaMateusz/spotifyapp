@@ -7,11 +7,16 @@ import { HomeComponent } from './home/home.component';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { AlbumDetailResolver } from './_resolvers/album-detail.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'albums', component: AlbumListComponent },
-  { path: 'albums/:id', component: AlbumDetailComponent },
+  {
+    path: 'albums/:id',
+    component: AlbumDetailComponent,
+    resolve: { album: AlbumDetailResolver }
+  },
   { path: 'search', component: SearchPanelComponent },
   {
     path: '',

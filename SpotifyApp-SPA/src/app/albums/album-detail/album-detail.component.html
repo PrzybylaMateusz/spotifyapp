@@ -3,22 +3,22 @@
     <div class="col-sm-4">
       <div class="card">
         <img
-          src="{{ album?.coverUrl }}"
-          alt="{{ album?.name }}"
+          src="{{ album.coverUrl }}"
+          alt="{{ album.name }}"
           class="card-img-top img-thumbnail"
         />
         <div class="card-body">
           <div>
             <h5 class="card-title">Artist:</h5>
-            <p>{{ album?.artist }}</p>
+            <p>{{ album.artist }}</p>
           </div>
           <div>
             <h5 class="card-title">Title:</h5>
-            <p>{{ album?.name }}</p>
+            <p>{{ album.name }}</p>
           </div>
           <div>
             <h5 class="card-title">Year:</h5>
-            <p>{{ album?.year }}</p>
+            <p>{{ album.year }}</p>
           </div>
         </div>
         <div class="card-footer">
@@ -44,6 +44,26 @@
             >
           </ul>
         </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="Overview">
+            <h4>Rates and comments</h4>
+            <p>More info (rates and comments) about album will go here</p>
+          </tab>
+          <tab heading="About album">
+            <h4>Description</h4>
+            <p>More info about album will go here</p>
+          </tab>
+          <tab heading="Reviews">
+            <h4>Critics reviews</h4>
+            <p>Critics reviews go here</p>
+            <h4>Users reviews</h4>
+            <p>Users reviews go here</p>
+          </tab>        
+        </tabset>
       </div>
     </div>
   </div>
