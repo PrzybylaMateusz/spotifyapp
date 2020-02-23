@@ -16,6 +16,7 @@ namespace SpotifyApp.API.Helpers
                     opt => opt.MapFrom(src => src.Photo.Url));
             CreateMap<Album, AlbumDto>();
             CreateMap<AlbumRateDto, AlbumRate>();
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }
