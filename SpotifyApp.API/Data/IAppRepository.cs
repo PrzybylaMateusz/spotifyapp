@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SpotifyApp.API.Dtos;
+using SpotifyApp.API.Helpers;
 using SpotifyApp.API.Models;
 
 namespace SpotifyApp.API.Data
@@ -12,8 +14,10 @@ namespace SpotifyApp.API.Data
         Task<bool> SaveAll();
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
-        Task<IEnumerable<AlbumRate>> GetAllAlbumsRate();
+        Task<PagedList<AlbumOverallRateDto>> GetAllAlbumsRate(RankingParams rankingParams);
         Task<double> GetSpecificAlbumAvaregeRate(string id);
         Task RateAlbum(AlbumRate albumRate);
+
+        Task<int> GetAlbumRateForUser(string id, int userId);
     }
 }

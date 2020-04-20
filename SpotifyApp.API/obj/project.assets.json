@@ -8119,11 +8119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Programowanie\\SpotifyApp\\spotifyapp\\SpotifyApp.API\\SpotifyApp.API.csproj",
+      "projectUniqueName": "E:\\Programowanie\\SpotifyApp\\spotifyapp\\SpotifyApp.API\\SpotifyApp.API.csproj",
       "projectName": "SpotifyApp.API",
-      "projectPath": "e:\\Programowanie\\SpotifyApp\\spotifyapp\\SpotifyApp.API\\SpotifyApp.API.csproj",
+      "projectPath": "E:\\Programowanie\\SpotifyApp\\spotifyapp\\SpotifyApp.API\\SpotifyApp.API.csproj",
       "packagesPath": "C:\\Users\\przyb\\.nuget\\packages\\",
-      "outputPath": "e:\\Programowanie\\SpotifyApp\\spotifyapp\\SpotifyApp.API\\obj\\",
+      "outputPath": "E:\\Programowanie\\SpotifyApp\\spotifyapp\\SpotifyApp.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -8226,6 +8226,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.0.2, 3.0.2]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8234,7 +8252,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

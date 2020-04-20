@@ -5,11 +5,12 @@ import { AlbumService } from 'src/app/_services/album.service';
 import { Album } from 'src/app/_models/album';
 import { RatesService } from 'src/app/_services/rates.service';
 import { AlbumRate } from 'src/app/_models/albumRate';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-album-detail',
   templateUrl: './album-detail.component.html',
-  styleUrls: ['./album-detail.component.css']
+  styleUrls: ['./album-detail.component.css'],
 })
 export class AlbumDetailComponent implements OnInit {
   album: Album;
@@ -21,14 +22,14 @@ export class AlbumDetailComponent implements OnInit {
   percent: number;
 
   constructor(
-    private albumService: AlbumService,
+    private authService: AuthService,
     private ratesService: RatesService,
     private alertify: AlertifyService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.album = data['album'];
     });
   }
@@ -47,12 +48,12 @@ export class AlbumDetailComponent implements OnInit {
       rate: this.rate,
       ratedDate: new Date(),
       album: this.album.id,
-      userId: 1
+      userId: this.authService.decodedToken.nameid,
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
       () => {},
-      error => {
+      (error) => {
         this.alertify.error(error);
       }
     );

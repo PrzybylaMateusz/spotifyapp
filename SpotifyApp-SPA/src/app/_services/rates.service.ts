@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AlbumOverallRate } from '../_models/albumOveralRate';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RatesService {
   baseUrl = environment.apiUrl;
@@ -19,6 +19,12 @@ export class RatesService {
   getAlbumRanking(): Observable<AlbumOverallRate[]> {
     return this.http.get<AlbumOverallRate[]>(
       this.baseUrl + 'rates/albumranking'
+    );
+  }
+
+  getAlbumRateForUser(albumId: string, userId: number): Observable<number> {
+    return this.http.get<number>(
+      this.baseUrl + 'rates/' + albumId + '/' + userId
     );
   }
 
