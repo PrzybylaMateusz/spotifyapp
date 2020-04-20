@@ -6,11 +6,11 @@ import { AlbumOverallRate } from 'src/app/_models/albumOveralRate';
 @Component({
   selector: 'app-album-ranking',
   templateUrl: './album-ranking.component.html',
-  styleUrls: ['./album-ranking.component.css']
+  styleUrls: ['./album-ranking.component.css'],
 })
 export class AlbumRankingComponent implements OnInit {
   albumRanking: AlbumOverallRate[];
-
+  isLoaded = false;
   constructor(
     private ratesService: RatesService,
     private alertifyService: AlertifyService
@@ -24,8 +24,11 @@ export class AlbumRankingComponent implements OnInit {
     this.ratesService.getAlbumRanking().subscribe(
       (albumRanking: AlbumOverallRate[]) => {
         this.albumRanking = albumRanking;
+        this.isLoaded = true;
+        console.log(this.isLoaded);
+        console.log(albumRanking);
       },
-      error => {
+      (error) => {
         this.alertifyService.error(error);
       }
     );

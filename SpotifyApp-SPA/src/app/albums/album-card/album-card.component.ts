@@ -3,16 +3,17 @@ import { Album } from 'src/app/_models/album';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { RatesService } from 'src/app/_services/rates.service';
 import { AlbumRate } from 'src/app/_models/albumRate';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-album-card',
   templateUrl: './album-card.component.html',
-  styleUrls: ['./album-card.component.css']
+  styleUrls: ['./album-card.component.css'],
 })
 export class AlbumCardComponent implements OnInit {
   @Input() album: Album;
   max = 10;
-  rate = 0;
+  rate = null;
   isReadonly = false;
 
   overStar: number | undefined;
@@ -24,7 +25,7 @@ export class AlbumCardComponent implements OnInit {
   }
 
   resetStar(): void {
-    this.overStar = void 0;
+    this.overStar = this.rate;
   }
 
   saveRate(): void {
@@ -32,12 +33,12 @@ export class AlbumCardComponent implements OnInit {
       rate: this.rate,
       ratedDate: new Date(),
       album: this.album.id,
-      userId: 1
+      userId: this.authService.decodedToken.nameid,
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
       () => {},
-      error => {
+      (error) => {
         this.alertify.error(error);
       }
     );
@@ -45,8 +46,25 @@ export class AlbumCardComponent implements OnInit {
 
   constructor(
     private alertify: AlertifyService,
-    private ratesService: RatesService
+    private ratesService: RatesService,
+    private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadRate();
+  }
+
+  loadRate() {
+    this.ratesService
+      .getAlbumRateForUser(this.album.id, this.authService.decodedToken.nameid)
+      .subscribe(
+        (rate: number) => {
+          this.rate = rate;
+          this.overStar = rate === 0 ? null : rate;
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
+  }
 }

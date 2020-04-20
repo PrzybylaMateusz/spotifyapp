@@ -8,6 +8,7 @@ using SpotifyApp.API.Dtos;
 using SpotifyApp.API.Models;
 using System.Linq;
 using System.Collections.Generic;
+using SpotifyApp.API.Helpers;
 
 namespace SpotifyApp.API.Controllers
 {
@@ -34,6 +35,7 @@ namespace SpotifyApp.API.Controllers
 
             return StatusCode(201);
         }
+
         // [AllowAnonymous]
         // [HttpGet("{id}")]
         // public async Task<IActionResult> GetSpecyficAlbumRate(string id)
@@ -43,28 +45,23 @@ namespace SpotifyApp.API.Controllers
         // }
 
         [AllowAnonymous]
-        [HttpGet("albumranking")]
-        public async Task<IActionResult> GetAlbumRanking()
+        [HttpGet("{albumId}/{userId}")]
+        public async Task<IActionResult> GetAlbumRateForUser(string albumId, int userId)
         {
-            var allRates = await _appRepository.GetAllAlbumsRate();            
-            var allGroupedRates = allRates.GroupBy(x => x.Album);
-            var albumsInfoDto = await _spotifyData.GetSpotifyAlbums(allGroupedRates.Select(x => x.Key).ToList());
-            var albumsInfo = _mapper.Map<IEnumerable<AlbumDto>>(albumsInfoDto);
+            var rate = await _appRepository.GetAlbumRateForUser(albumId, userId);
+            return Ok(rate);
+        }
 
-            var albumRanking = new List<AlbumOverallRateDto>();
 
-            foreach (var group in allGroupedRates)
-            {
-                var albumOverallRateDto = new AlbumOverallRateDto
-                {
-                    Album = albumsInfo.Where(x => x.Id == group.Key).FirstOrDefault(),
-                    Rate = Math.Round(group.Average(x => x.Rate), 2)
-                };
-                albumRanking.Add(albumOverallRateDto);
-            }
+        [AllowAnonymous]
+        [HttpGet("albumranking")]
+        public async Task<IActionResult> GetAlbumRanking([FromQuery]RankingParams rankingParams)
+        {
+            var allRates = await _appRepository.GetAllAlbumsRate(rankingParams);   
+            
+            Response.AddPagination(allRates.CurrentPage, allRates.PageSize, allRates.TotalCount, allRates.TotalPages);
 
-            var orderedAlbumRanking = albumRanking.OrderByDescending(x => x.Rate);
-            return Ok(orderedAlbumRanking);
+            return Ok(allRates);
         }
     }
 }

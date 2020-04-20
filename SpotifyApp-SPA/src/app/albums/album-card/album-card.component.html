@@ -9,7 +9,7 @@
     </a>
     <ul
       class="list-inline member-icons animate text-center"
-      style="font-size: 28px; color: gold"
+      style="font-size: 28px; color: gold;"
     >
       <rating
         [(ngModel)]="rate"
@@ -23,8 +23,8 @@
       <span
         class="label"
         [ngStyle]="{ display: overStar && !isReadonly ? 'inline' : 'none' }"
-        >{{ overStar }}/10</span
-      >
+      ></span>
+      <div>{{ overStar }}/10</div>
     </ul>
   </div>
   <div class="card-body p-1">

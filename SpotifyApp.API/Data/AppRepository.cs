@@ -2,7 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+
 using Microsoft.EntityFrameworkCore;
+using SpotifyApp.API.Dtos;
+using SpotifyApp.API.Helpers;
 using SpotifyApp.API.Models;
 
 namespace SpotifyApp.API.Data
@@ -10,9 +15,15 @@ namespace SpotifyApp.API.Data
     public class AppRepository : IAppRepository
     {
         private readonly DataContext context;
-        public AppRepository(DataContext context)
+        private readonly IMapper mapper;
+
+        private readonly ISpotifyData spotifyData;
+
+        public AppRepository(DataContext context, IMapper mapper, ISpotifyData spotifyData)
         {
             this.context = context;
+            this.mapper = mapper;
+            this.spotifyData = spotifyData;
         }
 
         public void Add<T>(T entity) where T : class
@@ -39,11 +50,45 @@ namespace SpotifyApp.API.Data
             return albumRates;
         }
 
-        public async Task<IEnumerable<AlbumRate>> GetAllAlbumsRate()
+        public async Task<PagedList<AlbumOverallRateDto>> GetAllAlbumsRate(RankingParams rankingParams)
         {
-            var allAlbumsRates = await this.context.AlbumsRates.ToListAsync();
+            var allAlbumsRates = this.context.AlbumsRates;
+            var albumDistincted = allAlbumsRates.Select(x => x.Album).Distinct();
 
-            return allAlbumsRates;
+            var i = 0;
+            var tempList = new List<string>();
+            var listFromSpotify = new List<Album>();
+
+            foreach(var a in albumDistincted)
+            {
+                i++;
+                tempList.Add(a);
+                if(tempList.Count() % 20==0 || i == albumDistincted.Count()){
+                    var albumsInfoDto = await this.spotifyData.GetSpotifyAlbums(tempList.ToList());
+                    listFromSpotify.AddRange(albumsInfoDto);
+                    tempList.Clear();
+                }
+            }           
+
+            Dictionary<string, Album> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);           
+
+            var albumRanking = albumDistincted.Select(album => new AlbumOverallRateDto()
+            { 
+                Album = this.mapper.Map<AlbumDto>(albumDictionary[album]),
+                Rate = Math.Round(allAlbumsRates.Where(x=> x.Album == album).Average(x => x.Rate), 3) 
+            });
+
+            return await PagedList<AlbumOverallRateDto>.CreateAsync(albumRanking.OrderByDescending(x => x.Rate), rankingParams.PageNumber, rankingParams.PageSize);
+        }
+
+        public async Task<int> GetAlbumRateForUser(string albumId, int userId)
+        {
+            var albumRate =  await this.context.AlbumsRates.FirstOrDefaultAsync(x => x.Album == albumId && x.UserId == userId);
+            if(albumRate == default)
+            {
+                return 0;
+            }
+            return albumRate.Rate;
         }
 
         
@@ -75,8 +120,23 @@ namespace SpotifyApp.API.Data
 
         public async Task RateAlbum(AlbumRate albumRate)
         {
-            await this.context.AlbumsRates.AddAsync(albumRate);
-            await this.context.SaveChangesAsync();
+            if(await this.context.AlbumsRates.AnyAsync(x => x.Album == albumRate.Album && x.UserId == albumRate.UserId))
+            {
+                var actualAlbumRate = await this.context.AlbumsRates.FirstOrDefaultAsync(x => x.Album == albumRate.Album && x.UserId == albumRate.UserId);
+
+                // this.context.Entry(actualAlbumRate).CurrentValues.SetValues(albumRate);
+
+                actualAlbumRate.Rate = albumRate.Rate;
+                actualAlbumRate.RatedDate = albumRate.RatedDate;
+
+                // this.mapper.Map(albumRate, actualAlbumRate);
+                // actualAlbumRate = albumRate;
+                await this.context.SaveChangesAsync();
+            }
+            else{
+                await this.context.AlbumsRates.AddAsync(albumRate);
+                await this.context.SaveChangesAsync();
+            }           
         }
     }
 }
