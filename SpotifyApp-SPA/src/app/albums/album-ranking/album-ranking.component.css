@@ -1,8 +1,5 @@
-.ranking-title {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 36px;
-  font-weight: bold;
+.form-inline {
+  margin: auto;
 }
 
 .ranking-image {

@@ -68,9 +68,18 @@ namespace SpotifyApp.API.Data
                     listFromSpotify.AddRange(albumsInfoDto);
                     tempList.Clear();
                 }
-            }           
+            }
+
+            if(rankingParams.MinYear != 0 || rankingParams.MaxYear != DateTime.Today.Year) 
+            {
+                listFromSpotify = listFromSpotify
+                .Where(x => int.Parse(x.Year) >= rankingParams.MinYear && int.Parse(x.Year) <= rankingParams.MaxYear)
+                .ToList();
+            }            
 
             Dictionary<string, Album> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);           
+
+            albumDistincted = albumDistincted.Where(x => listFromSpotify.Select(y => y.Id).Contains(x));
 
             var albumRanking = albumDistincted.Select(album => new AlbumOverallRateDto()
             { 

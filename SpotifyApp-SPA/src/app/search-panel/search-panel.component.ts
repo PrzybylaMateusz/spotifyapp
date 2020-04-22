@@ -24,7 +24,6 @@ export class SearchPanelComponent implements OnInit {
         // (+) before `params.get()` turns the string into a number
         this.searchKey = params.get('id');
         let albums = this.searchService.search(this.searchKey);
-        console.log(albums);
         return this.searchService.search(this.searchKey);
       })
     );

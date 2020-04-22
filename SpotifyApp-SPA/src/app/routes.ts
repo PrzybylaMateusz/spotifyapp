@@ -11,6 +11,7 @@ import { AlbumDetailResolver } from './_resolvers/album-detail.resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { RankingResolver } from './_resolvers/ranking.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,24 +19,28 @@ export const appRoutes: Routes = [
   {
     path: 'albums/:id',
     component: AlbumDetailComponent,
-    resolve: { album: AlbumDetailResolver }
+    resolve: { album: AlbumDetailResolver },
   },
   { path: 'search', component: SearchPanelComponent },
   {
     path: '',
     canActivate: [AuthGuard],
     children: [
-      { path: 'my', component: UserBoardComponent, canActivate: [AuthGuard] }
-    ]
+      { path: 'my', component: UserBoardComponent, canActivate: [AuthGuard] },
+    ],
   },
   { path: 'artists', component: ArtistListComponent },
-  { path: 'rankings', component: AlbumRankingComponent },
+  {
+    path: 'rankings',
+    component: AlbumRankingComponent,
+    resolve: { albumRanking: RankingResolver },
+  },
   { path: 'users', component: UserBoardComponent },
   {
     path: 'user/edit',
     component: UserEditComponent,
     resolve: { user: UserEditResolver },
-    canDeactivate: [PreventUnsavedChanges]
+    canDeactivate: [PreventUnsavedChanges],
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
