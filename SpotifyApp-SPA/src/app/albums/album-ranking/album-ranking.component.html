@@ -1,5 +1,49 @@
 <ul *ngIf="isLoaded" class="list-group">
-  <div class="ranking-title">Best albums:</div>
+  <div class="text-center mt-3"><h2>Best albums</h2></div>
+
+  <form
+    class="form-inline"
+    #form="ngForm"
+    (ngSubmit)="loadMoreAlbums()"
+    novalidate
+  >
+    <div class="form-group">
+      <label for="minYear">Year From</label>
+      <input
+        type="number"
+        class="form-control ml-1"
+        style="width: 170px;"
+        id="minYear"
+        [(ngModel)]="rankingParams.minYear"
+        name="minYear"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label for="maxYear">Year To</label>
+      <input
+        type="number"
+        class="form-control ml-1"
+        style="width: 170px;"
+        id="maxYear"
+        [(ngModel)]="rankingParams.maxYear"
+        name="maxYear"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-left: 10px;">
+      Apply Filters
+    </button>
+    <button
+      type="button"
+      class="btn btn-info"
+      (click)="resetFilters()"
+      style="margin-left: 10px;"
+    >
+      Reset Filter
+    </button>
+  </form>
+  <br />
+
   <li
     *ngFor="let album of albumRanking; let i = index"
     class="list-group-item d-flex align-items-center"
@@ -29,3 +73,18 @@
     </div>
   </li>
 </ul>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

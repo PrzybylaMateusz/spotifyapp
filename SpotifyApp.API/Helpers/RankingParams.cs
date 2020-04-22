@@ -1,3 +1,5 @@
+using System;
+
 namespace SpotifyApp.API.Helpers
 {
     public class RankingParams
@@ -10,5 +12,8 @@ namespace SpotifyApp.API.Helpers
             get { return pageSize;}
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value;}
         }
+
+        public int MinYear {get;set;} = 0;
+        public int MaxYear {get;set;} = DateTime.Today.Year;
     }
 }

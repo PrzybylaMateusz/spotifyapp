@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule, RatingModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, RatingModule, TabsModule, PaginationModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -28,6 +28,8 @@ import { AlbumDetailResolver } from './_resolvers/album-detail.resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { RankingResolver } from './_resolvers/ranking.resolver';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -55,6 +57,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     RatingModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
@@ -73,7 +76,8 @@ export function tokenGetter() {
     AuthGuard,
     AlbumDetailResolver,
     UserEditResolver,
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    RankingResolver
   ],
   bootstrap: [AppComponent]
 })
