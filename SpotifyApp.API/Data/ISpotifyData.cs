@@ -9,5 +9,6 @@ namespace SpotifyApp.API.Data
         Task<IEnumerable<AlbumDto>> GetSpotifyAlbums(List<string> albumsIdToGet);
         Task<AlbumDto> GetSpotifyAlbum(string id);
         Task<IEnumerable<AlbumDto>> SearchSpotifyAlbums(string id);
+        Task<IEnumerable<ArtistDto>> SearchSpotifyArtists(string id);
     }
 }

@@ -31,10 +31,20 @@ namespace SpotifyApp.API.Controllers
             _spotifyData = spotifyData;
         }
 
-        [AllowAnonymous]
-        [HttpGet("{id}")]
+         [AllowAnonymous]
+        [HttpGet("artist/{id}")]
         // public async Task<IActionResult> GetSearchResults()
-        public async Task<IActionResult> GetSearch(string id)
+        public async Task<IActionResult> GetArtistSearch(string id)
+        {
+            var artists = await _spotifyData.SearchSpotifyArtists(id);
+            var artistsToReturn = _mapper.Map<IEnumerable<ArtistDto>>(artists);
+            return Ok(artists);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("album/{id}")]
+        // public async Task<IActionResult> GetSearchResults()
+        public async Task<IActionResult> GetAlbumSearch(string id)
         {
             var albums = await _spotifyData.SearchSpotifyAlbums(id);
             var albumsToReturn = _mapper.Map<IEnumerable<AlbumDto>>(albums);

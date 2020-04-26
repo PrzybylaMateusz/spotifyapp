@@ -35,6 +35,7 @@ import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { RankingResolver } from './_resolvers/ranking.resolver';
 import { MyCornerResolver } from './_resolvers/my-corner.resolver';
+import { ArtistCardComponent } from './artist/artist-card/artist-card.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -49,13 +50,14 @@ export function tokenGetter() {
     RankingsComponent,
     ArtistComponent,
     AlbumListComponent,
-    ArtistListComponent,
     UserBoardComponent,
     AlbumCardComponent,
+    ArtistCardComponent,
     SearchPanelComponent,
     AlbumRankingComponent,
     AlbumDetailComponent,
     UserEditComponent,
+    ArtistListComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,7 +21,6 @@ export class AlbumCardComponent implements OnInit {
 
   hoveringOver(value: number): void {
     this.overStar = value;
-    // this.percent = (value / this.max) * 100;
   }
 
   resetStar(): void {
