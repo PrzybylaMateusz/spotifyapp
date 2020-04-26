@@ -2,7 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule, RatingModule, TabsModule, PaginationModule } from 'ngx-bootstrap';
+import {
+  BsDropdownModule,
+  RatingModule,
+  TabsModule,
+  PaginationModule,
+} from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -29,7 +34,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { RankingResolver } from './_resolvers/ranking.resolver';
-
+import { MyCornerResolver } from './_resolvers/my-corner.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,7 +55,7 @@ export function tokenGetter() {
     SearchPanelComponent,
     AlbumRankingComponent,
     AlbumDetailComponent,
-    UserEditComponent
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,9 +70,9 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:5001'],
-        blacklistedRoutes: ['localhost:5001/api/auth']
-      }
-    })
+        blacklistedRoutes: ['localhost:5001/api/auth'],
+      },
+    }),
   ],
   providers: [
     AuthService,
@@ -77,8 +82,9 @@ export function tokenGetter() {
     AlbumDetailResolver,
     UserEditResolver,
     PreventUnsavedChanges,
-    RankingResolver
+    RankingResolver,
+    MyCornerResolver,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

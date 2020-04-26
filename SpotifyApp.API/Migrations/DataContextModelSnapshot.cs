@@ -16,13 +16,22 @@ namespace SpotifyApp.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
+            modelBuilder.Entity("SpotifyApp.API.Models.Album", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Album");
+                });
+
             modelBuilder.Entity("SpotifyApp.API.Models.AlbumRate", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Album")
+                    b.Property<string>("AlbumId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rate")
@@ -31,12 +40,9 @@ namespace SpotifyApp.API.Migrations
                     b.Property<DateTime>("RatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("UserId", "AlbumId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("AlbumId");
 
                     b.ToTable("AlbumsRates");
                 });
@@ -95,9 +101,17 @@ namespace SpotifyApp.API.Migrations
 
             modelBuilder.Entity("SpotifyApp.API.Models.AlbumRate", b =>
                 {
+                    b.HasOne("SpotifyApp.API.Models.Album", "Album")
+                        .WithMany("Rates")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("SpotifyApp.API.Models.User", "User")
-                        .WithMany("AlbumsRates")
-                        .HasForeignKey("UserId");
+                        .WithMany("Rates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SpotifyApp.API.Models.Photo", b =>

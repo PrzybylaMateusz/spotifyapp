@@ -32,12 +32,14 @@ export class AlbumCardComponent implements OnInit {
     const albumRate: AlbumRate = {
       rate: this.rate,
       ratedDate: new Date(),
-      album: this.album.id,
+      albumId: this.album.id,
       userId: this.authService.decodedToken.nameid,
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
-      () => {},
+      (data) => {
+        this.alertify.success('You have rated: ' + this.album.name);
+      },
       (error) => {
         this.alertify.error(error);
       }

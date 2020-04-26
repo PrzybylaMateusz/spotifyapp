@@ -14,7 +14,7 @@ namespace SpotifyApp.API.Helpers
             CreateMap<User, UserForDetailedDto>()
                 .ForMember(dest => dest.PhotoUrl, 
                     opt => opt.MapFrom(src => src.Photo.Url));
-            CreateMap<Album, AlbumDto>();
+            CreateMap<AlbumDto, AlbumDto>();
             CreateMap<AlbumRateDto, AlbumRate>();
             CreateMap<UserForUpdateDto, User>();
         }

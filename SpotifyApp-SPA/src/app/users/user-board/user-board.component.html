@@ -1,7 +1,51 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-2.col-md-3 cols-sm-6">
-      <p *ngFor="let user of users">{{ user.username }}</p>
-    </div>
+<ul *ngIf="isLoaded" class="list-group">
+  <div class="text-center mt-3">
+    <h2>
+      My latest rated albums
+    </h2>
   </div>
+
+  <li
+    *ngFor="let album of albumRanking; let i = index"
+    class="list-group-item d-flex align-items-center"
+  >
+    <h3>{{ i + 1 }}</h3>
+    <a [routerLink]="['/albums', album.album.id]"
+      ><img
+        class="ranking-image"
+        src="{{ album.album.coverUrl }}"
+        alt="{{ album.album.name }}"
+    /></a>
+    <div class="album-info">
+      <h5>
+        {{ album.album.name }}
+        <h6>({{ album.album.year }})</h6>
+      </h5>
+
+      {{ album.album.artist }}
+    </div>
+    <div class="wrapper">
+      <h5>Your rate:</h5>
+      <h2>
+        <div class="star">★</div>
+
+        {{ album.rate.toFixed(2) }}
+      </h2>
+    </div>
+  </li>
+</ul>
+
+<div *ngIf="isLoaded" class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
 </div>

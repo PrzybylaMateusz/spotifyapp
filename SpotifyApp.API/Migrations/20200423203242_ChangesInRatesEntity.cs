@@ -3,10 +3,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SpotifyApp.API.Migrations
 {
-    public partial class newOne : Migration
+    public partial class ChangesInRatesEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Album",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Album", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -29,16 +40,20 @@ namespace SpotifyApp.API.Migrations
                 name: "AlbumsRates",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Album = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
+                    AlbumId = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     Rate = table.Column<int>(nullable: false),
                     RatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumsRates", x => x.Id);
+                    table.PrimaryKey("PK_AlbumsRates", x => new { x.UserId, x.AlbumId });
+                    table.ForeignKey(
+                        name: "FK_AlbumsRates_Album_AlbumId",
+                        column: x => x.AlbumId,
+                        principalTable: "Album",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AlbumsRates_Users_UserId",
                         column: x => x.UserId,
@@ -69,9 +84,9 @@ namespace SpotifyApp.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AlbumsRates_UserId",
+                name: "IX_AlbumsRates_AlbumId",
                 table: "AlbumsRates",
-                column: "UserId");
+                column: "AlbumId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_UserId",
@@ -87,6 +102,9 @@ namespace SpotifyApp.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "Album");
 
             migrationBuilder.DropTable(
                 name: "Users");

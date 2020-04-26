@@ -1,5 +1,5 @@
 export interface AlbumRate {
-  album: string;
+  albumId: string;
   userId: number;
   rate: number;
   ratedDate: Date;
