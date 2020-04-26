@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +5,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
-using SpotifyApp.API.Models;
+using SpotifyApp.API.Dtos;
 
 namespace SpotifyApp.API.Data
 {
@@ -15,7 +14,7 @@ namespace SpotifyApp.API.Data
         private readonly string _clientId = "69bbb47bc12a4a7cba51c70bc2ea6764";
         private readonly string _secretId = "a85e6ed0212a4c83b1326213d358720e";
 
-        public async Task<IEnumerable<Album>> SearchSpotifyAlbums(string keyword)
+        public async Task<IEnumerable<AlbumDto>> SearchSpotifyAlbums(string keyword)
         {
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
             Token token = await auth.GetToken();
@@ -27,11 +26,11 @@ namespace SpotifyApp.API.Data
 
             SearchItem searchItem = await api.SearchItemsAsync(keyword, SearchType.Album);
 
-            var albumsToReturn = new List<Album>();
+            var albumsToReturn = new List<AlbumDto>();
 
             foreach (var album in searchItem.Albums.Items)
             {
-                var albumToReturn = new Album();
+                var albumToReturn = new AlbumDto();
                 albumToReturn.Artist = album.Artists[0].Name;
                 albumToReturn.Name = album.Name;
                 albumToReturn.Id = album.Id;
@@ -44,7 +43,7 @@ namespace SpotifyApp.API.Data
             return albumsToReturn;
         }
 
-        public async Task<Album> GetSpotifyAlbum(string id)
+        public async Task<AlbumDto> GetSpotifyAlbum(string id)
         {
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
             Token token = await auth.GetToken();
@@ -56,7 +55,7 @@ namespace SpotifyApp.API.Data
 
             FullAlbum albumFromSpotify = await api.GetAlbumAsync(id);
 
-            return new Album(){
+            return new AlbumDto(){
                 Artist = string.Join(",", albumFromSpotify.Artists.Select((x) => x.Name)),
                 Name = albumFromSpotify.Name,
                 Id = albumFromSpotify.Id,
@@ -66,7 +65,7 @@ namespace SpotifyApp.API.Data
             };
         }
 
-        public async Task<IEnumerable<Album>> GetSpotifyAlbums(List<string> albumsIdToGet)
+        public async Task<IEnumerable<AlbumDto>> GetSpotifyAlbums(List<string> albumsIdToGet)
         {
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
             Token token = await auth.GetToken();
@@ -78,11 +77,11 @@ namespace SpotifyApp.API.Data
 
             SeveralAlbums albumsFromSpotify = await api.GetSeveralAlbumsAsync(albumsIdToGet);
 
-            var albumsToReturn = new List<Album>();
+            var albumsToReturn = new List<AlbumDto>();
 
             foreach (var album in albumsFromSpotify.Albums)
             {
-                var albumToReturn = new Album();
+                var albumToReturn = new AlbumDto();
                 albumToReturn.Artist = album.Artists[0].Name;
                 albumToReturn.Name = album.Name;
                 albumToReturn.Id = album.Id;

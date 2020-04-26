@@ -12,6 +12,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { RankingResolver } from './_resolvers/ranking.resolver';
+import { MyCornerResolver } from './_resolvers/my-corner.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,7 +27,12 @@ export const appRoutes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     children: [
-      { path: 'my', component: UserBoardComponent, canActivate: [AuthGuard] },
+      {
+        path: 'my',
+        component: UserBoardComponent,
+        canActivate: [AuthGuard],
+        resolve: { myRates: MyCornerResolver },
+      },
     ],
   },
   { path: 'artists', component: ArtistListComponent },
