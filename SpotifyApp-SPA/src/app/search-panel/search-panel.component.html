@@ -1,11 +1,44 @@
-<div class="container mt-2">
-  <h2>Albums:</h2>
+<div class="container mt-3">
   <div class="row">
-    <div
-      *ngFor="let album of albums$ | async"
-      class="col-lg-4 col-md-3 cols-sm-6"
-    >
-      <app-album-card [album]="album"></app-album-card>
+    <div class="btn-group">
+      <button
+        class="btn btn-primary"
+        btnRadio="Albums"
+        (click)="showAlbums = true"
+      >
+        Albums:
+      </button>
+      <button
+        class="btn btn-primary"
+        btnRadio="Artists"
+        (click)="showAlbums = false"
+      >
+        Artists:
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showAlbums" class="container mt-2">
+    <h2>Albums:</h2>
+    <div class="row">
+      <div
+        *ngFor="let album of albums$ | async"
+        class="col-lg-4 col-md-3 cols-sm-6"
+      >
+        <app-album-card [album]="album"></app-album-card>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showAlbums" class="container mt-2">
+    <h2>Artists:</h2>
+
+    <div class="row">
+      <div
+        *ngFor="let artist of artists$ | async"
+        class="col-lg-4 col-md-3 cols-sm-6"
+      >
+        <app-artist-card [artist]="artist"></app-artist-card>
+      </div>
     </div>
   </div>
 </div>

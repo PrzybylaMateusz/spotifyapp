@@ -4,6 +4,7 @@ import { Album } from '../_models/album';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../_services/search.service';
+import { Artist } from '../_models/artist';
 
 @Component({
   selector: 'app-search-panel',
@@ -12,6 +13,8 @@ import { SearchService } from '../_services/search.service';
 })
 export class SearchPanelComponent implements OnInit {
   albums$: Observable<Album[]>;
+  artists$: Observable<Artist[]>;
+  showAlbums: boolean;
   searchKey: string;
   constructor(
     private route: ActivatedRoute,
@@ -19,6 +22,15 @@ export class SearchPanelComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.showAlbums = true;
+    this.artists$ = this.route.paramMap.pipe(
+      switchMap((params) => {
+        // (+) before `params.get()` turns the string into a number
+        this.searchKey = params.get('id');
+        return this.searchService.searchArtist(this.searchKey);
+      })
+    );
+
     this.albums$ = this.route.paramMap.pipe(
       switchMap((params) => {
         // (+) before `params.get()` turns the string into a number
