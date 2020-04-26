@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RatesService } from 'src/app/_services/rates.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { AlbumOverallRate } from 'src/app/_models/albumOveralRate';
+import { AlbumAverageRate } from 'src/app/_models/albumAverageRate';
 import { ActivatedRoute } from '@angular/router';
 import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 
@@ -11,7 +11,7 @@ import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
   styleUrls: ['./album-ranking.component.css'],
 })
 export class AlbumRankingComponent implements OnInit {
-  albumRanking: AlbumOverallRate[];
+  albumRanking: AlbumAverageRate[];
   isLoaded = false;
   pagination: Pagination;
   rankingParams: any = {};
@@ -60,7 +60,7 @@ export class AlbumRankingComponent implements OnInit {
         this.rankingParams
       )
       .subscribe(
-        (res: PaginatedResult<AlbumOverallRate[]>) => {
+        (res: PaginatedResult<AlbumAverageRate[]>) => {
           this.albumRanking = res.results;
           this.pagination = res.pagination;
         },

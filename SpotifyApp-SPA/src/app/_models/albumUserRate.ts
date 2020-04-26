@@ -1,6 +1,7 @@
 import { Album } from './album';
 
-export interface AlbumOverallRate {
+export interface AlbumUserRate {
   album: Album;
   rate: number;
+  dateOfRate: Date;
 }

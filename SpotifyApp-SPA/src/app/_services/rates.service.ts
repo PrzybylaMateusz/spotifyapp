@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AlbumOverallRate } from '../_models/albumOveralRate';
+import { AlbumAverageRate } from '../_models/albumAverageRate';
 import { PaginatedResult } from '../_models/pagination';
+import { AlbumUserRate } from '../_models/albumUserRate';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +23,10 @@ export class RatesService {
     page?,
     itemsPerPage?,
     rankingParams?
-  ): Observable<PaginatedResult<AlbumOverallRate[]>> {
+  ): Observable<PaginatedResult<AlbumAverageRate[]>> {
     const paginatedResult: PaginatedResult<
-      AlbumOverallRate[]
-    > = new PaginatedResult<AlbumOverallRate[]>();
+      AlbumAverageRate[]
+    > = new PaginatedResult<AlbumAverageRate[]>();
 
     let params = new HttpParams();
 
@@ -40,7 +41,7 @@ export class RatesService {
     }
 
     return this.http
-      .get<AlbumOverallRate[]>(this.baseUrl + 'rates/albumranking', {
+      .get<AlbumAverageRate[]>(this.baseUrl + 'rates/albumranking', {
         observe: 'response',
         params,
       })
@@ -66,10 +67,10 @@ export class RatesService {
   getMyRates(
     page?,
     itemsPerPage?
-  ): Observable<PaginatedResult<AlbumOverallRate[]>> {
+  ): Observable<PaginatedResult<AlbumUserRate[]>> {
     const paginatedResult: PaginatedResult<
-      AlbumOverallRate[]
-    > = new PaginatedResult<AlbumOverallRate[]>();
+      AlbumUserRate[]
+    > = new PaginatedResult<AlbumUserRate[]>();
 
     let params = new HttpParams();
 
@@ -79,7 +80,7 @@ export class RatesService {
     }
 
     return this.http
-      .get<AlbumOverallRate[]>(this.baseUrl + 'rates/myrates', {
+      .get<AlbumUserRate[]>(this.baseUrl + 'rates/myrates', {
         observe: 'response',
         params,
       })
