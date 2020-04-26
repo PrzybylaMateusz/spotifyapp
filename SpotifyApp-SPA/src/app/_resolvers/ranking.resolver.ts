@@ -1,5 +1,5 @@
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { AlbumOverallRate } from '../_models/albumOveralRate';
+import { AlbumAverageRate } from '../_models/albumAverageRate';
 import { of, Observable } from 'rxjs';
 import { RatesService } from '../_services/rates.service';
 import { AlertifyService } from '../_services/alertify.service';
@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class RankingResolver implements Resolve<AlbumOverallRate[]> {
+export class RankingResolver implements Resolve<AlbumAverageRate[]> {
   pageNumber = 1;
   pageSize = 5;
 
@@ -17,7 +17,7 @@ export class RankingResolver implements Resolve<AlbumOverallRate[]> {
     private alertify: AlertifyService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<AlbumOverallRate[]> {
+  resolve(route: ActivatedRouteSnapshot): Observable<AlbumAverageRate[]> {
     return this.ratesService
       .getAlbumRanking(this.pageNumber, this.pageSize)
       .pipe(

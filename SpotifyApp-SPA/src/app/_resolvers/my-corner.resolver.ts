@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AlbumOverallRate } from '../_models/albumOveralRate';
+import { AlbumAverageRate } from '../_models/albumAverageRate';
 import { AlertifyService } from '../_services/alertify.service';
 import { RatesService } from '../_services/rates.service';
 
 @Injectable()
-export class MyCornerResolver implements Resolve<AlbumOverallRate[]> {
+export class MyCornerResolver implements Resolve<AlbumAverageRate[]> {
   pageNumber = 1;
   pageSize = 5;
 
@@ -17,7 +17,7 @@ export class MyCornerResolver implements Resolve<AlbumOverallRate[]> {
     private alertify: AlertifyService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<AlbumOverallRate[]> {
+  resolve(route: ActivatedRouteSnapshot): Observable<AlbumAverageRate[]> {
     return this.ratesService.getMyRates(this.pageNumber, this.pageSize).pipe(
       catchError((error) => {
         this.alertify.error('Problem retriving data');

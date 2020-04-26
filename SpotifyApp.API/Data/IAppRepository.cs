@@ -14,8 +14,8 @@ namespace SpotifyApp.API.Data
         Task<bool> SaveAll();
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
-        Task<PagedList<AlbumOverallRateDto>> GetAllAlbumsRate(RankingParams rankingParams);
-        Task<PagedList<AlbumOverallRateDto>> GetMyRates(RankingParams rankingParams, int userId);
+        Task<PagedList<AlbumAverageRateDto>> GetAllAlbumsRate(RankingParams rankingParams);
+        Task<PagedList<AlbumUserRateDto>> GetMyRates(RankingParams rankingParams, int userId);
         Task<double> GetSpecificAlbumAvaregeRate(string id);
 
         Task<int> GetAlbumRateForUser(string id, int userId);

@@ -36,7 +36,6 @@ export class AlbumDetailComponent implements OnInit {
 
   hoveringOver(value: number): void {
     this.overStar = value;
-    // this.percent = (value / this.max) * 100;
   }
 
   resetStar(): void {
@@ -47,7 +46,7 @@ export class AlbumDetailComponent implements OnInit {
     const albumRate: AlbumRate = {
       rate: this.rate,
       ratedDate: new Date(),
-      album: this.album.id,
+      albumId: this.album.id,
       userId: this.authService.decodedToken.nameid,
     };
 

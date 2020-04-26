@@ -48,7 +48,7 @@ namespace SpotifyApp.API.Data
             return albumRates;
         }
 
-        public async Task<PagedList<AlbumOverallRateDto>> GetAllAlbumsRate(RankingParams rankingParams)
+        public async Task<PagedList<AlbumAverageRateDto>> GetAllAlbumsRate(RankingParams rankingParams)
         {
             var allAlbumsRates = this.context.Album.Include(x => x.Rates);
 
@@ -78,16 +78,17 @@ namespace SpotifyApp.API.Data
 
             var albumRanking = allAlbumsRates
                 .Where(x => listFromSpotify.Select(y => y.Id).Contains(x.Id))
-                .Select(album => new AlbumOverallRateDto()
+                .Select(album => new AlbumAverageRateDto()
             { 
                 Album = this.mapper.Map<AlbumDto>(albumDictionary[album.Id]),
-                Rate = Math.Round(album.Rates.Average(x => x.Rate), 3)
+                Rate = Math.Round(album.Rates.Average(x => x.Rate), 3),
+                NumberOfRates = album.Rates.Count()
             });
 
-            return await PagedList<AlbumOverallRateDto>.CreateAsync(albumRanking.OrderByDescending(x => x.Rate), rankingParams.PageNumber, rankingParams.PageSize);
+            return await PagedList<AlbumAverageRateDto>.CreateAsync(albumRanking.OrderByDescending(x => x.Rate), rankingParams.PageNumber, rankingParams.PageSize);
         }
 
-        public async Task<PagedList<AlbumOverallRateDto>> GetMyRates(RankingParams rankingParams, int userId)
+        public async Task<PagedList<AlbumUserRateDto>> GetMyRates(RankingParams rankingParams, int userId)
         {
             var userWithRates = await this.context.Users.Include(x => x.Rates).FirstOrDefaultAsync(u => u.Id == userId);
            
@@ -109,17 +110,19 @@ namespace SpotifyApp.API.Data
             }      
 
             Dictionary<string, AlbumDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);    
-            Dictionary<string, int> userWithRatesDict = userWithRates.Rates.ToDictionary(x => x.AlbumId, x => x.Rate);    
+            Dictionary<string, RateforDict> userWithRatesDict = userWithRates.Rates
+            .ToDictionary(x => x.AlbumId, x => new RateforDict{Rate = x.Rate, DateOfRate= x.RatedDate});    
 
             var albums = this.context.Album.Where(x => albumsId.Contains(x.Id));
 
-            var albumRanking = albums.Select(album => new AlbumOverallRateDto()
+            var albumRanking = albums.Select(album => new AlbumUserRateDto()
             { 
                 Album = this.mapper.Map<AlbumDto>(albumDictionary[album.Id]),
-                Rate = userWithRatesDict[album.Id]
+                Rate = userWithRatesDict[album.Id].Rate,
+                DateOfRate = userWithRatesDict[album.Id].DateOfRate,
             });
 
-            return await PagedList<AlbumOverallRateDto>.CreateAsync(albumRanking, rankingParams.PageNumber, rankingParams.PageSize);
+            return await PagedList<AlbumUserRateDto>.CreateAsync(albumRanking, rankingParams.PageNumber, rankingParams.PageSize);
         }
 
         public async Task<int> GetAlbumRateForUser(string albumId, int userId)
@@ -174,4 +177,11 @@ namespace SpotifyApp.API.Data
             await this.context.Album.AddAsync(album);
         }
     }
+
+    class RateforDict 
+    {
+        public int Rate { get; set; }
+        public DateTime DateOfRate { get; set; }
+    }
 }
+

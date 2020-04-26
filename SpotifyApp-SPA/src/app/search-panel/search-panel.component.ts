@@ -8,7 +8,7 @@ import { SearchService } from '../_services/search.service';
 @Component({
   selector: 'app-search-panel',
   templateUrl: './search-panel.component.html',
-  styleUrls: ['./search-panel.component.css']
+  styleUrls: ['./search-panel.component.css'],
 })
 export class SearchPanelComponent implements OnInit {
   albums$: Observable<Album[]>;
@@ -20,11 +20,10 @@ export class SearchPanelComponent implements OnInit {
 
   ngOnInit() {
     this.albums$ = this.route.paramMap.pipe(
-      switchMap(params => {
+      switchMap((params) => {
         // (+) before `params.get()` turns the string into a number
         this.searchKey = params.get('id');
-        let albums = this.searchService.search(this.searchKey);
-        return this.searchService.search(this.searchKey);
+        return this.searchService.searchAlbum(this.searchKey);
       })
     );
   }
