@@ -7,6 +7,7 @@ import {
   RatingModule,
   TabsModule,
   PaginationModule,
+  ButtonsModule,
 } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -67,6 +68,7 @@ export function tokenGetter() {
     PaginationModule.forRoot(),
     RatingModule.forRoot(),
     TabsModule.forRoot(),
+    ButtonsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
