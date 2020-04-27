@@ -28,11 +28,7 @@ export class UserBoardComponent implements OnInit {
   loadUsers() {
     this.route.data.subscribe(
       (data) => {
-        const ranking = data['myRates'].results;
-        this.albumRanking = ranking.sort(
-          (a, b) =>
-            new Date(b.dateOfRate).getTime() - new Date(a.dateOfRate).getTime()
-        );
+        this.albumRanking = data['myRates'].results;
         this.pagination = data['myRates'].pagination;
         this.isLoaded = true;
       },
@@ -52,12 +48,7 @@ export class UserBoardComponent implements OnInit {
       .getMyRates(this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe(
         (res: PaginatedResult<AlbumUserRate[]>) => {
-          const ranking = res.results;
-          this.albumRanking = ranking.sort(
-            (a, b) =>
-              new Date(b.dateOfRate).getTime() -
-              new Date(a.dateOfRate).getTime()
-          );
+          this.albumRanking = res.results;
           this.pagination = res.pagination;
         },
         (error) => {

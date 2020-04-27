@@ -1,24 +1,16 @@
 <div class="container mt-3">
   <div class="row">
     <div class="btn-group">
-      <button
-        class="btn btn-primary"
-        btnRadio="Albums"
-        (click)="showAlbums = true"
-      >
+      <button class="btn btn-primary" [(ngModel)]="show" btnRadio="Albums">
         Albums:
       </button>
-      <button
-        class="btn btn-primary"
-        btnRadio="Artists"
-        (click)="showAlbums = false"
-      >
+      <button class="btn btn-primary" [(ngModel)]="show" btnRadio="Artists">
         Artists:
       </button>
     </div>
   </div>
 
-  <div *ngIf="showAlbums" class="container mt-2">
+  <div *ngIf="show === 'Albums'" class="container mt-2">
     <h2>Albums:</h2>
     <div class="row">
       <div
@@ -29,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!showAlbums" class="container mt-2">
+  <div *ngIf="show === 'Artists'" class="container mt-2">
     <h2>Artists:</h2>
 
     <div class="row">

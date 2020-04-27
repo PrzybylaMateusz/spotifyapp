@@ -52,20 +52,7 @@ namespace SpotifyApp.API.Data
         {
             var allAlbumsRates = this.context.Album.Include(x => x.Rates);
 
-            var i = 0;
-            var tempList = new List<string>();
-            var listFromSpotify = new List<AlbumDto>();
-
-            foreach(var a in allAlbumsRates)
-            {
-                i++;
-                tempList.Add(a.Id);
-                if(tempList.Count() % 20==0 || i == allAlbumsRates.Count()){
-                    var albumsInfoDto = await this.spotifyData.GetSpotifyAlbums(tempList.ToList());
-                    listFromSpotify.AddRange(albumsInfoDto);
-                    tempList.Clear();
-                }
-            }
+            var listFromSpotify = await GetAlbumsInfoFromSpotify(allAlbumsRates.Select(x => x.Id));         
 
             if(rankingParams.MinYear != 0 || rankingParams.MaxYear != DateTime.Today.Year) 
             {
@@ -87,42 +74,23 @@ namespace SpotifyApp.API.Data
 
             return await PagedList<AlbumAverageRateDto>.CreateAsync(albumRanking.OrderByDescending(x => x.Rate), rankingParams.PageNumber, rankingParams.PageSize);
         }
-
+       
         public async Task<PagedList<AlbumUserRateDto>> GetMyRates(RankingParams rankingParams, int userId)
         {
-            var userWithRates = await this.context.Users.Include(x => x.Rates).FirstOrDefaultAsync(u => u.Id == userId);
-           
-            var albumsId = userWithRates.Rates.Select(r => r.AlbumId);
+            var userRates = this.context.AlbumsRates.Where(x => x.UserId == userId);
+            var albumsId = userRates.Select(r => r.AlbumId);
 
-            var i = 0;
-            var tempList = new List<string>();
-            var listFromSpotify = new List<AlbumDto>();
+            var listFromSpotify = await GetAlbumsInfoFromSpotify(albumsId);           
 
-            foreach(var a in albumsId)
-            {
-                i++;
-                tempList.Add(a);
-                if(tempList.Count() % 20==0 || i == albumsId.Count()){
-                    var albumsInfoDto = await this.spotifyData.GetSpotifyAlbums(tempList.ToList());
-                    listFromSpotify.AddRange(albumsInfoDto);
-                    tempList.Clear();
-                }
-            }      
-
-            Dictionary<string, AlbumDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);    
-            Dictionary<string, RateforDict> userWithRatesDict = userWithRates.Rates
-            .ToDictionary(x => x.AlbumId, x => new RateforDict{Rate = x.Rate, DateOfRate= x.RatedDate});    
-
-            var albums = this.context.Album.Where(x => albumsId.Contains(x.Id));
-
-            var albumRanking = albums.Select(album => new AlbumUserRateDto()
+            Dictionary<string, AlbumDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
+             var userRatesToReturn = userRates.Select(album => new AlbumUserRateDto()
             { 
-                Album = this.mapper.Map<AlbumDto>(albumDictionary[album.Id]),
-                Rate = userWithRatesDict[album.Id].Rate,
-                DateOfRate = userWithRatesDict[album.Id].DateOfRate,
+                Album = this.mapper.Map<AlbumDto>(albumDictionary[album.AlbumId]),
+                Rate = album.Rate,
+                DateOfRate = album.RatedDate
             });
 
-            return await PagedList<AlbumUserRateDto>.CreateAsync(albumRanking, rankingParams.PageNumber, rankingParams.PageSize);
+            return await PagedList<AlbumUserRateDto>.CreateAsync(userRatesToReturn.OrderByDescending(x => x.DateOfRate), rankingParams.PageNumber, rankingParams.PageSize);
         }
 
         public async Task<int> GetAlbumRateForUser(string albumId, int userId)
@@ -176,12 +144,26 @@ namespace SpotifyApp.API.Data
         {
             await this.context.Album.AddAsync(album);
         }
-    }
 
-    class RateforDict 
-    {
-        public int Rate { get; set; }
-        public DateTime DateOfRate { get; set; }
+         private async Task<List<AlbumDto>> GetAlbumsInfoFromSpotify(IQueryable<string> listOfAlbumsId)
+        {
+            var i = 0;
+            var tempList = new List<string>();
+            var listFromSpotify = new List<AlbumDto>();
+
+            foreach(var a in listOfAlbumsId)
+            {
+                i++;
+                tempList.Add(a);
+                if(tempList.Count() % 20==0 || i == listOfAlbumsId.Count()){
+                    var albumsInfoDto = await this.spotifyData.GetSpotifyAlbums(tempList.ToList());
+                    listFromSpotify.AddRange(albumsInfoDto);
+                    tempList.Clear();
+                }
+            }
+
+            return listFromSpotify;
+        }
     }
 }
 
