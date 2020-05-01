@@ -36,14 +36,14 @@ namespace SpotifyApp.API.Data
 
         public async Task<double> GetSpecificAlbumAvaregeRate(string id)
         {
-            var albumRate = await this.context.AlbumsRates.Where(x => x.AlbumId == id).AverageAsync(x => x.Rate);
+            var albumRate = await this.context.AlbumRates.Where(x => x.AlbumId == id).AverageAsync(x => x.Rate);
 
             return albumRate;
         }
 
         public async Task<IEnumerable<AlbumRate>> GetAllRatesForSpecificAlbum(string id)
         {
-            var albumRates = await this.context.AlbumsRates.Where(x => x.AlbumId == id).ToListAsync();
+            var albumRates = await this.context.AlbumRates.Where(x => x.AlbumId == id).ToListAsync();
 
             return albumRates;
         }
@@ -77,7 +77,7 @@ namespace SpotifyApp.API.Data
        
         public async Task<PagedList<AlbumUserRateDto>> GetMyRates(RankingParams rankingParams, int userId)
         {
-            var userRates = this.context.AlbumsRates.Where(x => x.UserId == userId);
+            var userRates = this.context.AlbumRates.Where(x => x.UserId == userId);
             var albumsId = userRates.Select(r => r.AlbumId);
 
             var listFromSpotify = await GetAlbumsInfoFromSpotify(albumsId);           
@@ -95,7 +95,7 @@ namespace SpotifyApp.API.Data
 
         public async Task<int> GetAlbumRateForUser(string albumId, int userId)
         {
-            var albumRate =  await this.context.AlbumsRates.FirstOrDefaultAsync(x => x.AlbumId == albumId && x.UserId == userId);
+            var albumRate =  await this.context.AlbumRates.FirstOrDefaultAsync(x => x.AlbumId == albumId && x.UserId == userId);
             if(albumRate == default)
             {
                 return 0;
@@ -106,21 +106,21 @@ namespace SpotifyApp.API.Data
         
         public async Task<IEnumerable<AlbumRate>> GetUniqueRatedAlbums()
         {
-            var uniqueRatedAlbums = await this.context.AlbumsRates.GroupBy(x => x.Album).Select(x => x.First()).ToListAsync();
+            var uniqueRatedAlbums = await this.context.AlbumRates.GroupBy(x => x.Album).Select(x => x.First()).ToListAsync();
 
             return uniqueRatedAlbums;
         }
 
         public Task<User> GetUser(int id)
         {
-            var user = this.context.Users.Include(a => a.Rates).Include(p => p.Photo).FirstOrDefaultAsync(u => u.Id == id);
+            var user = this.context.Users.Include(a => a.AlbumRates).Include(p => p.Photo).FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
         }
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await this.context.Users.Include(a => a.Rates).Include(p => p.Photo).ToListAsync();
+            var users = await this.context.Users.Include(a => a.AlbumRates).Include(p => p.Photo).ToListAsync();
 
             return users;
         }
@@ -132,7 +132,7 @@ namespace SpotifyApp.API.Data
 
         public async Task<AlbumRate> GetRate(int userId, string albumId)
         {
-            return await this.context.AlbumsRates.FirstOrDefaultAsync(u => u.UserId == userId && u.AlbumId == albumId);
+            return await this.context.AlbumRates.FirstOrDefaultAsync(u => u.UserId == userId && u.AlbumId == albumId);
         }
 
          public async Task<Album> GetAlbum(string albumId)
