@@ -14,6 +14,7 @@ export class UserBoardComponent implements OnInit {
   albumRanking: AlbumUserRate[];
   pagination: Pagination;
   isLoaded = false;
+  rankingNumber = 1;
 
   constructor(
     private ratesService: RatesService,
@@ -40,6 +41,10 @@ export class UserBoardComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
+    this.rankingNumber =
+      this.pagination.currentPage * this.pagination.itemsPerPage -
+      this.pagination.itemsPerPage +
+      1;
     this.loadMoreAlbums();
   }
 

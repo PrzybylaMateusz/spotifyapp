@@ -94,6 +94,32 @@ namespace SpotifyApp.API.Data
             return albumsToReturn;
         }
 
+         public async Task<IEnumerable<ArtistDto>> GetSpotifyArtists(List<string> artistsIdToGet)
+        {
+            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
+            Token token = await auth.GetToken();
+            SpotifyWebAPI api = new SpotifyWebAPI()
+            {
+                TokenType = token.TokenType,
+                AccessToken = token.AccessToken
+            };
+
+            SeveralArtists artistsFromSpotify = await api.GetSeveralArtistsAsync(artistsIdToGet);
+
+            var artistsToReturn = new List<ArtistDto>();
+
+            foreach (var artist in artistsFromSpotify.Artists)
+            {
+                var artistToReturn = new ArtistDto();
+                artistToReturn.Name = artist.Name;
+                artistToReturn.Id = artist.Id;
+                artistToReturn.PhotoUrl = artist.Images[0].Url;
+                artistsToReturn.Add(artistToReturn);
+            }
+
+            return artistsToReturn;
+        }
+
          public async Task<IEnumerable<ArtistDto>> SearchSpotifyArtists(string keyword)
         {
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);

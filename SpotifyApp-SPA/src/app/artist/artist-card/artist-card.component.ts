@@ -3,6 +3,7 @@ import { Artist } from 'src/app/_models/artist';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { RatesService } from 'src/app/_services/rates.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ArtistRate } from 'src/app/_models/artistRate';
 
 @Component({
   selector: 'app-artist-card',
@@ -24,7 +25,9 @@ export class ArtistCardComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadRate();
+  }
 
   hoveringOver(value: number): void {
     this.overStar = value;
@@ -35,21 +38,37 @@ export class ArtistCardComponent implements OnInit {
   }
 
   saveRate(): void {
-    console.log('Saving rate its not available yet');
-    // const albumRate: AlbumRate = {
-    //   rate: this.rate,
-    //   ratedDate: new Date(),
-    //   albumId: this.album.id,
-    //   userId: this.authService.decodedToken.nameid,
-    // };
+    const artistRate: ArtistRate = {
+      rate: this.rate,
+      ratedDate: new Date(),
+      artistId: this.artist.id,
+      userId: this.authService.decodedToken.nameid,
+    };
 
-    // this.ratesService.rateAlbum(albumRate).subscribe(
-    //   (data) => {
-    //     this.alertify.success('You have rated: ' + this.album.name);
-    //   },
-    //   (error) => {
-    //     this.alertify.error(error);
-    //   }
-    // );
+    this.ratesService.rateArtist(artistRate).subscribe(
+      (data) => {
+        this.alertify.success('You have rated artist: ' + this.artist.name);
+      },
+      (error) => {
+        this.alertify.error(error);
+      }
+    );
+  }
+
+  loadRate() {
+    this.ratesService
+      .getArtistRateForUser(
+        this.artist.id,
+        this.authService.decodedToken.nameid
+      )
+      .subscribe(
+        (rate: number) => {
+          this.rate = rate;
+          this.overStar = rate === 0 ? null : rate;
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
   }
 }

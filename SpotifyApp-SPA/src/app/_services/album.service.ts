@@ -5,16 +5,12 @@ import { Observable } from 'rxjs';
 import { Album } from '../_models/album';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlbumService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
-
-  getAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(this.baseUrl + 'albums');
-  }
 
   getAlbum(id): Observable<Album> {
     return this.http.get<Album>(this.baseUrl + 'albums/' + id);

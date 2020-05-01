@@ -37,7 +37,7 @@ export class AlbumCardComponent implements OnInit {
 
     this.ratesService.rateAlbum(albumRate).subscribe(
       (data) => {
-        this.alertify.success('You have rated: ' + this.album.name);
+        this.alertify.success('You have rated album: ' + this.album.name);
       },
       (error) => {
         this.alertify.error(error);

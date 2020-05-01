@@ -21,8 +21,6 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { RankingsComponent } from './rankings/rankings.component';
 import { ArtistComponent } from './artist/artist.component';
-import { AlbumListComponent } from './albums/album-list/album-list.component';
-import { ArtistListComponent } from './artist-list/artist-list.component';
 import { appRoutes } from './routes';
 import { UserBoardComponent } from './users/user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -34,9 +32,11 @@ import { AlbumDetailResolver } from './_resolvers/album-detail.resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
-import { RankingResolver } from './_resolvers/ranking.resolver';
+import { AlbumRankingResolver } from './_resolvers/album-ranking.resolver';
+import { ArtistRankingResolver } from './_resolvers/artist-ranking.resolver';
 import { MyCornerResolver } from './_resolvers/my-corner.resolver';
 import { ArtistCardComponent } from './artist/artist-card/artist-card.component';
+import { ArtistRankingComponent } from './artist/artist-ranking/artist-ranking.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,15 +50,14 @@ export function tokenGetter() {
     RegisterComponent,
     RankingsComponent,
     ArtistComponent,
-    AlbumListComponent,
     UserBoardComponent,
     AlbumCardComponent,
     ArtistCardComponent,
     SearchPanelComponent,
     AlbumRankingComponent,
+    ArtistRankingComponent,
     AlbumDetailComponent,
     UserEditComponent,
-    ArtistListComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +85,8 @@ export function tokenGetter() {
     AlbumDetailResolver,
     UserEditResolver,
     PreventUnsavedChanges,
-    RankingResolver,
+    AlbumRankingResolver,
+    ArtistRankingResolver,
     MyCornerResolver,
   ],
   bootstrap: [AppComponent],
