@@ -12,6 +12,7 @@ namespace SpotifyApp.API.Data
         public DbSet<AlbumRate> AlbumRates { get; set; }
         public DbSet<ArtistRate> ArtistRates { get; set; }
         public DbSet<Album> Album { get; set; }
+        public DbSet<Artist> Artist { get; set; }
 
          protected override void OnModelCreating(ModelBuilder builder)
         {

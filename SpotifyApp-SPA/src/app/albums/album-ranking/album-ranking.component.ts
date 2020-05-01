@@ -72,13 +72,4 @@ export class AlbumRankingComponent implements OnInit {
         }
       );
   }
-
-  // this.ratesService.getAlbums().subscribe(
-  //   (albums: Album[]) => {
-  //     this.albums = albums;
-  //   },
-  //   error => {
-  //     this.alertify.error(error);
-  //   }
-  // );
 }

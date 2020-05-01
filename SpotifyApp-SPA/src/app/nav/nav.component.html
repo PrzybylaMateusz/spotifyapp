@@ -6,13 +6,12 @@
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/albums']">Albums</a>
+        <a class="nav-link" [routerLink]="['/artistsranking']"
+          >Artists Ranking</a
+        >
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/artists']">Artists</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/rankings']">Rankings</a>
+        <a class="nav-link" [routerLink]="['/albumsranking']">Albums Ranking</a>
       </li>
       <li *ngIf="loggedIn()" class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/my']">My Music Corner</a>

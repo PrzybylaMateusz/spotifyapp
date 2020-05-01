@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import { AlbumDetailComponent } from './albums/album-detail/album-detail.component';
-import { AlbumListComponent } from './albums/album-list/album-list.component';
 import { AlbumRankingComponent } from './albums/album-ranking/album-ranking.component';
-import { ArtistListComponent } from './artist-list/artist-list.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
 import { UserBoardComponent } from './users/user-board/user-board.component';
@@ -11,12 +9,13 @@ import { AlbumDetailResolver } from './_resolvers/album-detail.resolver';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
-import { RankingResolver } from './_resolvers/ranking.resolver';
+import { AlbumRankingResolver } from './_resolvers/album-ranking.resolver';
 import { MyCornerResolver } from './_resolvers/my-corner.resolver';
+import { ArtistRankingComponent } from './artist/artist-ranking/artist-ranking.component';
+import { ArtistRankingResolver } from './_resolvers/artist-ranking.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'albums', component: AlbumListComponent },
   {
     path: 'albums/:id',
     component: AlbumDetailComponent,
@@ -35,11 +34,15 @@ export const appRoutes: Routes = [
       },
     ],
   },
-  { path: 'artists', component: ArtistListComponent },
   {
-    path: 'rankings',
+    path: 'artistsranking',
+    component: ArtistRankingComponent,
+    resolve: { artistRanking: ArtistRankingResolver },
+  },
+  {
+    path: 'albumsranking',
     component: AlbumRankingComponent,
-    resolve: { albumRanking: RankingResolver },
+    resolve: { albumRanking: AlbumRankingResolver },
   },
   { path: 'users', component: UserBoardComponent },
   {

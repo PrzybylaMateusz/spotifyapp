@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class RankingResolver implements Resolve<AlbumAverageRate[]> {
+export class AlbumRankingResolver implements Resolve<AlbumAverageRate[]> {
   pageNumber = 1;
   pageSize = 5;
 

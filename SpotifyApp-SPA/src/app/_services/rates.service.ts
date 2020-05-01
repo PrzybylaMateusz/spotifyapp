@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AlbumAverageRate } from '../_models/albumAverageRate';
 import { PaginatedResult } from '../_models/pagination';
 import { AlbumUserRate } from '../_models/albumUserRate';
+import { ArtistAverageRate } from '../_models/artistAverageRate';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,10 @@ export class RatesService {
 
   rateAlbum(model: any) {
     return this.http.post(this.baseUrl + 'rates/album', model);
+  }
+
+  rateArtist(model: any) {
+    return this.http.post(this.baseUrl + 'rates/artist', model);
   }
 
   getAlbumRanking(
@@ -58,9 +63,54 @@ export class RatesService {
       );
   }
 
+  getArtistRanking(
+    page?,
+    itemsPerPage?,
+    rankingParams?
+  ): Observable<PaginatedResult<ArtistAverageRate[]>> {
+    const paginatedResult: PaginatedResult<
+      ArtistAverageRate[]
+    > = new PaginatedResult<ArtistAverageRate[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    if (rankingParams != null) {
+      params = params.append('minYear', rankingParams.minYear);
+      params = params.append('maxYear', rankingParams.maxYear);
+    }
+
+    return this.http
+      .get<ArtistAverageRate[]>(this.baseUrl + 'rates/artistranking', {
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        map((response) => {
+          paginatedResult.results = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
+          }
+          return paginatedResult;
+        })
+      );
+  }
+
   getAlbumRateForUser(albumId: string, userId: number): Observable<number> {
     return this.http.get<number>(
       this.baseUrl + 'rates/' + albumId + '/' + userId
+    );
+  }
+
+  getArtistRateForUser(artistId: string, userId: number): Observable<number> {
+    return this.http.get<number>(
+      this.baseUrl + 'rates/artist/' + artistId + '/' + userId
     );
   }
 
