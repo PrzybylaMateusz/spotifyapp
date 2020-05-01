@@ -65,6 +65,26 @@ namespace SpotifyApp.API.Data
             };
         }
 
+        public async Task<ArtistDto> GetSpotifyArtist(string id)
+        {
+            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
+            Token token = await auth.GetToken();
+            SpotifyWebAPI api = new SpotifyWebAPI()
+            {
+                TokenType = token.TokenType,
+                AccessToken = token.AccessToken
+            };
+
+            FullArtist artistFromSpotify = await api.GetArtistAsync(id);
+
+            return new ArtistDto(){                
+                Name = artistFromSpotify.Name,
+                Id = artistFromSpotify.Id,
+                PhotoUrl = artistFromSpotify.Images[0].Url,                
+            };
+        }
+
+
         public async Task<IEnumerable<AlbumDto>> GetSpotifyAlbums(List<string> albumsIdToGet)
         {
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);

@@ -3,22 +3,18 @@
     <div class="col-sm-4">
       <div class="card">
         <img
-          src="{{ album.coverUrl }}"
-          alt="{{ album.name }}"
+          src="{{ artist.photoUrl }}"
+          alt="{{ artist.name }}"
           class="card-img-top img-thumbnail"
         />
         <div class="card-body">
           <div>
             <h5 class="card-title">Artist:</h5>
-            <p>{{ album.artist }}</p>
+            <p>{{ artist.name }}</p>
           </div>
           <div>
-            <h5 class="card-title">Title:</h5>
-            <p>{{ album.name }}</p>
-          </div>
-          <div>
-            <h5 class="card-title">Year:</h5>
-            <p>{{ album.year }}</p>
+            <h5 class="card-title">More info:</h5>
+            <p>Later here will be more artist info</p>
           </div>
         </div>
         <div class="card-footer">
@@ -51,17 +47,11 @@
         <tabset class="member-tabset">
           <tab heading="Overview">
             <h4>Rates and comments</h4>
-            <p>More info (rates and comments) about album will go here</p>
+            <p>More info (rates and comments) about artist will go here</p>
           </tab>
-          <tab heading="About album">
+          <tab heading="About artist">
             <h4>Description</h4>
-            <p>More info about album will go here</p>
-          </tab>
-          <tab heading="Reviews">
-            <h4>Critics reviews</h4>
-            <p>Critics reviews go here</p>
-            <h4>Users reviews</h4>
-            <p>Users reviews go here</p>
+            <p>Artist bio will go here</p>
           </tab>
         </tabset>
       </div>

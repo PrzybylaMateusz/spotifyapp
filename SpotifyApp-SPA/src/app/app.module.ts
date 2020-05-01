@@ -37,6 +37,8 @@ import { ArtistRankingResolver } from './_resolvers/artist-ranking.resolver';
 import { MyCornerResolver } from './_resolvers/my-corner.resolver';
 import { ArtistCardComponent } from './artist/artist-card/artist-card.component';
 import { ArtistRankingComponent } from './artist/artist-ranking/artist-ranking.component';
+import { ArtistDetailComponent } from './artist/artist-detail/artist-detail.component';
+import { ArtistDetailResolver } from './_resolvers/artist-detail.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -57,6 +59,7 @@ export function tokenGetter() {
     AlbumRankingComponent,
     ArtistRankingComponent,
     AlbumDetailComponent,
+    ArtistDetailComponent,
     UserEditComponent,
   ],
   imports: [
@@ -83,6 +86,7 @@ export function tokenGetter() {
     AlertifyService,
     AuthGuard,
     AlbumDetailResolver,
+    ArtistDetailResolver,
     UserEditResolver,
     PreventUnsavedChanges,
     AlbumRankingResolver,
