@@ -15,6 +15,8 @@ import { ArtistRankingComponent } from './artist/artist-ranking/artist-ranking.c
 import { ArtistRankingResolver } from './_resolvers/artist-ranking.resolver';
 import { ArtistDetailComponent } from './artist/artist-detail/artist-detail.component';
 import { ArtistDetailResolver } from './_resolvers/artist-detail.resolver';
+import { MyLatestAlbumsComponent } from './users/user-board/my-latest-albums/my-latest-albums.component';
+import { MyArtistsResolver } from './_resolvers/my-artists.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,7 +39,7 @@ export const appRoutes: Routes = [
         path: 'my',
         component: UserBoardComponent,
         canActivate: [AuthGuard],
-        resolve: { myRates: MyCornerResolver },
+        resolve: { myRates: MyCornerResolver, myArtists: MyArtistsResolver },
       },
     ],
   },

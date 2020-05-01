@@ -7,6 +7,7 @@ import { AlbumAverageRate } from '../_models/albumAverageRate';
 import { PaginatedResult } from '../_models/pagination';
 import { AlbumUserRate } from '../_models/albumUserRate';
 import { ArtistAverageRate } from '../_models/artistAverageRate';
+import { ArtistUserRate } from '../_models/artistUserRate';
 
 @Injectable({
   providedIn: 'root',
@@ -131,6 +132,39 @@ export class RatesService {
 
     return this.http
       .get<AlbumUserRate[]>(this.baseUrl + 'rates/myrates', {
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        map((response) => {
+          paginatedResult.results = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
+          }
+          return paginatedResult;
+        })
+      );
+  }
+
+  getMyArtistsRates(
+    page?,
+    itemsPerPage?
+  ): Observable<PaginatedResult<ArtistUserRate[]>> {
+    const paginatedResult: PaginatedResult<
+      ArtistUserRate[]
+    > = new PaginatedResult<ArtistUserRate[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http
+      .get<ArtistUserRate[]>(this.baseUrl + 'rates/myartistsrates', {
         observe: 'response',
         params,
       })

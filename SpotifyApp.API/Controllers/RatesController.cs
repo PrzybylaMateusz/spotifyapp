@@ -144,5 +144,18 @@ namespace SpotifyApp.API.Controllers
 
             return Ok(myRates);
         }
+
+         [AllowAnonymous]
+        [HttpGet("myartistsrates")]
+        public async Task<IActionResult> GetMyArtistsRates([FromQuery]RankingParams rankingParams)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var myRates = await _appRepository.GetMyArtistsRates(rankingParams, userId);   
+            
+            Response.AddPagination(myRates.CurrentPage, myRates.PageSize, myRates.TotalCount, myRates.TotalPages);
+
+            return Ok(myRates);
+        }
     }
 }

@@ -1,0 +1,36 @@
+.ranking-number {
+  width: 15px;
+  margin: auto;
+}
+
+.ranking-image {
+  margin-left: 30px;
+  height: 100px;
+  width: 100px;
+}
+
+.list-group {
+  width: 100%;
+  margin: auto;
+}
+
+.artist-info {
+  margin-left: 30px;
+  font-size: 16px;
+  width: 65%;
+}
+
+.number-of-rates {
+  margin: auto;
+  width: 70%;
+}
+
+.wrapper {
+  overflow: hidden;
+  width: 130px;
+}
+
+.star {
+  color: gold;
+  float: left;
+}

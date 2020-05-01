@@ -62,7 +62,7 @@ namespace SpotifyApp.API.Data
                 UserId = 1,
                 CoverUrl = albumFromSpotify.Images[0].Url,
                 Year = albumFromSpotify.ReleaseDate.Substring(0, 4),
-                ArtistId = albumFromSpotify.Artists[0].Id                
+                ArtistId = albumFromSpotify.Artists[0].Id,            
             };
         }
 

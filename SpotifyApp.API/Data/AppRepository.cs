@@ -115,6 +115,24 @@ namespace SpotifyApp.API.Data
             return await PagedList<AlbumUserRateDto>.CreateAsync(userRatesToReturn.OrderByDescending(x => x.DateOfRate), rankingParams.PageNumber, rankingParams.PageSize);
         }
 
+        public async Task<PagedList<ArtistUserRateDto>> GetMyArtistsRates(RankingParams rankingParams, int userId)
+        {
+            var userRates = this.context.ArtistRates.Where(x => x.UserId == userId);
+            var artistsId = userRates.Select(r => r.ArtistId);
+
+            var listFromSpotify = await GetArtistsInfoFromSpotify(artistsId);           
+
+            Dictionary<string, ArtistDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
+             var userRatesToReturn = userRates.Select(artist => new ArtistUserRateDto()
+            { 
+                Artist = this.mapper.Map<ArtistDto>(albumDictionary[artist.ArtistId]),
+                Rate = artist.Rate,
+                DateOfRate = artist.RatedDate
+            });
+
+            return await PagedList<ArtistUserRateDto>.CreateAsync(userRatesToReturn.OrderByDescending(x => x.DateOfRate), rankingParams.PageNumber, rankingParams.PageSize);
+        }
+
         public async Task<int> GetAlbumRateForUser(string albumId, int userId)
         {
             var albumRate =  await this.context.AlbumRates.FirstOrDefaultAsync(x => x.AlbumId == albumId && x.UserId == userId);
