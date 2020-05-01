@@ -1,0 +1,44 @@
+<ul *ngIf="isLoaded" class="list-group">
+  <li
+    *ngFor="let artist of artistRanking; let i = index"
+    class="list-group-item d-flex align-items-center"
+  >
+    <div class="ranking-number">
+      <h3>{{ rankingNumber + i }}</h3>
+    </div>
+    <a [routerLink]="['/artists', artist.artist.id]"
+      ><img
+        class="ranking-image"
+        src="{{ artist.artist.photoUrl }}"
+        alt="{{ artist.artist.name }}"
+    /></a>
+    <div class="artist-info">
+      <h5>
+        {{ artist.artist.name }}
+      </h5>
+    </div>
+    <div class="wrapper">
+      <h5>Your rate:</h5>
+      <h2>
+        <div class="star">★</div>
+
+        {{ artist.rate.toFixed(2) }}
+      </h2>
+    </div>
+  </li>
+</ul>
+
+<div *ngIf="isLoaded" class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>
