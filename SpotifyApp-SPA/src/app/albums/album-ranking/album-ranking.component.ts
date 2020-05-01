@@ -15,6 +15,7 @@ export class AlbumRankingComponent implements OnInit {
   isLoaded = false;
   pagination: Pagination;
   rankingParams: any = {};
+  rankingNumber = 1;
 
   constructor(
     private ratesService: RatesService,
@@ -30,6 +31,8 @@ export class AlbumRankingComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
+    this.rankingNumber =
+      this.pagination.currentPage * this.pagination.itemsPerPage - this.pagination.itemsPerPage + 1;
     this.loadMoreAlbums();
   }
 

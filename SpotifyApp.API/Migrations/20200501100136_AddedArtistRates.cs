@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SpotifyApp.API.Migrations
 {
-    public partial class ChangesInRatesEntity : Migration
+    public partial class AddedArtistRates : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,17 @@ namespace SpotifyApp.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Album", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Artist",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Artist", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,7 +48,7 @@ namespace SpotifyApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlbumsRates",
+                name: "AlbumRates",
                 columns: table => new
                 {
                     AlbumId = table.Column<string>(nullable: false),
@@ -47,15 +58,41 @@ namespace SpotifyApp.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumsRates", x => new { x.UserId, x.AlbumId });
+                    table.PrimaryKey("PK_AlbumRates", x => new { x.UserId, x.AlbumId });
                     table.ForeignKey(
-                        name: "FK_AlbumsRates_Album_AlbumId",
+                        name: "FK_AlbumRates_Album_AlbumId",
                         column: x => x.AlbumId,
                         principalTable: "Album",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AlbumsRates_Users_UserId",
+                        name: "FK_AlbumRates_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArtistRates",
+                columns: table => new
+                {
+                    ArtistId = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    Rate = table.Column<int>(nullable: false),
+                    RatedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArtistRates", x => new { x.UserId, x.ArtistId });
+                    table.ForeignKey(
+                        name: "FK_ArtistRates_Artist_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ArtistRates_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -84,9 +121,14 @@ namespace SpotifyApp.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AlbumsRates_AlbumId",
-                table: "AlbumsRates",
+                name: "IX_AlbumRates_AlbumId",
+                table: "AlbumRates",
                 column: "AlbumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArtistRates_ArtistId",
+                table: "ArtistRates",
+                column: "ArtistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_UserId",
@@ -98,13 +140,19 @@ namespace SpotifyApp.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AlbumsRates");
+                name: "AlbumRates");
+
+            migrationBuilder.DropTable(
+                name: "ArtistRates");
 
             migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "Album");
+
+            migrationBuilder.DropTable(
+                name: "Artist");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -48,7 +48,9 @@
     *ngFor="let album of albumRanking; let i = index"
     class="list-group-item d-flex align-items-center"
   >
-    <h3>{{ i + 1 }}</h3>
+    <div class="ranking-number">
+      <h3>{{ rankingNumber + i }}</h3>
+    </div>
     <a [routerLink]="['/albums', album.album.id]"
       ><img
         class="ranking-image"
