@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/_services/auth.service';
+import { RatesService } from 'src/app/_services/rates.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { AlbumService } from 'src/app/_services/album.service';
-import { Album } from 'src/app/_models/album';
-import { RatesService } from 'src/app/_services/rates.service';
-import { AlbumRate } from 'src/app/_models/albumRate';
-import { AuthService } from 'src/app/_services/auth.service';
+import { Artist } from 'src/app/_models/artist';
+import { ArtistRate } from 'src/app/_models/artistRate';
 
 @Component({
-  selector: 'app-album-detail',
-  templateUrl: './album-detail.component.html',
-  styleUrls: ['./album-detail.component.css'],
+  selector: 'app-artist-detail',
+  templateUrl: './artist-detail.component.html',
+  styleUrls: ['./artist-detail.component.css'],
 })
-export class AlbumDetailComponent implements OnInit {
-  album: Album;
+export class ArtistDetailComponent implements OnInit {
+  artist: Artist;
   max = 10;
   rate = 0;
   isReadonly = false;
 
   overStar: number | undefined;
   percent: number;
-
   constructor(
     private authService: AuthService,
     private ratesService: RatesService,
@@ -30,7 +28,7 @@ export class AlbumDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
-      this.album = data['album'];
+      this.artist = data['artist'];
     });
 
     this.loadRate();
@@ -45,14 +43,14 @@ export class AlbumDetailComponent implements OnInit {
   }
 
   saveRate(): void {
-    const albumRate: AlbumRate = {
+    const artistRate: ArtistRate = {
       rate: this.rate,
       ratedDate: new Date(),
-      albumId: this.album.id,
+      artistId: this.artist.id,
       userId: this.authService.decodedToken.nameid,
     };
 
-    this.ratesService.rateAlbum(albumRate).subscribe(
+    this.ratesService.rateArtist(artistRate).subscribe(
       () => {},
       (error) => {
         this.alertify.error(error);
@@ -62,7 +60,10 @@ export class AlbumDetailComponent implements OnInit {
 
   loadRate() {
     this.ratesService
-      .getAlbumRateForUser(this.album.id, this.authService.decodedToken.nameid)
+      .getArtistRateForUser(
+        this.artist.id,
+        this.authService.decodedToken.nameid
+      )
       .subscribe(
         (rate: number) => {
           this.rate = rate;

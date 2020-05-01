@@ -13,6 +13,8 @@ import { AlbumRankingResolver } from './_resolvers/album-ranking.resolver';
 import { MyCornerResolver } from './_resolvers/my-corner.resolver';
 import { ArtistRankingComponent } from './artist/artist-ranking/artist-ranking.component';
 import { ArtistRankingResolver } from './_resolvers/artist-ranking.resolver';
+import { ArtistDetailComponent } from './artist/artist-detail/artist-detail.component';
+import { ArtistDetailResolver } from './_resolvers/artist-detail.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +22,11 @@ export const appRoutes: Routes = [
     path: 'albums/:id',
     component: AlbumDetailComponent,
     resolve: { album: AlbumDetailResolver },
+  },
+  {
+    path: 'artists/:id',
+    component: ArtistDetailComponent,
+    resolve: { artist: ArtistDetailResolver },
   },
   { path: 'search', component: SearchPanelComponent },
   {

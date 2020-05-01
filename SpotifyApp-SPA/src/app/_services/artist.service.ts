@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Artist } from '../_models/artist';
 import { Observable } from 'rxjs';
-import { Album } from '../_models/album';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AlbumService {
+export class ArtistService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  getAlbum(id): Observable<Album> {
-    return this.http.get<Album>(this.baseUrl + 'albums/' + id);
+  getArtist(id): Observable<Artist> {
+    return this.http.get<Artist>(this.baseUrl + 'artists/' + id);
   }
 }
