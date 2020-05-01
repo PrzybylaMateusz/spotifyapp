@@ -41,7 +41,11 @@ export class AlbumDetailComponent implements OnInit {
   }
 
   resetStar(): void {
-    this.overStar = void 0;
+    if (this.rate === 0) {
+      this.overStar = void 0;
+    } else {
+      this.overStar = this.rate;
+    }
   }
 
   saveRate(): void {

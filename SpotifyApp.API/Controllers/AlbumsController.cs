@@ -28,7 +28,6 @@ namespace SpotifyApp.API.Controllers
             var album = await _spotifyData.GetSpotifyAlbum(id);
             return Ok(album);
         }
- 
 
         // POST api/values
         [HttpPost]

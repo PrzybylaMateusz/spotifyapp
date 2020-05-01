@@ -3,8 +3,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { RatesService } from 'src/app/_services/rates.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { Artist } from 'src/app/_models/artist';
 import { ArtistRate } from 'src/app/_models/artistRate';
+import { ArtistWithAlbums } from 'src/app/_models/artistWithAlbums';
 
 @Component({
   selector: 'app-artist-detail',
@@ -12,7 +12,7 @@ import { ArtistRate } from 'src/app/_models/artistRate';
   styleUrls: ['./artist-detail.component.css'],
 })
 export class ArtistDetailComponent implements OnInit {
-  artist: Artist;
+  artist: ArtistWithAlbums;
   max = 10;
   rate = 0;
   isReadonly = false;
@@ -39,7 +39,11 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   resetStar(): void {
-    this.overStar = void 0;
+    if (this.rate === 0) {
+      this.overStar = void 0;
+    } else {
+      this.overStar = this.rate;
+    }
   }
 
   saveRate(): void {

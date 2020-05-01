@@ -61,11 +61,12 @@ namespace SpotifyApp.API.Data
                 Id = albumFromSpotify.Id,
                 UserId = 1,
                 CoverUrl = albumFromSpotify.Images[0].Url,
-                Year = albumFromSpotify.ReleaseDate.Substring(0, 4)                
+                Year = albumFromSpotify.ReleaseDate.Substring(0, 4),
+                ArtistId = albumFromSpotify.Artists[0].Id                
             };
         }
 
-        public async Task<ArtistDto> GetSpotifyArtist(string id)
+        public async Task<ArtistWithAlbumsDto> GetSpotifyArtist(string id)
         {
             CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
             Token token = await auth.GetToken();
@@ -77,13 +78,28 @@ namespace SpotifyApp.API.Data
 
             FullArtist artistFromSpotify = await api.GetArtistAsync(id);
 
-            return new ArtistDto(){                
+            var albumsForArtist = await api.GetArtistsAlbumsAsync(id);
+
+            var albumsToReturn = new List<AlbumDto>();
+            foreach(var album in albumsForArtist.Items)
+            {
+                var albumToReturn = new AlbumDto();
+                albumToReturn.Artist = artistFromSpotify.Name;
+                albumToReturn.Name = album.Name;
+                albumToReturn.Id = album.Id;
+                albumToReturn.CoverUrl = album.Images[0].Url;
+                albumToReturn.UserId = 1;
+                albumToReturn.Year = album.ReleaseDate.Substring(0, 4);
+                albumsToReturn.Add(albumToReturn);
+            }
+
+            return new ArtistWithAlbumsDto(){                
                 Name = artistFromSpotify.Name,
                 Id = artistFromSpotify.Id,
-                PhotoUrl = artistFromSpotify.Images[0].Url,                
+                PhotoUrl = artistFromSpotify.Images[0].Url,
+                Albums = albumsToReturn                
             };
         }
-
 
         public async Task<IEnumerable<AlbumDto>> GetSpotifyAlbums(List<string> albumsIdToGet)
         {

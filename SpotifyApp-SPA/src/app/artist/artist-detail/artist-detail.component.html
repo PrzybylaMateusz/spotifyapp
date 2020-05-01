@@ -45,6 +45,32 @@
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset">
+          <tab heading="Artist albums">
+            <div class="row">
+              <div
+                *ngFor="let album of artist.albums"
+                class="col-lg-4 col-md-3 cols-sm-6"
+              >
+                <div class="card mb-2 mt-2" style="width: 13rem;">
+                  <div class="card-img-wrapper">
+                    <a [routerLink]="['/albums', album.id]">
+                      <img
+                        class="card-img-top"
+                        src="{{ album.coverUrl }}"
+                        alt="{{ album.name }}"
+                      />
+                    </a>
+                  </div>
+                  <div class="card-body p-1">
+                    <h6 class="card-title text-center mb-1">
+                      <i class="fa fa-dot-circle-o"></i>
+                      {{ album.name }}, {{ album.year }}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tab>
           <tab heading="Overview">
             <h4>Rates and comments</h4>
             <p>More info (rates and comments) about artist will go here</p>

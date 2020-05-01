@@ -8,20 +8,6 @@
           class="card-img-top img-thumbnail"
         />
         <div class="card-body">
-          <div>
-            <h5 class="card-title">Artist:</h5>
-            <p>{{ album.artist }}</p>
-          </div>
-          <div>
-            <h5 class="card-title">Title:</h5>
-            <p>{{ album.name }}</p>
-          </div>
-          <div>
-            <h5 class="card-title">Year:</h5>
-            <p>{{ album.year }}</p>
-          </div>
-        </div>
-        <div class="card-footer">
           <ul
             class="list-inline member-icons animate text-center"
             style="font-size: 28px; color: gold;"
@@ -43,7 +29,22 @@
             ></span>
             <div>{{ overStar }}/10</div>
           </ul>
+          <div>
+            <h5 class="card-title">Artist:</h5>
+            <a [routerLink]="['/artists', album.artistId]">
+              <p>{{ album.artist }}</p></a
+            >
+          </div>
+          <div>
+            <h5 class="card-title">Title:</h5>
+            <p>{{ album.name }}</p>
+          </div>
+          <div>
+            <h5 class="card-title">Year:</h5>
+            <p>{{ album.year }}</p>
+          </div>
         </div>
+        <div class="card-footer"></div>
       </div>
     </div>
     <div class="col-sm-8">
