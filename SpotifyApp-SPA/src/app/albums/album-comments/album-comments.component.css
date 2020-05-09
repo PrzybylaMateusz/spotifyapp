@@ -1,0 +1,39 @@
+.card {
+  border: none;
+}
+
+.comments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.comments li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #b3a9a9;
+}
+
+.rounded-circle {
+  height: 50px;
+  width: 50 px;
+}
+
+.card-body {
+  overflow-y: scroll;
+  height: 400px;
+}
+
+.comment-body {
+  padding-left: 60px;
+}
+
+.primary-font {
+  color: #000;
+}
+
+.btn {
+  padding: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+}

@@ -29,5 +29,8 @@ namespace SpotifyApp.API.Data
         Task<Artist> GetArtist(string artistId);
         void AddAlbum(Album album);
         void AddArtist(Artist artist);
+
+        Task<Comment> GetComment(int id);
+        Task<PagedList<Comment>> GetCommentsForAlbum(CommentParams commentParams);
     }
 }

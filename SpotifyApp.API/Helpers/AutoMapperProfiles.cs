@@ -18,6 +18,8 @@ namespace SpotifyApp.API.Helpers
             CreateMap<AlbumRateDto, AlbumRate>();
             CreateMap<ArtistRateDto, ArtistRate>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<CommentForCreationDto, Comment>().ReverseMap();
+            CreateMap<Comment, CommentToReturnDto>();
         }
     }
 }
