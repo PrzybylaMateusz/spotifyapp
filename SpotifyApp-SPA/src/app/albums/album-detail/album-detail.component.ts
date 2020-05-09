@@ -20,6 +20,7 @@ export class AlbumDetailComponent implements OnInit {
 
   overStar: number | undefined;
   percent: number;
+  comment: string;
 
   constructor(
     private authService: AuthService,

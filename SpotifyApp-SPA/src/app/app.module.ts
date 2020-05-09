@@ -42,6 +42,8 @@ import { ArtistDetailResolver } from './_resolvers/artist-detail.resolver';
 import { MyLatestAlbumsComponent } from './users/user-board/my-latest-albums/my-latest-albums.component';
 import { MyLatestArtistsComponent } from './users/user-board/my-latest-artists/my-latest-artists.component';
 import { MyArtistsResolver } from './_resolvers/my-artists.resolver';
+import { CommentsResolver } from './_resolvers/comments.resolver';
+import { AlbumCommentsComponent } from './albums/album-comments/album-comments.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -66,6 +68,7 @@ export function tokenGetter() {
     UserEditComponent,
     MyLatestAlbumsComponent,
     MyLatestArtistsComponent,
+    AlbumCommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ export function tokenGetter() {
     ArtistRankingResolver,
     MyCornerResolver,
     MyArtistsResolver,
+    CommentsResolver,
   ],
   bootstrap: [AppComponent],
 })

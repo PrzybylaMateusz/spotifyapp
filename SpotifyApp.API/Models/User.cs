@@ -14,6 +14,7 @@ namespace SpotifyApp.API.Models
         public string About { get; set; }
         public ICollection<AlbumRate> AlbumRates { get; set; }
         public ICollection<ArtistRate> ArtistRates { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public Photo Photo { get; set;}
     }
 }

@@ -249,6 +249,23 @@ namespace SpotifyApp.API.Data
 
             return listFromSpotify;
         }
+
+        public async Task<PagedList<Comment>> GetCommentsForAlbum(CommentParams commentParams)
+        {
+            var comments = this.context.Comments
+            .Include(u => u.Commenter).ThenInclude(p => p.Photo)
+            .AsQueryable()
+            .Where(a => a.AlbumId == commentParams.AlbumId);
+
+            comments = comments.OrderByDescending(d => d.CommentSent);
+
+            return await PagedList<Comment>.CreateAsync(comments, commentParams.PageNumber, commentParams.PageSize);
+        }
+
+        public async Task<Comment> GetComment(int id)
+        {
+            return await this.context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }
 

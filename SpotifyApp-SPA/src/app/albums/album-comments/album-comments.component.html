@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-body">
+    <div *ngIf="comments?.length === 0">
+      <p>No comments yet... write first comment</p>
+    </div>
+    <ul class="comments">
+      <li *ngFor="let comment of comments">
+        <span class="comment-img float-left">
+          <img
+            src="{{ comment.commenterPhotoUrl }}"
+            alt="{{ comment.commenterUsername }}"
+            class="rounded-circle"
+          />
+        </span>
+        <div class="comment-body">
+          <div class="header">
+            <strong class="primary-font">{{
+              comment.commenterUsername
+            }}</strong>
+            <small class="text-muted float-right">
+              <span class="fa fa-clock-o">{{
+                comment.commentSent | date
+              }}</span>
+            </small>
+          </div>
+          <button
+            *ngIf="comment.commenterId == userId"
+            class="btn btn-primary float-right"
+            (click)="deleteComment(comment.id)"
+          >
+            Delete
+          </button>
+          <p>
+            {{ comment.commentContent }}
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <form #commentForm="ngForm" (ngSubmit)="commentForm.valid && addComment()">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="newComment.commentContent"
+          name="commentContent"
+          required
+          class="form-control input-sm"
+          placeholder="write a comment"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-primary" [disabled]="!commentForm.valid">
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

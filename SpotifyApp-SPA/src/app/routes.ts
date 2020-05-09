@@ -17,6 +17,8 @@ import { ArtistDetailComponent } from './artist/artist-detail/artist-detail.comp
 import { ArtistDetailResolver } from './_resolvers/artist-detail.resolver';
 import { MyLatestAlbumsComponent } from './users/user-board/my-latest-albums/my-latest-albums.component';
 import { MyArtistsResolver } from './_resolvers/my-artists.resolver';
+import { AlbumCommentsComponent } from './albums/album-comments/album-comments.component';
+import { CommentsResolver } from './_resolvers/comments.resolver';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -59,6 +61,11 @@ export const appRoutes: Routes = [
     component: UserEditComponent,
     resolve: { user: UserEditResolver },
     canDeactivate: [PreventUnsavedChanges],
+  },
+  {
+    path: 'comments/:userId/:albumId',
+    component: AlbumCommentsComponent,
+    resolve: { comments: CommentsResolver },
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
