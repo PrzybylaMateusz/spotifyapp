@@ -52,7 +52,7 @@ namespace SpotifyApp.API.Data
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
-
+            
             FullAlbum albumFromSpotify = await api.GetAlbumAsync(id);
 
             return new AlbumDto(){

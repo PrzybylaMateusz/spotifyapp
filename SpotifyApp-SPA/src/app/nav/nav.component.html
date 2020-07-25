@@ -19,6 +19,14 @@
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <button
+        *ngIf="!connected"
+        class="btn btn-success my-2 my-sm-0"
+        (click)="connectWithSpotify()"
+      >
+        Connect with spotify
+      </button>
+
       <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{ authService.decodedToken?.unique_name | titlecase }}
       </a>
@@ -37,7 +45,7 @@
     <form
       *ngIf="!loggedIn()"
       #loginForm="ngForm"
-      class="form-inline my-2 my-lg-0"
+      class="form-inline my-2 my-sm-0"
       (ngSubmit)="login()"
     >
       <input
@@ -66,11 +74,48 @@
     </form>
   </div>
 </nav>
-<nav class="navbar navbar-center navbar-dark bg-dark navbar-lower">
-  <div class="form-group">
-    <!-- <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search music">
-      </form>  -->
+<nav
+  *ngIf="loggedIn() && connected && isTrackPlayed"
+  class="navbar navbar-center navbar-dark bg-dark navbar-current"
+>
+  <div class="row">
+    <div *ngIf="trackVisible" class="track-container row">
+      <img
+        class="ranking-image"
+        src="{{ currentylPlayed.album.coverUrl }}"
+        alt="{{ currentylPlayed.album.name }}"
+      />
+      <div class="current-track-info">
+        <h4>CURRENT TRACK:</h4>
+        <h6>Title: {{ currentylPlayed.trackName }}</h6>
+        <h6>Artist: {{ currentylPlayed.album.artist }}</h6>
+        <h6>Album: {{ currentylPlayed.album.name }}</h6>
+        <h5>Rate this album:</h5>
+        <ul
+          class="list-inline member-icons animate text-center"
+          style="font-size: 28px; color: gold;"
+        >
+          <rating
+            [(ngModel)]="rate"
+            [max]="max"
+            [readonly]="isReadonly"
+            (onHover)="hoveringOver($event)"
+            (onLeave)="resetStar()"
+            (ngModelChange)="saveRate()"
+            [titles]="['one', 'two', 'three']"
+          ></rating>
+          <span
+            class="label"
+            [ngStyle]="{
+              display: overStar && !isReadonly ? 'inline' : 'none'
+            }"
+          ></span>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="trackVisible" class="arrow-up">
+      <i class="fa fa-chevron-up" (click)="onArrowUpClick()"></i>
+    </div>
     <div class="input-group">
       <input
         class="form-control"
@@ -79,6 +124,9 @@
         name="search"
         (keyup.enter)="onKey($event)"
       />
+      <div *ngIf="!trackVisible" class="arrow-down">
+        <i class="fa fa-chevron-down" (click)="onArrowDownClick()"></i>
+      </div>
     </div>
   </div>
 </nav>
