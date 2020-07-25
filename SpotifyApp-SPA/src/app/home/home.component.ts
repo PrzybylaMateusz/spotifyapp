@@ -11,12 +11,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    localStorage.removeItem('tokenSpotify');
-    const match = window.location.hash.match(/#access_token=(.*?)&/);
-    const token = match && match[1];
-    localStorage.setItem('tokenSpotify', token);
-  }
+  ngOnInit() {}
 
   registerToggle() {
     this.registerMode = true;
