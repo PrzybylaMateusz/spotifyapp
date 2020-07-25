@@ -40,8 +40,8 @@ export class AuthService {
   }
 
   connectWithSpotify() {
-    let client_id = '69bbb47bc12a4a7cba51c70bc2ea6764';
-    let redirect_uri = 'http://localhost:4200';
+    const client_id = '69bbb47bc12a4a7cba51c70bc2ea6764';
+    const redirect_uri = 'http://localhost:4200/my';
 
     window.location.replace(
       `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}`

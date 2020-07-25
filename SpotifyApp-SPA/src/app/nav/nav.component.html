@@ -1,78 +1,81 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" [routerLink]="['/home']"
-      ><i class="fa fa-music"></i>Music Corner</a
+  <a class="navbar-brand" [routerLink]="['/my']"
+    ><i class="fa fa-music"></i>Music Corner</a
+  >
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/artistsranking']">Artists Ranking</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/albumsranking']">Albums Ranking</a>
+    </li>
+    <li *ngIf="loggedIn()" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/my']">My Music Corner</a>
+    </li>
+  </ul>
+
+  <input
+    class="form-control"
+    placeholder="Search music"
+    type="search"
+    name="search"
+    (keyup.enter)="onKey($event)"
+  />
+  <div *ngIf="loggedIn()" class="dropdown" dropdown>
+    <button
+      *ngIf="!connected"
+      class="btn btn-success my-2 my-sm-0 px-3 mr-3"
+      (click)="connectWithSpotify()"
     >
+      Connect with spotify
+    </button>
 
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/artistsranking']"
-          >Artists Ranking</a
-        >
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/albumsranking']">Albums Ranking</a>
-      </li>
-      <li *ngIf="loggedIn()" class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/my']">My Music Corner</a>
-      </li>
-    </ul>
+    <a class="dropdown-toggle text-light" dropdownToggle>
+      Welcome {{ authService.decodedToken?.unique_name | titlecase }}
+    </a>
 
-    <div *ngIf="loggedIn()" class="dropdown" dropdown>
-      <button
-        *ngIf="!connected"
-        class="btn btn-success my-2 my-sm-0"
-        (click)="connectWithSpotify()"
+    <div class="dropdown-menu mt-3" *dropdownMenu>
+      <a class="dropdown-item" [routerLink]="['/user/edit']" href="#"
+        ><i class="fa fa-user"></i>Edit Profile</a
       >
-        Connect with spotify
-      </button>
-
-      <a class="dropdown-toggle text-light" dropdownToggle>
-        Welcome {{ authService.decodedToken?.unique_name | titlecase }}
-      </a>
-
-      <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" [routerLink]="['/user/edit']" href="#"
-          ><i class="fa fa-user"></i>Edit Profile</a
-        >
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item enabled" (click)="logout()"
-          ><i class="fa fa-sign-out"></i>Logout</a
-        >
-      </div>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item enabled" (click)="logout()"
+        ><i class="fa fa-sign-out"></i>Logout</a
+      >
     </div>
-
-    <form
-      *ngIf="!loggedIn()"
-      #loginForm="ngForm"
-      class="form-inline my-2 my-sm-0"
-      (ngSubmit)="login()"
-    >
-      <input
-        class="form-control mr-sm-2"
-        type="text"
-        name="username"
-        placeholder="Username"
-        required
-        [(ngModel)]="model.username"
-      />
-      <input
-        class="form-control mr-sm-2"
-        type="password"
-        name="password"
-        placeholder="Password"
-        required
-        [(ngModel)]="model.password"
-      />
-      <button
-        [disabled]="!loginForm.valid"
-        class="btn btn-success my-2 my-sm-0"
-        type="submit"
-      >
-        Login
-      </button>
-    </form>
   </div>
+
+  <form
+    *ngIf="!loggedIn()"
+    #loginForm="ngForm"
+    class="form-inline my-2 my-sm-0"
+    (ngSubmit)="login()"
+  >
+    <input
+      class="form-control mr-sm-2"
+      type="text"
+      name="username"
+      placeholder="Username"
+      required
+      [(ngModel)]="model.username"
+    />
+    <input
+      class="form-control mr-sm-2"
+      type="password"
+      name="password"
+      placeholder="Password"
+      required
+      [(ngModel)]="model.password"
+    />
+    <button
+      [disabled]="!loginForm.valid"
+      class="btn btn-success my-2 my-sm-0"
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
 </nav>
 <nav
   *ngIf="loggedIn() && connected && isTrackPlayed"
@@ -88,45 +91,30 @@
       <div class="current-track-info">
         <h4>CURRENT TRACK:</h4>
         <h6>Title: {{ currentylPlayed.trackName }}</h6>
-        <h6>Artist: {{ currentylPlayed.album.artist }}</h6>
-        <h6>Album: {{ currentylPlayed.album.name }}</h6>
-        <h5>Rate this album:</h5>
-        <ul
-          class="list-inline member-icons animate text-center"
-          style="font-size: 28px; color: gold;"
+
+        <a [routerLink]="['/artists', currentylPlayed.album.artistId]"
+          ><h6>Artist: {{ currentylPlayed.album.artist }}</h6></a
         >
+        <a [routerLink]="['/albums', currentylPlayed.album.id]">
+          <h6>Album: {{ currentylPlayed.album.name }}</h6></a
+        >
+        <h5>Rate this album:</h5>
+        <ul class="list-inline member-icons animate text-center">
           <rating
             [(ngModel)]="rate"
             [max]="max"
             [readonly]="isReadonly"
-            (onHover)="hoveringOver($event)"
-            (onLeave)="resetStar()"
             (ngModelChange)="saveRate()"
             [titles]="['one', 'two', 'three']"
           ></rating>
-          <span
-            class="label"
-            [ngStyle]="{
-              display: overStar && !isReadonly ? 'inline' : 'none'
-            }"
-          ></span>
         </ul>
       </div>
     </div>
     <div *ngIf="trackVisible" class="arrow-up">
       <i class="fa fa-chevron-up" (click)="onArrowUpClick()"></i>
     </div>
-    <div class="input-group">
-      <input
-        class="form-control"
-        placeholder="Search music"
-        type="search"
-        name="search"
-        (keyup.enter)="onKey($event)"
-      />
-      <div *ngIf="!trackVisible" class="arrow-down">
-        <i class="fa fa-chevron-down" (click)="onArrowDownClick()"></i>
-      </div>
+    <div *ngIf="!trackVisible" class="arrow-down">
+      <i class="fa fa-chevron-down" (click)="onArrowDownClick()"></i>
     </div>
   </div>
 </nav>

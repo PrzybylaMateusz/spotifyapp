@@ -13,3 +13,8 @@
   background-color: #ffff;
   border-top: none;
 }
+
+.list-inline {
+  font-size: 28px;
+  color: gold;
+}
