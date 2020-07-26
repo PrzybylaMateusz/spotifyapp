@@ -1,10 +1,10 @@
-import { catchError } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { RatesService } from '../_services/rates.service';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ArtistAverageRate } from '../_models/artistAverageRate';
 import { AlertifyService } from '../_services/alertify.service';
-import { Injectable } from '@angular/core';
+import { RatesService } from '../_services/rates.service';
 
 @Injectable()
 export class MyArtistsResolver implements Resolve<ArtistAverageRate[]> {

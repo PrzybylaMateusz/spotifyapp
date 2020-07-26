@@ -1,6 +1,5 @@
 <ul *ngIf="isLoaded" class="list-group">
   <div class="text-center mt-3"><h2>Best artists</h2></div>
-
   <li
     *ngFor="let artist of artistRanking; let i = index"
     class="list-group-item d-flex align-items-center"
@@ -15,9 +14,11 @@
         alt="{{ artist.artist.name }}"
     /></a>
     <div class="artist-info">
-      <h5>
-        {{ artist.artist.name }}
-      </h5>
+      <a [routerLink]="['/artists', artist.artist.id]">
+        <h5>
+          {{ artist.artist.name }}
+        </h5></a
+      >
     </div>
     <div class="wrapper">
       <h2>
@@ -29,7 +30,6 @@
     </div>
   </li>
 </ul>
-
 <div class="d-flex justify-content-center">
   <pagination
     [boundaryLinks]="true"

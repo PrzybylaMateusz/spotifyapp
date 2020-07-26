@@ -19,8 +19,6 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-import { RankingsComponent } from './rankings/rankings.component';
-import { ArtistComponent } from './artist/artist.component';
 import { appRoutes } from './routes';
 import { UserBoardComponent } from './users/user-board/user-board.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -55,8 +53,6 @@ export function tokenGetter() {
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    RankingsComponent,
-    ArtistComponent,
     UserBoardComponent,
     AlbumCardComponent,
     ArtistCardComponent,

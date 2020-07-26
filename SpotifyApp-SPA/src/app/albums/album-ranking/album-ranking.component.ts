@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RatesService } from 'src/app/_services/rates.service';
-import { AlertifyService } from 'src/app/_services/alertify.service';
-import { AlbumAverageRate } from 'src/app/_models/albumAverageRate';
 import { ActivatedRoute } from '@angular/router';
-import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
+import { AlbumAverageRate } from 'src/app/_models/albumAverageRate';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-album-ranking',
@@ -32,7 +32,9 @@ export class AlbumRankingComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.rankingNumber =
-      this.pagination.currentPage * this.pagination.itemsPerPage - this.pagination.itemsPerPage + 1;
+      this.pagination.currentPage * this.pagination.itemsPerPage -
+      this.pagination.itemsPerPage +
+      1;
     this.loadMoreAlbums();
   }
 

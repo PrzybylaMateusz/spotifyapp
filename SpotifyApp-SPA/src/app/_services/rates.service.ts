@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AlbumAverageRate } from '../_models/albumAverageRate';
-import { PaginatedResult } from '../_models/pagination';
 import { AlbumUserRate } from '../_models/albumUserRate';
 import { ArtistAverageRate } from '../_models/artistAverageRate';
 import { ArtistUserRate } from '../_models/artistUserRate';
+import { PaginatedResult } from '../_models/pagination';
 
 @Injectable({
   providedIn: 'root',

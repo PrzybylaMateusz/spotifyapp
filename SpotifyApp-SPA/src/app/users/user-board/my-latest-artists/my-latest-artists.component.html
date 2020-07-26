@@ -13,9 +13,11 @@
         alt="{{ artist.artist.name }}"
     /></a>
     <div class="artist-info">
-      <h5>
-        {{ artist.artist.name }}
-      </h5>
+      <a [routerLink]="['/artists', artist.artist.id]">
+        <h5>
+          {{ artist.artist.name }}
+        </h5></a
+      >
     </div>
     <div class="wrapper">
       <h5>Your rate:</h5>
@@ -27,7 +29,6 @@
     </div>
   </li>
 </ul>
-
 <div *ngIf="isLoaded" class="d-flex justify-content-center">
   <pagination
     [boundaryLinks]="true"

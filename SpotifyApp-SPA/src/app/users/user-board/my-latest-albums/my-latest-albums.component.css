@@ -24,6 +24,10 @@
   width: 65%;
 }
 
+a {
+  color: #919aa1;
+}
+
 .number-of-rates {
   margin: auto;
   width: 70%;

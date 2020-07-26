@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ArtistAverageRate } from 'src/app/_models/artistAverageRate';
-import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
-import { RatesService } from 'src/app/_services/rates.service';
 import { ActivatedRoute } from '@angular/router';
+import { ArtistAverageRate } from 'src/app/_models/artistAverageRate';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-artist-ranking',

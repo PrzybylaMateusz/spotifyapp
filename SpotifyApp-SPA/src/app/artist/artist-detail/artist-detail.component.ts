@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/_services/auth.service';
-import { RatesService } from 'src/app/_services/rates.service';
-import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistRate } from 'src/app/_models/artistRate';
 import { ArtistWithAlbums } from 'src/app/_models/artistWithAlbums';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-artist-detail',

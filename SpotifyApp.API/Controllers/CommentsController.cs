@@ -67,21 +67,21 @@ namespace SpotifyApp.API.Controllers
 
             var album = await this.repo.GetAlbum(commentForCreationDto.AlbumId);
 
-            if(album == null)
+             if(album == null)
             {
-                return BadRequest("Could not find album");
-            }                
+                repo.AddAlbum(new Album {Id = commentForCreationDto.AlbumId});
+            }              
 
             var comment = this.mapper.Map<Comment>(commentForCreationDto);
-            this.repo.Add(comment);            
+            this.repo.Add(comment);
 
-            if(await this.repo.SaveAll())
+            if (!await this.repo.SaveAll())
             {
-                var commentToReturn = this.mapper.Map<CommentToReturnDto>(comment);
-                return CreatedAtRoute("GetComment", new {userId = userId, albumId = albumId, id = comment.Id}, commentToReturn);
+                throw new Exception("Creating the comment failed on save");
             }
+            var commentToReturn = this.mapper.Map<CommentToReturnDto>(comment);
+            return CreatedAtRoute("GetComment", new { userId, albumId, id = comment.Id}, commentToReturn);
 
-            throw new Exception("Creating the comment failed on save");
         }
 
         [HttpDelete("{id}")]

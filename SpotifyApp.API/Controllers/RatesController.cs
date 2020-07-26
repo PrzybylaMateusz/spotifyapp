@@ -14,15 +14,13 @@ namespace SpotifyApp.API.Controllers
     [ApiController]
     public class RatesController: ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly IAppRepository _appRepository;
-        private readonly ISpotifyData _spotifyData;
+        private readonly IMapper mapper;
+        private readonly IAppRepository appRepository;
 
-        public RatesController(IMapper mapper, IAppRepository appRepository, ISpotifyData spotifyData)
+        public RatesController(IMapper mapper, IAppRepository appRepository)
         {
-            _mapper = mapper;
-            _appRepository = appRepository;
-            _spotifyData = spotifyData;
+            this.mapper = mapper;
+            this.appRepository = appRepository;
         }
 
         [HttpPost("album")]
@@ -31,73 +29,75 @@ namespace SpotifyApp.API.Controllers
             if (albumRateDto.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var rate = await _appRepository.GetAlbumRate(albumRateDto.UserId, albumRateDto.AlbumId);
+            var rate = await appRepository.GetAlbumRate(albumRateDto.UserId, albumRateDto.AlbumId);
             
             if(rate != null)
             {
                 rate.Rate = albumRateDto.Rate;
                 rate.RatedDate = albumRateDto.RatedDate;
-                if(await _appRepository.SaveAll())
+                if(await appRepository.SaveAll())
                 {
                     return Ok();
                 }
                 return BadRequest("Failed to rate album");
             }
 
-            if(await _appRepository.GetAlbum(albumRateDto.AlbumId) == null)
+            if(await appRepository.GetAlbum(albumRateDto.AlbumId) == null)
             {
-                _appRepository.AddAlbum(new Album {Id = albumRateDto.AlbumId});
+                appRepository.AddAlbum(new Album {Id = albumRateDto.AlbumId});
             }
 
-            rate = _mapper.Map<AlbumRate>(albumRateDto);
+            rate = mapper.Map<AlbumRate>(albumRateDto);
 
-            _appRepository.Add<AlbumRate>(rate);
-             if(await _appRepository.SaveAll())
-                {
-                    return Ok();
-                }
-                return BadRequest("Failed to rate album");
+            appRepository.Add(rate);
+            if(await appRepository.SaveAll())
+            {
+                return Ok();
+            }
+            return BadRequest("Failed to rate album");
         }
         
         [HttpPost("artist")]
         public async Task<IActionResult> RateArtist(ArtistRateDto artistRateDto)
         {
             if (artistRateDto.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
                 return Unauthorized();
+            }
 
-            var rate = await _appRepository.GetArtistRate(artistRateDto.UserId, artistRateDto.ArtistId);
+            var rate = await appRepository.GetArtistRate(artistRateDto.UserId, artistRateDto.ArtistId);
             
             if(rate != null)
             {
                 rate.Rate = artistRateDto.Rate;
                 rate.RatedDate = artistRateDto.RatedDate;
-                if(await _appRepository.SaveAll())
+                if(await appRepository.SaveAll())
                 {
                     return Ok();
                 }
                 return BadRequest("Failed to rate artist");
             }
 
-            if(await _appRepository.GetArtist(artistRateDto.ArtistId) == null)
+            if(await appRepository.GetArtist(artistRateDto.ArtistId) == null)
             {
-                _appRepository.AddArtist(new Artist {Id = artistRateDto.ArtistId});
+                appRepository.AddArtist(new Artist {Id = artistRateDto.ArtistId});
             }
 
-            rate = _mapper.Map<ArtistRate>(artistRateDto);
+            rate = mapper.Map<ArtistRate>(artistRateDto);
 
-            _appRepository.Add<ArtistRate>(rate);
-             if(await _appRepository.SaveAll())
-                {
-                    return Ok();
-                }
-                return BadRequest("Failed to rate artist");
+            appRepository.Add(rate);
+            if(await appRepository.SaveAll())
+            {
+                return Ok();
+            }
+            return BadRequest("Failed to rate artist");
         }
 
         [AllowAnonymous]
         [HttpGet("{albumId}/{userId}")]
         public async Task<IActionResult> GetAlbumRateForUser(string albumId, int userId)
         {
-            var rate = await _appRepository.GetAlbumRateForUser(albumId, userId);
+            var rate = await appRepository.GetAlbumRateForUser(albumId, userId);
             return Ok(rate);
         }
 
@@ -105,7 +105,7 @@ namespace SpotifyApp.API.Controllers
         [HttpGet("artist/{artistId}/{userId}")]
         public async Task<IActionResult> GetArtistRateForUser(string artistId, int userId)
         {
-            var rate = await _appRepository.GetArtistRateForUser(artistId, userId);
+            var rate = await appRepository.GetArtistRateForUser(artistId, userId);
             return Ok(rate);
         }
 
@@ -114,7 +114,7 @@ namespace SpotifyApp.API.Controllers
         [HttpGet("albumranking")]
         public async Task<IActionResult> GetAlbumRanking([FromQuery]RankingParams rankingParams)
         {
-            var allRates = await _appRepository.GetAllAlbumsRate(rankingParams);   
+            var allRates = await appRepository.GetAllAlbumsRate(rankingParams);   
             
             Response.AddPagination(allRates.CurrentPage, allRates.PageSize, allRates.TotalCount, allRates.TotalPages);
 
@@ -125,7 +125,7 @@ namespace SpotifyApp.API.Controllers
         [HttpGet("artistranking")]
         public async Task<IActionResult> GetArtistRanking([FromQuery]RankingParams rankingParams)
         {
-            var allRates = await _appRepository.GetAllArtistsRate(rankingParams);   
+            var allRates = await appRepository.GetAllArtistsRate(rankingParams);   
             
             Response.AddPagination(allRates.CurrentPage, allRates.PageSize, allRates.TotalCount, allRates.TotalPages);
 
@@ -138,20 +138,20 @@ namespace SpotifyApp.API.Controllers
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var myRates = await _appRepository.GetMyRates(rankingParams, userId);   
+            var myRates = await appRepository.GetMyRates(rankingParams, userId);   
             
             Response.AddPagination(myRates.CurrentPage, myRates.PageSize, myRates.TotalCount, myRates.TotalPages);
 
             return Ok(myRates);
         }
 
-         [AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet("myartistsrates")]
         public async Task<IActionResult> GetMyArtistsRates([FromQuery]RankingParams rankingParams)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var myRates = await _appRepository.GetMyArtistsRates(rankingParams, userId);   
+            var myRates = await appRepository.GetMyArtistsRates(rankingParams, userId);   
             
             Response.AddPagination(myRates.CurrentPage, myRates.PageSize, myRates.TotalCount, myRates.TotalPages);
 

@@ -1,10 +1,10 @@
-import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { AlbumAverageRate } from '../_models/albumAverageRate';
-import { of, Observable } from 'rxjs';
-import { RatesService } from '../_services/rates.service';
-import { AlertifyService } from '../_services/alertify.service';
-import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AlbumAverageRate } from '../_models/albumAverageRate';
+import { AlertifyService } from '../_services/alertify.service';
+import { RatesService } from '../_services/rates.service';
 
 @Injectable()
 export class AlbumRankingResolver implements Resolve<AlbumAverageRate[]> {

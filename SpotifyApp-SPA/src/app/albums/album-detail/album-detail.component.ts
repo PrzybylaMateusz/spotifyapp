@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { AlbumService } from 'src/app/_services/album.service';
 import { Album } from 'src/app/_models/album';
-import { RatesService } from 'src/app/_services/rates.service';
 import { AlbumRate } from 'src/app/_models/albumRate';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-album-detail',
@@ -58,7 +57,9 @@ export class AlbumDetailComponent implements OnInit {
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
-      () => {},
+      () => {
+        this.alertify.success('You have rated album: ' + this.album.name);
+      },
       (error) => {
         this.alertify.error(error);
       }

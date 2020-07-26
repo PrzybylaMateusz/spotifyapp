@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.Web;
-using SpotifyAPI.Web.Models;
 using SpotifyApp.API.Dtos;
 
 namespace SpotifyApp.API.Controllers
@@ -12,13 +11,9 @@ namespace SpotifyApp.API.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        private readonly string _clientId = "69bbb47bc12a4a7cba51c70bc2ea6764";
-        private readonly string _secret = "a85e6ed0212a4c83b1326213d358720e";
         private static SpotifyWebAPI _spotify;
 
-        private static string track = "";
-
-         [AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet("{tokenSpotify}")]
         public async Task<IActionResult> GetTrack(string tokenSpotify)
         {
@@ -28,7 +23,7 @@ namespace SpotifyApp.API.Controllers
                     TokenType = "Bearer"
                 };
 
-                PlaybackContext context = await _spotify.GetPlayingTrackAsync();
+            var context = await _spotify.GetPlayingTrackAsync();
 
             if(context.Item == null)
             {
@@ -36,8 +31,6 @@ namespace SpotifyApp.API.Controllers
             }
 
             var currentAlbum = context.Item.Album;
-
-
 
             var album = new AlbumDto(){
                 Artist = string.Join(",", context.Item.Artists[0].Name),

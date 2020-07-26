@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Album } from 'src/app/_models/album';
-import { AlertifyService } from 'src/app/_services/alertify.service';
-import { RatesService } from 'src/app/_services/rates.service';
 import { AlbumRate } from 'src/app/_models/albumRate';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-album-card',
@@ -36,7 +36,7 @@ export class AlbumCardComponent implements OnInit {
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
-      (data) => {
+      () => {
         this.alertify.success('You have rated album: ' + this.album.name);
       },
       (error) => {
