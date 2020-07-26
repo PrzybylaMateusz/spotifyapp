@@ -2,11 +2,11 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
-      "AutoMapper/9.0.0": {
+      "AutoMapper/10.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0",
-          "System.Reflection.Emit": "4.3.0"
+          "Microsoft.CSharp": "4.7.0",
+          "System.Reflection.Emit": "4.7.0"
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.dll": {}
@@ -15,11 +15,12 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/8.0.1": {
         "type": "package",
         "dependencies": {
-          "AutoMapper": "9.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
+          "AutoMapper": "[10.0.0, 11.0.0)",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Options": "3.0.0"
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
@@ -61,10 +62,10 @@
           "lib/netstandard1.3/CloudinaryDotNet.dll": {}
         }
       },
-      "EmbedIO/2.2.7": {
+      "EmbedIO/2.9.2": {
         "type": "package",
         "dependencies": {
-          "Unosquare.Swan.Lite": "0.38.1"
+          "Unosquare.Swan.Lite": "1.3.1"
         },
         "compile": {
           "lib/netstandard2.0/Unosquare.Labs.EmbedIO.dll": {}
@@ -606,7 +607,7 @@
           "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {}
         }
       },
-      "Microsoft.NETCore.Platforms/2.0.0": {
+      "Microsoft.NETCore.Platforms/2.1.2": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -716,7 +717,7 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/12.0.2": {
+      "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
@@ -970,10 +971,10 @@
           }
         }
       },
-      "SpotifyAPI.Web/4.1.0": {
+      "SpotifyAPI.Web/5.1.1": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "12.0.1"
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "lib/netstandard2.0/SpotifyAPI.Web.dll": {}
@@ -982,11 +983,11 @@
           "lib/netstandard2.0/SpotifyAPI.Web.dll": {}
         }
       },
-      "SpotifyAPI.Web.Auth/4.1.0": {
+      "SpotifyAPI.Web.Auth/5.1.1": {
         "type": "package",
         "dependencies": {
-          "EmbedIO": "2.2.7",
-          "SpotifyAPI.Web": "3.0.0"
+          "EmbedIO": "2.9.2",
+          "SpotifyAPI.Web": "5.1.1"
         },
         "compile": {
           "lib/netstandard2.0/SpotifyAPI.Web.Auth.dll": {}
@@ -1754,20 +1755,13 @@
           "ref/netstandard1.5/System.Reflection.dll": {}
         }
       },
-      "System.Reflection.Emit/4.3.0": {
+      "System.Reflection.Emit/4.7.0": {
         "type": "package",
-        "dependencies": {
-          "System.IO": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        },
         "compile": {
-          "ref/netstandard1.1/System.Reflection.Emit.dll": {}
+          "ref/netcoreapp2.0/_._": {}
         },
         "runtime": {
-          "lib/netstandard1.3/System.Reflection.Emit.dll": {}
+          "lib/netcoreapp2.0/_._": {}
         }
       },
       "System.Reflection.Emit.ILGeneration/4.3.0": {
@@ -1778,7 +1772,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
+          "ref/netstandard1.0/_._": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -2316,14 +2310,14 @@
           "ref/netstandard1.3/System.Text.Encoding.dll": {}
         }
       },
-      "System.Text.Encoding.CodePages/4.5.0": {
+      "System.Text.Encoding.CodePages/4.5.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "2.0.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.0"
+          "Microsoft.NETCore.Platforms": "2.1.2",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
-          "ref/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
+          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {}
@@ -2417,18 +2411,6 @@
         },
         "runtime": {
           "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll": {}
-        }
-      },
-      "System.Threading.Thread/4.3.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.3.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Threading.Thread.dll": {}
         }
       },
       "System.Threading.Timer/4.3.0": {
@@ -2540,13 +2522,12 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Unosquare.Swan.Lite/0.38.1": {
+      "Unosquare.Swan.Lite/1.3.1": {
         "type": "package",
         "dependencies": {
           "System.ComponentModel.TypeConverter": "4.3.0",
           "System.Reflection.TypeExtensions": "4.5.1",
-          "System.Text.Encoding.CodePages": "4.5.0",
-          "System.Threading.Thread": "4.3.0"
+          "System.Text.Encoding.CodePages": "4.5.1"
         },
         "compile": {
           "lib/netstandard2.0/Unosquare.Swan.Lite.dll": {}
@@ -2558,34 +2539,33 @@
     }
   },
   "libraries": {
-    "AutoMapper/9.0.0": {
-      "sha512": "xCqvoxT4HIrNY/xlXG9W+BA/awdrhWvMTKTK/igkGSRbhOhpl3Q8O8Gxlhzjc9JsYqE7sS6AxgyuUUvZ6R5/Bw==",
+    "AutoMapper/10.0.0": {
+      "sha512": "T09NoqMZBqw0/JEauXulxnmmerl0Zj03e0r6VCcJ0LURWBIaYxZPPoiDv8bHf5Y4x2xcXJp4JPXoCaeOMJfHEA==",
       "type": "package",
-      "path": "automapper/9.0.0",
+      "path": "automapper/10.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "automapper.9.0.0.nupkg.sha512",
+        "automapper.10.0.0.nupkg.sha512",
         "automapper.nuspec",
+        "icon.png",
         "lib/net461/AutoMapper.dll",
-        "lib/net461/AutoMapper.pdb",
         "lib/net461/AutoMapper.xml",
         "lib/netstandard2.0/AutoMapper.dll",
-        "lib/netstandard2.0/AutoMapper.pdb",
         "lib/netstandard2.0/AutoMapper.xml"
       ]
     },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-      "sha512": "szI4yeRIM7GWe9JyekW0dKYehPB0t6M+I55fPeCebN6PhS7zQZa0eG3bgOnOx+eP3caSNoE7KEJs2rk7MLsh8w==",
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/8.0.1": {
+      "sha512": "hhUzmc8Ld7wCuVHJFodsxtPmFqBAhB6nUNQUgaMF3uamQdxOLxntG0dwv+5ApC67GABa8Oay8MEYGg5IgVZP1Q==",
       "type": "package",
-      "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
+      "path": "automapper.extensions.microsoft.dependencyinjection/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
+        "automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
-        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
-        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
+        "icon.png",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
     "Castle.Core/4.4.0": {
@@ -2630,21 +2610,15 @@
         "lib/netstandard1.3/CloudinaryDotNet.dll"
       ]
     },
-    "EmbedIO/2.2.7": {
-      "sha512": "3SdhQZ/tGa8rYvFEeW8qqLfA8WDHJSnLR7xqdeHXJEUC5cdOj9yf1/4QhUTJ1xFICA+V7AxrOaFHw0RkOa9bqg==",
+    "EmbedIO/2.9.2": {
+      "sha512": "soH01qXeUq9sANg/tf8C/+qWrFTCNufB81psNGd98bp9ejfuDyyZmLawcKsqckwps7diKQe8k+S+X6wqBGQenA==",
       "type": "package",
-      "path": "embedio/2.2.7",
+      "path": "embedio/2.9.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "embedio.2.2.7.nupkg.sha512",
+        "embedio.2.9.2.nupkg.sha512",
         "embedio.nuspec",
-        "lib/net452/Unosquare.Labs.EmbedIO.dll",
-        "lib/net452/Unosquare.Labs.EmbedIO.xml",
-        "lib/net472/Unosquare.Labs.EmbedIO.dll",
-        "lib/net472/Unosquare.Labs.EmbedIO.xml",
-        "lib/netstandard1.3/Unosquare.Labs.EmbedIO.dll",
-        "lib/netstandard1.3/Unosquare.Labs.EmbedIO.xml",
         "lib/netstandard2.0/Unosquare.Labs.EmbedIO.dll",
         "lib/netstandard2.0/Unosquare.Labs.EmbedIO.xml"
       ]
@@ -3437,17 +3411,17 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
-    "Microsoft.NETCore.Platforms/2.0.0": {
-      "sha512": "VdLJOCXhZaEMY7Hm2GKiULmn7IEPFE4XC5LPSfBVCUIA8YLZVh846gtfBJalsPQF2PlzdD7ecX7DZEulJ402ZQ==",
+    "Microsoft.NETCore.Platforms/2.1.2": {
+      "sha512": "mOJy3M0UN+LUG21dLGMxaWZEP6xYpQEpLuvuEQBaownaX4YuhH6NmNUlN9si+vNkAS6dwJ//N1O4DmLf2CikVg==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/2.0.0",
+      "path": "microsoft.netcore.platforms/2.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+        "microsoft.netcore.platforms.2.1.2.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
@@ -3586,10 +3560,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Newtonsoft.Json/12.0.2": {
-      "sha512": "rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "type": "package",
-      "path": "newtonsoft.json/12.0.2",
+      "path": "newtonsoft.json/12.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3612,8 +3586,9 @@
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.12.0.2.nupkg.sha512",
-        "newtonsoft.json.nuspec"
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "Newtonsoft.Json.Bson/1.0.2": {
@@ -3929,33 +3904,29 @@
         "version.txt"
       ]
     },
-    "SpotifyAPI.Web/4.1.0": {
-      "sha512": "Rv1WePr5FAxJ+y5NaxVx+fru7V0QTTQmy1BDxIylkRJ/3DHpA8PVEAUp6mjyeyKsP+2lshe3YHHjNckkSxlyjA==",
+    "SpotifyAPI.Web/5.1.1": {
+      "sha512": "gEl2NdSBdPLs3bpTt5PF3TomGBB1Rw20m+eYYHwEz4OgiO3eG4bt7LYf49K0Zna2YUXHlZae2UBJVKFwRYOWgg==",
       "type": "package",
-      "path": "spotifyapi.web/4.1.0",
+      "path": "spotifyapi.web/5.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net46/SpotifyAPI.Web.dll",
-        "lib/net46/SpotifyAPI.Web.xml",
         "lib/netstandard2.0/SpotifyAPI.Web.dll",
         "lib/netstandard2.0/SpotifyAPI.Web.xml",
-        "spotifyapi.web.4.1.0.nupkg.sha512",
+        "spotifyapi.web.5.1.1.nupkg.sha512",
         "spotifyapi.web.nuspec"
       ]
     },
-    "SpotifyAPI.Web.Auth/4.1.0": {
-      "sha512": "gzoWI85z4Yic2oKfSjHRmfZu8lNc5UEw2YbDHRVErUHEJDvDHZ59+VxpDHrAg7zAlNIytoCMJBkGlGvEaqfXhg==",
+    "SpotifyAPI.Web.Auth/5.1.1": {
+      "sha512": "SNh/RTMitkSVuGI7Cs6y7Z7mbfXdKlGa5bv+WmiGG3R2x5/t48IkV+amlz3pjXDl7API7X/sPzKW1pIRqokfHA==",
       "type": "package",
-      "path": "spotifyapi.web.auth/4.1.0",
+      "path": "spotifyapi.web.auth/5.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net46/SpotifyAPI.Web.Auth.dll",
-        "lib/net46/SpotifyAPI.Web.Auth.xml",
         "lib/netstandard2.0/SpotifyAPI.Web.Auth.dll",
         "lib/netstandard2.0/SpotifyAPI.Web.Auth.xml",
-        "spotifyapi.web.auth.4.1.0.nupkg.sha512",
+        "spotifyapi.web.auth.5.1.1.nupkg.sha512",
         "spotifyapi.web.auth.nuspec"
       ]
     },
@@ -5982,25 +5953,34 @@
         "system.reflection.nuspec"
       ]
     },
-    "System.Reflection.Emit/4.3.0": {
-      "sha512": "228FG0jLcIwTVJyz8CLFKueVqQK36ANazUManGaJHkO0icjiIypKW7YLWLIWahyIkdh5M7mV2dJepllLyA1SKg==",
+    "System.Reflection.Emit/4.7.0": {
+      "sha512": "VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ==",
       "type": "package",
-      "path": "system.reflection.emit/4.3.0",
+      "path": "system.reflection.emit/4.7.0",
       "files": [
         ".nupkg.metadata",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
-        "lib/monotouch10/_._",
+        "lib/MonoTouch10/_._",
         "lib/net45/_._",
         "lib/netcore50/System.Reflection.Emit.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.1/System.Reflection.Emit.dll",
+        "lib/netstandard1.1/System.Reflection.Emit.xml",
         "lib/netstandard1.3/System.Reflection.Emit.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.dll",
+        "lib/netstandard2.0/System.Reflection.Emit.xml",
+        "lib/netstandard2.1/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
         "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
         "ref/net45/_._",
+        "ref/netcoreapp2.0/_._",
         "ref/netstandard1.1/System.Reflection.Emit.dll",
         "ref/netstandard1.1/System.Reflection.Emit.xml",
         "ref/netstandard1.1/de/System.Reflection.Emit.xml",
@@ -6012,9 +5992,19 @@
         "ref/netstandard1.1/ru/System.Reflection.Emit.xml",
         "ref/netstandard1.1/zh-hans/System.Reflection.Emit.xml",
         "ref/netstandard1.1/zh-hant/System.Reflection.Emit.xml",
+        "ref/netstandard2.0/System.Reflection.Emit.dll",
+        "ref/netstandard2.0/System.Reflection.Emit.xml",
+        "ref/netstandard2.1/_._",
+        "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
-        "system.reflection.emit.4.3.0.nupkg.sha512",
-        "system.reflection.emit.nuspec"
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.dll",
+        "runtimes/aot/lib/netcore50/System.Reflection.Emit.xml",
+        "system.reflection.emit.4.7.0.nupkg.sha512",
+        "system.reflection.emit.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Reflection.Emit.ILGeneration/4.3.0": {
@@ -7479,10 +7469,10 @@
         "system.text.encoding.nuspec"
       ]
     },
-    "System.Text.Encoding.CodePages/4.5.0": {
-      "sha512": "S0wEUiKcLvRlkFUXca8uio1UQ5bYQzYgOmOKtCqaBQC3GR9AJjh43otcM32IGsAyvadFTaAMw9Irm6dS4Evfng==",
+    "System.Text.Encoding.CodePages/4.5.1": {
+      "sha512": "4J2JQXbftjPMppIHJ7IC+VXQ9XfEagN92vZZNoG12i+zReYlim5dMoXFC1Zzg7tsnKDM7JPo5bYfFK4Jheq44w==",
       "type": "package",
-      "path": "system.text.encoding.codepages/4.5.0",
+      "path": "system.text.encoding.codepages/4.5.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7500,19 +7490,6 @@
         "lib/xamarinwatchos10/_._",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
-        "ref/netstandard1.3/System.Text.Encoding.CodePages.dll",
-        "ref/netstandard1.3/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/de/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/es/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/fr/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/it/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/ja/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/ko/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/ru/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/zh-hans/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard1.3/zh-hant/System.Text.Encoding.CodePages.xml",
-        "ref/netstandard2.0/System.Text.Encoding.CodePages.dll",
-        "ref/netstandard2.0/System.Text.Encoding.CodePages.xml",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
@@ -7521,7 +7498,7 @@
         "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll",
         "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
         "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.dll",
-        "system.text.encoding.codepages.4.5.0.nupkg.sha512",
+        "system.text.encoding.codepages.4.5.1.nupkg.sha512",
         "system.text.encoding.codepages.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -7873,45 +7850,6 @@
         "system.threading.tasks.extensions.nuspec"
       ]
     },
-    "System.Threading.Thread/4.3.0": {
-      "sha512": "OHmbT+Zz065NKII/ZHcH9XO1dEuLGI1L2k7uYss+9C1jLxTC9kTZZuzUOyXHayRk+dft9CiDf3I/QZ0t8JKyBQ==",
-      "type": "package",
-      "path": "system.threading.thread/4.3.0",
-      "files": [
-        ".nupkg.metadata",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Threading.Thread.dll",
-        "lib/netcore50/_._",
-        "lib/netstandard1.3/System.Threading.Thread.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Threading.Thread.dll",
-        "ref/netstandard1.3/System.Threading.Thread.dll",
-        "ref/netstandard1.3/System.Threading.Thread.xml",
-        "ref/netstandard1.3/de/System.Threading.Thread.xml",
-        "ref/netstandard1.3/es/System.Threading.Thread.xml",
-        "ref/netstandard1.3/fr/System.Threading.Thread.xml",
-        "ref/netstandard1.3/it/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ja/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ko/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ru/System.Threading.Thread.xml",
-        "ref/netstandard1.3/zh-hans/System.Threading.Thread.xml",
-        "ref/netstandard1.3/zh-hant/System.Threading.Thread.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.threading.thread.4.3.0.nupkg.sha512",
-        "system.threading.thread.nuspec"
-      ]
-    },
     "System.Threading.Timer/4.3.0": {
       "sha512": "Z6YfyYTCg7lOZjJzBjONJTFKGN9/NIYKSxhU5GRd+DTwHSZyvWp1xuI5aR+dLg+ayyC5Xv57KiY4oJ0tMO89fQ==",
       "type": "package",
@@ -8216,29 +8154,27 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Unosquare.Swan.Lite/0.38.1": {
-      "sha512": "pp5+WAiQcN+yfFtta4sa3MeJNX7C6esgkVOfok58ceZ3PQPiSyJik/CKa23imYDdq2AkR8VwHNlQoWzogGwV5w==",
+    "Unosquare.Swan.Lite/1.3.1": {
+      "sha512": "K+gQFO6Mw1ltOGZ7Ftpe+my7PA3nWDmsbX4oP0cgr7D59YC83+nRyF1DTqI1dxPOILtbDRRUZsRDMLaPsEWHVA==",
       "type": "package",
-      "path": "unosquare.swan.lite/0.38.1",
+      "path": "unosquare.swan.lite/1.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net452/Unosquare.Swan.Lite.dll",
-        "lib/net452/Unosquare.Swan.Lite.xml",
+        "lib/net461/Unosquare.Swan.Lite.dll",
+        "lib/net461/Unosquare.Swan.Lite.xml",
         "lib/netstandard1.3/Unosquare.Swan.Lite.dll",
         "lib/netstandard1.3/Unosquare.Swan.Lite.xml",
         "lib/netstandard2.0/Unosquare.Swan.Lite.dll",
         "lib/netstandard2.0/Unosquare.Swan.Lite.xml",
-        "lib/uap10.0/Unosquare.Swan.Lite.dll",
-        "lib/uap10.0/Unosquare.Swan.Lite.xml",
-        "unosquare.swan.lite.0.38.1.nupkg.sha512",
+        "unosquare.swan.lite.1.3.1.nupkg.sha512",
         "unosquare.swan.lite.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
-      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
+      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.0.1",
       "CloudinaryDotNet >= 1.8.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.3",
@@ -8250,8 +8186,8 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.3",
       "Microsoft.IdentityModel.Tokens >= 5.6.0",
       "Pomelo.EntityFrameworkCore.MySql >= 3.0.0-rc3.final",
-      "SpotifyAPI.Web >= 4.1.0",
-      "SpotifyAPI.Web.Auth >= 4.1.0",
+      "SpotifyAPI.Web >= 5.1.1",
+      "SpotifyAPI.Web.Auth >= 5.1.1",
       "System.IdentityModel.Tokens.Jwt >= 5.6.0"
     ]
   },
@@ -8301,7 +8237,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
-            "version": "[7.0.0, )"
+            "version": "[8.0.1, )"
           },
           "CloudinaryDotNet": {
             "target": "Package",
@@ -8351,11 +8287,11 @@
           },
           "SpotifyAPI.Web": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[5.1.1, )"
           },
           "SpotifyAPI.Web.Auth": {
             "target": "Package",
-            "version": "[4.1.0, )"
+            "version": "[5.1.1, )"
           },
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",

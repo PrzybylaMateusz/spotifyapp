@@ -45,7 +45,7 @@
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[8.0.1, )"
             },
             "CloudinaryDotNet": {
               "target": "Package",
@@ -95,11 +95,11 @@
             },
             "SpotifyAPI.Web": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[5.1.1, )"
             },
             "SpotifyAPI.Web.Auth": {
               "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[5.1.1, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
