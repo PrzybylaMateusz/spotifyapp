@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { PlayerService } from '../_services/player.service';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CurrentlyPlayed } from '../_models/currentlyPlayed';
 import { AlbumRate } from '../_models/albumRate';
+import { CurrentlyPlayed } from '../_models/currentlyPlayed';
+import { AlertifyService } from '../_services/alertify.service';
+import { AuthService } from '../_services/auth.service';
+import { PlayerService } from '../_services/player.service';
 import { RatesService } from '../_services/rates.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { RatesService } from '../_services/rates.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   alive = true;
   model: any = {};
   searchKey: string;
@@ -90,10 +90,6 @@ export class NavComponent implements OnInit {
     return this.authService.connectWithSpotify();
   }
 
-  getCurrentTrack() {
-    this.playerService.getTrack().subscribe((x) => console.log(x));
-  }
-
   saveRate(): void {
     const albumRate: AlbumRate = {
       rate: this.rate,
@@ -103,7 +99,7 @@ export class NavComponent implements OnInit {
     };
 
     this.ratesService.rateAlbum(albumRate).subscribe(
-      (data) => {
+      () => {
         this.alertify.success(
           'You have rated album: ' + this.currentylPlayed.album.name
         );
@@ -136,5 +132,9 @@ export class NavComponent implements OnInit {
 
   onArrowDownClick() {
     this.trackVisible = true;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

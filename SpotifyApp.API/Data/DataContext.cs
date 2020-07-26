@@ -8,7 +8,6 @@ namespace SpotifyApp.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
-
         public DbSet<AlbumRate> AlbumRates { get; set; }
         public DbSet<ArtistRate> ArtistRates { get; set; }
         public DbSet<Album> Album { get; set; }

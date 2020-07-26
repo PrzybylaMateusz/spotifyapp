@@ -14,21 +14,21 @@ namespace SpotifyApp.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IAppRepository _repo;
-        private readonly IMapper _mapper;
+        private readonly IAppRepository repo;
+        private readonly IMapper mapper;
 
         public UsersController(IAppRepository repo, IMapper mapper)
         {
-            _mapper = mapper;
-            _repo = repo;
+            this.mapper = mapper;
+            this.repo = repo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _repo.GetUsers();
+            var users = await repo.GetUsers();
 
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            var usersToReturn = mapper.Map<IEnumerable<UserForListDto>>(users);
 
             return Ok(usersToReturn);
         }
@@ -36,9 +36,9 @@ namespace SpotifyApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _repo.GetUser(id);
+            var user = await repo.GetUser(id);
 
-            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
+            var userToReturn = mapper.Map<UserForDetailedDto>(user);
 
             return Ok(userToReturn);
         }
@@ -49,14 +49,14 @@ namespace SpotifyApp.API.Controllers
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var userFromRepo = await _repo.GetUser(id);
+            var userFromRepo = await repo.GetUser(id);
 
-            _mapper.Map(userForUpdateDto, userFromRepo);
+            mapper.Map(userForUpdateDto, userFromRepo);
 
-            if (await _repo.SaveAll())
+            if (await repo.SaveAll())
                 return NoContent();
 
-            throw new System.Exception($"Updating user {id} failed on ssave");
+            throw new System.Exception($"Updating user {id} failed on save");
         }   
     }
 }

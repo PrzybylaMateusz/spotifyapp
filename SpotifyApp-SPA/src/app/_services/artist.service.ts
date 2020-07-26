@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { ArtistWithAlbums } from '../_models/artistWithAlbums';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ArtistService {
 
   constructor(private http: HttpClient) {}
 
-  getArtist(id): Observable<ArtistWithAlbums> {
+  getArtist(id: string): Observable<ArtistWithAlbums> {
     return this.http.get<ArtistWithAlbums>(this.baseUrl + 'artists/' + id);
   }
 }

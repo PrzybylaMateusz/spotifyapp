@@ -1,6 +1,5 @@
 <ul *ngIf="isLoaded" class="list-group">
   <div class="text-center mt-3"><h2>Best albums</h2></div>
-
   <form
     class="form-inline"
     #form="ngForm"
@@ -43,7 +42,6 @@
     </button>
   </form>
   <br />
-
   <li
     *ngFor="let album of albumRanking; let i = index"
     class="list-group-item d-flex align-items-center"
@@ -58,12 +56,15 @@
         alt="{{ album.album.name }}"
     /></a>
     <div class="album-info">
-      <h5>
-        {{ album.album.name }}
-        <h6>({{ album.album.year }})</h6>
-      </h5>
-
-      {{ album.album.artist }}
+      <a [routerLink]="['/albums', album.album.id]">
+        <h5>
+          {{ album.album.name }}
+          <h6>({{ album.album.year }})</h6>
+        </h5></a
+      >
+      <a [routerLink]="['/artists', album.album.artistId]">
+        {{ album.album.artist }}</a
+      >
     </div>
     <div class="wrapper">
       <h2>

@@ -34,20 +34,6 @@ namespace SpotifyApp.API.Data
             context.Remove(entity);
         }
 
-        public async Task<double> GetSpecificAlbumAvaregeRate(string id)
-        {
-            var albumRate = await this.context.AlbumRates.Where(x => x.AlbumId == id).AverageAsync(x => x.Rate);
-
-            return albumRate;
-        }
-
-        public async Task<IEnumerable<AlbumRate>> GetAllRatesForSpecificAlbum(string id)
-        {
-            var albumRates = await this.context.AlbumRates.Where(x => x.AlbumId == id).ToListAsync();
-
-            return albumRates;
-        }
-
         public async Task<PagedList<AlbumAverageRateDto>> GetAllAlbumsRate(RankingParams rankingParams)
         {
             var allAlbumsRates = this.context.Album.Include(x => x.Rates);
@@ -61,7 +47,7 @@ namespace SpotifyApp.API.Data
                 .ToList();
             }            
 
-            Dictionary<string, AlbumDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
+            var albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
 
             var albumRanking = allAlbumsRates
                 .Where(x => listFromSpotify.Select(y => y.Id).Contains(x.Id))
@@ -69,7 +55,7 @@ namespace SpotifyApp.API.Data
             { 
                 Album = this.mapper.Map<AlbumDto>(albumDictionary[album.Id]),
                 Rate = Math.Round(album.Rates.Average(x => x.Rate), 3),
-                NumberOfRates = album.Rates.Count()
+                NumberOfRates = album.Rates.Count
             });
 
             return await PagedList<AlbumAverageRateDto>.CreateAsync(albumRanking.OrderByDescending(x => x.Rate), rankingParams.PageNumber, rankingParams.PageSize);
@@ -83,7 +69,7 @@ namespace SpotifyApp.API.Data
 
                
 
-            Dictionary<string, ArtistDto> artistDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
+            var artistDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
 
             var artistRanking = allArtistsRates
                 .Where(x => listFromSpotify.Select(y => y.Id).Contains(x.Id))
@@ -91,7 +77,7 @@ namespace SpotifyApp.API.Data
             { 
                 Artist = this.mapper.Map<ArtistDto>(artistDictionary[artist.Id]),
                 Rate = Math.Round(artist.Rates.Average(x => x.Rate), 3),
-                NumberOfRates = artist.Rates.Count()
+                NumberOfRates = artist.Rates.Count
             });
 
             return await PagedList<ArtistAverageRateDto>.CreateAsync(artistRanking.OrderByDescending(x => x.Rate), rankingParams.PageNumber, rankingParams.PageSize);
@@ -104,7 +90,7 @@ namespace SpotifyApp.API.Data
 
             var listFromSpotify = await GetAlbumsInfoFromSpotify(albumsId);           
 
-            Dictionary<string, AlbumDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
+            var albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
              var userRatesToReturn = userRates.Select(album => new AlbumUserRateDto()
             { 
                 Album = this.mapper.Map<AlbumDto>(albumDictionary[album.AlbumId]),
@@ -122,7 +108,7 @@ namespace SpotifyApp.API.Data
 
             var listFromSpotify = await GetArtistsInfoFromSpotify(artistsId);           
 
-            Dictionary<string, ArtistDto> albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
+            var albumDictionary = listFromSpotify.ToDictionary(x => x.Id, x => x);
              var userRatesToReturn = userRates.Select(artist => new ArtistUserRateDto()
             { 
                 Artist = this.mapper.Map<ArtistDto>(albumDictionary[artist.ArtistId]),
@@ -136,28 +122,13 @@ namespace SpotifyApp.API.Data
         public async Task<int> GetAlbumRateForUser(string albumId, int userId)
         {
             var albumRate =  await this.context.AlbumRates.FirstOrDefaultAsync(x => x.AlbumId == albumId && x.UserId == userId);
-            if(albumRate == default)
-            {
-                return 0;
-            }
-            return albumRate.Rate;
+            return albumRate?.Rate ?? 0;
         }
 
          public async Task<int> GetArtistRateForUser(string artistId, int userId)
         {
             var artistRate =  await this.context.ArtistRates.FirstOrDefaultAsync(x => x.ArtistId == artistId && x.UserId == userId);
-            if(artistRate == default)
-            {
-                return 0;
-            }
-            return artistRate.Rate;
-        }
-        
-        public async Task<IEnumerable<AlbumRate>> GetUniqueRatedAlbums()
-        {
-            var uniqueRatedAlbums = await this.context.AlbumRates.GroupBy(x => x.Album).Select(x => x.First()).ToListAsync();
-
-            return uniqueRatedAlbums;
+            return artistRate?.Rate ?? 0;
         }
 
         public Task<User> GetUser(int id)
@@ -220,11 +191,13 @@ namespace SpotifyApp.API.Data
             {
                 i++;
                 tempList.Add(a);
-                if(tempList.Count() % 20==0 || i == listOfAlbumsId.Count()){
-                    var albumsInfoDto = await this.spotifyData.GetSpotifyAlbums(tempList.ToList());
-                    listFromSpotify.AddRange(albumsInfoDto);
-                    tempList.Clear();
+                if (tempList.Count % 20 != 0 && i != listOfAlbumsId.Count())
+                {
+                    continue;
                 }
+                var albumsInfoDto = await this.spotifyData.GetSpotifyAlbums(tempList.ToList());
+                listFromSpotify.AddRange(albumsInfoDto);
+                tempList.Clear();
             }
 
             return listFromSpotify;
@@ -240,11 +213,13 @@ namespace SpotifyApp.API.Data
             {
                 i++;
                 tempList.Add(a);
-                if(tempList.Count() % 20==0 || i == listOfArtistsId.Count()){
-                    var artistsInfoDto = await this.spotifyData.GetSpotifyArtists(tempList.ToList());
-                    listFromSpotify.AddRange(artistsInfoDto);
-                    tempList.Clear();
+                if (tempList.Count % 20 != 0 && i != listOfArtistsId.Count())
+                {
+                    continue;
                 }
+                var artistsInfoDto = await this.spotifyData.GetSpotifyArtists(tempList.ToList());
+                listFromSpotify.AddRange(artistsInfoDto);
+                tempList.Clear();
             }
 
             return listFromSpotify;

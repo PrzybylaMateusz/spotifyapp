@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlbumUserRate } from 'src/app/_models/albumUserRate';
-import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
-import { RatesService } from 'src/app/_services/rates.service';
-import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlbumUserRate } from 'src/app/_models/albumUserRate';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-my-latest-albums',

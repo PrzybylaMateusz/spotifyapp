@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Album } from '../_models/album';
-import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Comment } from 'src/app/_models/comment';
+import { environment } from 'src/environments/environment';
+import { Album } from '../_models/album';
+import { PaginatedResult } from '../_models/pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class AlbumService {
 
   constructor(private http: HttpClient) {}
 
-  getAlbum(id): Observable<Album> {
+  getAlbum(id: string): Observable<Album> {
     return this.http.get<Album>(this.baseUrl + 'albums/' + id);
   }
 

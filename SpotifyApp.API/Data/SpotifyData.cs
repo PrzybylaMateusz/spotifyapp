@@ -11,32 +11,34 @@ namespace SpotifyApp.API.Data
 {
     public class SpotifyData : ISpotifyData
     {
-        private readonly string _clientId = "69bbb47bc12a4a7cba51c70bc2ea6764";
-        private readonly string _secretId = "a85e6ed0212a4c83b1326213d358720e";
+        private const string ClientId = "69bbb47bc12a4a7cba51c70bc2ea6764";
+        private const string SecretId = "a85e6ed0212a4c83b1326213d358720e";
 
         public async Task<IEnumerable<AlbumDto>> SearchSpotifyAlbums(string keyword)
         {
-            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
-            Token token = await auth.GetToken();
-            SpotifyWebAPI api = new SpotifyWebAPI()
+            var auth = new CredentialsAuth(ClientId, SecretId);
+            var token = await auth.GetToken();
+            var api = new SpotifyWebAPI()
             {
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
 
-            SearchItem searchItem = await api.SearchItemsAsync(keyword, SearchType.Album);
+            var searchItem = await api.SearchItemsAsync(keyword, SearchType.Album);
 
             var albumsToReturn = new List<AlbumDto>();
 
             foreach (var album in searchItem.Albums.Items)
             {
-                var albumToReturn = new AlbumDto();
-                albumToReturn.Artist = album.Artists[0].Name;
-                albumToReturn.Name = album.Name;
-                albumToReturn.Id = album.Id;
-                albumToReturn.UserId = 1;
-                albumToReturn.CoverUrl = album.Images[0].Url;
-                albumToReturn.Year = album.ReleaseDate.Substring(0, 4);
+                var albumToReturn = new AlbumDto
+                {
+                    Artist = album.Artists[0].Name,
+                    Name = album.Name,
+                    Id = album.Id,
+                    UserId = 1,
+                    CoverUrl = album.Images[0].Url,
+                    Year = album.ReleaseDate.Substring(0, 4)
+                };
                 albumsToReturn.Add(albumToReturn);
             }
 
@@ -45,15 +47,15 @@ namespace SpotifyApp.API.Data
 
         public async Task<AlbumDto> GetSpotifyAlbum(string id)
         {
-            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
-            Token token = await auth.GetToken();
-            SpotifyWebAPI api = new SpotifyWebAPI()
+            var auth = new CredentialsAuth(ClientId, SecretId);
+            var token = await auth.GetToken();
+            var api = new SpotifyWebAPI()
             {
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
             
-            FullAlbum albumFromSpotify = await api.GetAlbumAsync(id);
+            var albumFromSpotify = await api.GetAlbumAsync(id);
 
             return new AlbumDto(){
                 Artist = string.Join(",", albumFromSpotify.Artists.Select((x) => x.Name)),
@@ -68,28 +70,30 @@ namespace SpotifyApp.API.Data
 
         public async Task<ArtistWithAlbumsDto> GetSpotifyArtist(string id)
         {
-            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
-            Token token = await auth.GetToken();
-            SpotifyWebAPI api = new SpotifyWebAPI()
+            var auth = new CredentialsAuth(ClientId, SecretId);
+            var token = await auth.GetToken();
+            var api = new SpotifyWebAPI()
             {
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
 
-            FullArtist artistFromSpotify = await api.GetArtistAsync(id);
+            var artistFromSpotify = await api.GetArtistAsync(id);
 
             var albumsForArtist = await api.GetArtistsAlbumsAsync(id);
 
             var albumsToReturn = new List<AlbumDto>();
             foreach(var album in albumsForArtist.Items)
             {
-                var albumToReturn = new AlbumDto();
-                albumToReturn.Artist = artistFromSpotify.Name;
-                albumToReturn.Name = album.Name;
-                albumToReturn.Id = album.Id;
-                albumToReturn.CoverUrl = album.Images[0].Url;
-                albumToReturn.UserId = 1;
-                albumToReturn.Year = album.ReleaseDate.Substring(0, 4);
+                var albumToReturn = new AlbumDto
+                {
+                    Artist = artistFromSpotify.Name,
+                    Name = album.Name,
+                    Id = album.Id,
+                    CoverUrl = album.Images[0].Url,
+                    UserId = 1,
+                    Year = album.ReleaseDate.Substring(0, 4)
+                };
                 albumsToReturn.Add(albumToReturn);
             }
 
@@ -103,27 +107,30 @@ namespace SpotifyApp.API.Data
 
         public async Task<IEnumerable<AlbumDto>> GetSpotifyAlbums(List<string> albumsIdToGet)
         {
-            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
-            Token token = await auth.GetToken();
-            SpotifyWebAPI api = new SpotifyWebAPI()
+            var auth = new CredentialsAuth(ClientId, SecretId);
+            var token = await auth.GetToken();
+            var api = new SpotifyWebAPI()
             {
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
 
-            SeveralAlbums albumsFromSpotify = await api.GetSeveralAlbumsAsync(albumsIdToGet);
+            var albumsFromSpotify = await api.GetSeveralAlbumsAsync(albumsIdToGet);
 
             var albumsToReturn = new List<AlbumDto>();
 
             foreach (var album in albumsFromSpotify.Albums)
             {
-                var albumToReturn = new AlbumDto();
-                albumToReturn.Artist = album.Artists[0].Name;
-                albumToReturn.Name = album.Name;
-                albumToReturn.Id = album.Id;
-                albumToReturn.UserId = 1;
-                albumToReturn.CoverUrl = album.Images[0].Url;
-                albumToReturn.Year = album.ReleaseDate.Substring(0, 4);
+                var albumToReturn = new AlbumDto
+                {
+                    Artist = album.Artists[0].Name,
+                    ArtistId = album.Artists[0].Id,
+                    Name = album.Name,
+                    Id = album.Id,
+                    UserId = 1,
+                    CoverUrl = album.Images[0].Url,
+                    Year = album.ReleaseDate.Substring(0, 4)
+                };
                 albumsToReturn.Add(albumToReturn);
             }
 
@@ -132,24 +139,24 @@ namespace SpotifyApp.API.Data
 
          public async Task<IEnumerable<ArtistDto>> GetSpotifyArtists(List<string> artistsIdToGet)
         {
-            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
-            Token token = await auth.GetToken();
-            SpotifyWebAPI api = new SpotifyWebAPI()
+            var auth = new CredentialsAuth(ClientId, SecretId);
+            var token = await auth.GetToken();
+            var api = new SpotifyWebAPI()
             {
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
 
-            SeveralArtists artistsFromSpotify = await api.GetSeveralArtistsAsync(artistsIdToGet);
+            var artistsFromSpotify = await api.GetSeveralArtistsAsync(artistsIdToGet);
 
             var artistsToReturn = new List<ArtistDto>();
 
             foreach (var artist in artistsFromSpotify.Artists)
             {
-                var artistToReturn = new ArtistDto();
-                artistToReturn.Name = artist.Name;
-                artistToReturn.Id = artist.Id;
-                artistToReturn.PhotoUrl = artist.Images[0].Url;
+                var artistToReturn = new ArtistDto
+                {
+                    Name = artist.Name, Id = artist.Id, PhotoUrl = artist.Images[0].Url
+                };
                 artistsToReturn.Add(artistToReturn);
             }
 
@@ -158,24 +165,26 @@ namespace SpotifyApp.API.Data
 
          public async Task<IEnumerable<ArtistDto>> SearchSpotifyArtists(string keyword)
         {
-            CredentialsAuth auth = new CredentialsAuth(_clientId, _secretId);
-            Token token = await auth.GetToken();
-            SpotifyWebAPI api = new SpotifyWebAPI()
+            var auth = new CredentialsAuth(ClientId, SecretId);
+            var token = await auth.GetToken();
+            var api = new SpotifyWebAPI()
             {
                 TokenType = token.TokenType,
                 AccessToken = token.AccessToken
             };
 
-            SearchItem searchItem = await api.SearchItemsAsync(keyword, SearchType.Artist);
+            var searchItem = await api.SearchItemsAsync(keyword, SearchType.Artist);
 
             var artistsToReturn = new List<ArtistDto>();
 
             foreach (var artist in searchItem.Artists.Items)
             {
-                var artistToReturn = new ArtistDto();
-                artistToReturn.Name = artist.Name;
-                artistToReturn.Id = artist.Id;
-                artistToReturn.PhotoUrl = artist.Images.Count > 0 ? artist.Images[0].Url : null;
+                var artistToReturn = new ArtistDto
+                {
+                    Name = artist.Name,
+                    Id = artist.Id,
+                    PhotoUrl = artist.Images.Count > 0 ? artist.Images[0].Url : null
+                };
                 artistsToReturn.Add(artistToReturn);
             }
 

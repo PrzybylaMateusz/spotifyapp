@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Artist } from 'src/app/_models/artist';
-import { AlertifyService } from 'src/app/_services/alertify.service';
-import { RatesService } from 'src/app/_services/rates.service';
-import { AuthService } from 'src/app/_services/auth.service';
 import { ArtistRate } from 'src/app/_models/artistRate';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { RatesService } from 'src/app/_services/rates.service';
 
 @Component({
   selector: 'app-artist-card',

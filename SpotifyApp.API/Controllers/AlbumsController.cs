@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyApp.API.Data;
@@ -12,20 +11,16 @@ namespace SpotifyApp.API.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly IAppRepository _repo;
-        private readonly ISpotifyData _spotifyData;
-        public AlbumsController(IAppRepository repo, IMapper mapper, ISpotifyData spotifyData)
+        private readonly ISpotifyData spotifyData;
+        public AlbumsController(ISpotifyData spotifyData)
         {
-            _repo = repo;
-            _mapper = mapper;
-            _spotifyData = spotifyData;
+            this.spotifyData = spotifyData;
         }      
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAlbum(string id)
         {
-            var album = await _spotifyData.GetSpotifyAlbum(id);
+            var album = await spotifyData.GetSpotifyAlbum(id);
             return Ok(album);
         }
 

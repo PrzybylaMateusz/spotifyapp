@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Album } from '../_models/album';
 import { AlbumService } from '../_services/album.service';
 import { AlertifyService } from '../_services/alertify.service';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AlbumDetailResolver implements Resolve<Album> {

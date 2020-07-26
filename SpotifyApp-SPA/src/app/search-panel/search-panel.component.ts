@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Album } from '../_models/album';
-import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { SearchService } from '../_services/search.service';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Album } from '../_models/album';
 import { Artist } from '../_models/artist';
+import { SearchService } from '../_services/search.service';
 
 @Component({
   selector: 'app-search-panel',
@@ -17,6 +17,7 @@ export class SearchPanelComponent implements OnInit {
   showAlbums: boolean;
   show = 'Albums';
   searchKey: string;
+
   constructor(
     private route: ActivatedRoute,
     private searchService: SearchService

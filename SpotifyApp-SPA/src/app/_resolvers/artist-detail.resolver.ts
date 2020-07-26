@@ -1,10 +1,10 @@
-import { catchError } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
-import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { ArtistService } from '../_services/artist.service';
-import { AlertifyService } from '../_services/alertify.service';
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ArtistWithAlbums } from '../_models/artistWithAlbums';
+import { AlertifyService } from '../_services/alertify.service';
+import { ArtistService } from '../_services/artist.service';
 
 @Injectable()
 export class ArtistDetailResolver implements Resolve<ArtistWithAlbums> {

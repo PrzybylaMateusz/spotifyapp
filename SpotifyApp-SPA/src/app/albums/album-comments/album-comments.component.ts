@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from 'src/app/_services/auth.service';
-import { AlertifyService } from 'src/app/_services/alertify.service';
-import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
-import { AlbumService } from 'src/app/_services/album.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from 'src/app/_models/comment';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
+import { AlbumService } from 'src/app/_services/album.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-album-comments',
@@ -43,7 +43,6 @@ export class AlbumCommentsComponent implements OnInit {
         (res: PaginatedResult<Comment[]>) => {
           this.comments = res.results;
           this.pagination = res.pagination;
-          console.log(this.userId, this.comments[0].commenterId);
         },
         (error) => {
           this.alertify.error(error);

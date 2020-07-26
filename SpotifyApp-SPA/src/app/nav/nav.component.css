@@ -122,7 +122,14 @@ h5 {
   color: gold;
 }
 
-.form-control {
-  width: 350px;
+.search {
+  max-width: 350px;
+  height: 38px;
+  margin-right: 25px;
+  box-shadow: none;
+}
+
+.cred {
+  width: 150px;
   margin-right: 25px;
 }
