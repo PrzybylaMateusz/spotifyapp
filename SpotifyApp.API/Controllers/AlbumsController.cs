@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyApp.API.Data;
+using SpotifyApp.API.Dtos;
 
 namespace SpotifyApp.API.Controllers
 {
-    //Possible to remove later
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumsController : ControllerBase
@@ -20,7 +19,16 @@ namespace SpotifyApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAlbum(string id)
         {
-            var album = await spotifyData.GetSpotifyAlbum(id);
+            AlbumDto album;
+            try
+            {
+                album = await spotifyData.GetSpotifyAlbum(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
             return Ok(album);
         }
 

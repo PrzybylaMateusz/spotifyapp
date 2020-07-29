@@ -1,3 +1,8 @@
 node_modules
 SpotifyApp.API/bin/
 SpotifyApp.API/obj
+SpotifyApp.API.IntegrationTests/bin/
+SpotifyApp.API.IntegrationTests/obj
+SpotifyApp.API/.vs/
+*.db
+*.user
