@@ -18,6 +18,7 @@ export class AlbumCommentsComponent implements OnInit {
   pagination: Pagination;
   currentPage: number;
   userId: number;
+  isUserLogged = false;
 
   constructor(
     private albumService: AlbumService,
@@ -28,7 +29,12 @@ export class AlbumCommentsComponent implements OnInit {
   ngOnInit() {
     this.userId = this.authService.decodedToken.nameid;
     this.currentPage = 1;
-    this.loadComments();
+    if (this.authService.loggedIn()) {
+      this.isUserLogged = true;
+      this.loadComments();
+    } else {
+      this.isUserLogged = false;
+    }
   }
 
   loadComments() {
@@ -56,22 +62,26 @@ export class AlbumCommentsComponent implements OnInit {
   }
 
   addComment() {
-    this.newComment.albumId = this.albumId;
-    this.albumService
-      .addComment(
-        this.authService.decodedToken.nameid,
-        this.albumId,
-        this.newComment
-      )
-      .subscribe(
-        (comment: Comment) => {
-          this.comments.unshift(comment);
-          this.newComment.commentContent = '';
-        },
-        (error) => {
-          this.alertify.error(error);
-        }
-      );
+    if (this.isUserLogged) {
+      this.newComment.albumId = this.albumId;
+      this.albumService
+        .addComment(
+          this.authService.decodedToken.nameid,
+          this.albumId,
+          this.newComment
+        )
+        .subscribe(
+          (comment: Comment) => {
+            this.comments.unshift(comment);
+            this.newComment.commentContent = '';
+          },
+          (error) => {
+            this.alertify.error(error);
+          }
+        );
+    } else {
+      this.alertify.warning('Log in if you want to add a comment.');
+    }
   }
 
   deleteComment(id: number) {
