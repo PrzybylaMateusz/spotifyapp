@@ -80,11 +80,6 @@ export class RatesService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    if (rankingParams != null) {
-      params = params.append('minYear', rankingParams.minYear);
-      params = params.append('maxYear', rankingParams.maxYear);
-    }
-
     return this.http
       .get<ArtistAverageRate[]>(this.baseUrl + 'rates/artistranking', {
         observe: 'response',
