@@ -1,11 +1,11 @@
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyApp.API.Data;
+using SpotifyApp.API.Dtos;
 
 namespace SpotifyApp.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ArtistsController : ControllerBase
@@ -20,9 +20,17 @@ namespace SpotifyApp.API.Controllers
          [HttpGet("{id}")]
         public async Task<IActionResult> GetArtist(string id)
         {
-            var artist = await spotifyData.GetSpotifyArtist(id);
+            ArtistWithAlbumsDto artist;
+            try
+            {
+                artist = await spotifyData.GetSpotifyArtist(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
             return Ok(artist);
-        } 
+            } 
 
         // POST api/values
         [HttpPost]

@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
-using SpotifyAPI.Web.Models;
 using SpotifyApp.API.Dtos;
 
 namespace SpotifyApp.API.Data
@@ -56,16 +56,24 @@ namespace SpotifyApp.API.Data
             };
             
             var albumFromSpotify = await api.GetAlbumAsync(id);
+            if (!albumFromSpotify.HasError())
+                return new AlbumDto()
+                {
+                    Artist = string.Join(",", albumFromSpotify.Artists.Select((x) => x.Name)),
+                    Name = albumFromSpotify.Name,
+                    Id = albumFromSpotify.Id,
+                    UserId = 1,
+                    CoverUrl = albumFromSpotify.Images[0].Url,
+                    Year = albumFromSpotify.ReleaseDate.Substring(0, 4),
+                    ArtistId = albumFromSpotify.Artists[0].Id,
+                };
+            if (albumFromSpotify.Error.Message != "invalid id")
+            {
+                throw new Exception("Problem with retrieving album data from spotify");
+            }
 
-            return new AlbumDto(){
-                Artist = string.Join(",", albumFromSpotify.Artists.Select((x) => x.Name)),
-                Name = albumFromSpotify.Name,
-                Id = albumFromSpotify.Id,
-                UserId = 1,
-                CoverUrl = albumFromSpotify.Images[0].Url,
-                Year = albumFromSpotify.ReleaseDate.Substring(0, 4),
-                ArtistId = albumFromSpotify.Artists[0].Id,            
-            };
+            throw new Exception($"Album with id: {id} was not found.");
+
         }
 
         public async Task<ArtistWithAlbumsDto> GetSpotifyArtist(string id)
@@ -82,27 +90,38 @@ namespace SpotifyApp.API.Data
 
             var albumsForArtist = await api.GetArtistsAlbumsAsync(id);
 
-            var albumsToReturn = new List<AlbumDto>();
-            foreach(var album in albumsForArtist.Items)
+            if (!albumsForArtist.HasError() || !artistFromSpotify.HasError())
             {
-                var albumToReturn = new AlbumDto
+                var albumsToReturn = new List<AlbumDto>();
+                foreach (var album in albumsForArtist.Items)
                 {
-                    Artist = artistFromSpotify.Name,
-                    Name = album.Name,
-                    Id = album.Id,
-                    CoverUrl = album.Images[0].Url,
-                    UserId = 1,
-                    Year = album.ReleaseDate.Substring(0, 4)
+                    var albumToReturn = new AlbumDto
+                    {
+                        Artist = artistFromSpotify.Name,
+                        Name = album.Name,
+                        Id = album.Id,
+                        CoverUrl = album.Images[0].Url,
+                        UserId = 1,
+                        Year = album.ReleaseDate.Substring(0, 4)
+                    };
+                    albumsToReturn.Add(albumToReturn);
+                }
+
+                return new ArtistWithAlbumsDto()
+                {
+                    Name = artistFromSpotify.Name,
+                    Id = artistFromSpotify.Id,
+                    PhotoUrl = artistFromSpotify.Images[0].Url,
+                    Albums = albumsToReturn
                 };
-                albumsToReturn.Add(albumToReturn);
+            }
+            if (artistFromSpotify.Error.Message != "invalid id")
+            {
+                throw new Exception("Problem with retrieving artist data from spotify");
             }
 
-            return new ArtistWithAlbumsDto(){                
-                Name = artistFromSpotify.Name,
-                Id = artistFromSpotify.Id,
-                PhotoUrl = artistFromSpotify.Images[0].Url,
-                Albums = albumsToReturn                
-            };
+            throw new Exception($"Artist with id: {id} was not found.");
+
         }
 
         public async Task<IEnumerable<AlbumDto>> GetSpotifyAlbums(List<string> albumsIdToGet)

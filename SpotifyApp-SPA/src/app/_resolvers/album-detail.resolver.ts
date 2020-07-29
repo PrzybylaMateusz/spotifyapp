@@ -16,7 +16,7 @@ export class AlbumDetailResolver implements Resolve<Album> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<Album> {
     return this.albumService.getAlbum(route.params['id']).pipe(
-      catchError(error => {
+      catchError((error) => {
         this.alertify.error('Problem retriving data');
         this.router.navigate(['/albums']);
         return of(null);
