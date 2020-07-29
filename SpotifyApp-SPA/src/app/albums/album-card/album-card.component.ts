@@ -13,11 +13,27 @@ import { RatesService } from 'src/app/_services/rates.service';
 export class AlbumCardComponent implements OnInit {
   @Input() album: Album;
   max = 10;
+
   rate = null;
   isReadonly = false;
-
+  isUserLogged = false;
   overStar: number | undefined;
   percent: number;
+
+  constructor(
+    private alertify: AlertifyService,
+    private ratesService: RatesService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    if (this.authService.loggedIn()) {
+      this.isUserLogged = true;
+      this.loadRate();
+    } else {
+      this.isUserLogged = false;
+    }
+  }
 
   hoveringOver(value: number): void {
     this.overStar = value;
@@ -28,31 +44,25 @@ export class AlbumCardComponent implements OnInit {
   }
 
   saveRate(): void {
-    const albumRate: AlbumRate = {
-      rate: this.rate,
-      ratedDate: new Date(),
-      albumId: this.album.id,
-      userId: this.authService.decodedToken.nameid,
-    };
+    if (this.isUserLogged) {
+      const albumRate: AlbumRate = {
+        rate: this.rate,
+        ratedDate: new Date(),
+        albumId: this.album.id,
+        userId: this.authService.decodedToken.nameid,
+      };
 
-    this.ratesService.rateAlbum(albumRate).subscribe(
-      () => {
-        this.alertify.success('You have rated album: ' + this.album.name);
-      },
-      (error) => {
-        this.alertify.error(error);
-      }
-    );
-  }
-
-  constructor(
-    private alertify: AlertifyService,
-    private ratesService: RatesService,
-    private authService: AuthService
-  ) {}
-
-  ngOnInit() {
-    this.loadRate();
+      this.ratesService.rateAlbum(albumRate).subscribe(
+        () => {
+          this.alertify.success('You have rated album: ' + this.album.name);
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
+    } else {
+      this.alertify.warning('Log in if you want to rate this album.');
+    }
   }
 
   loadRate() {

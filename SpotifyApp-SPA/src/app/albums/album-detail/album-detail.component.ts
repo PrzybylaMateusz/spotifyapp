@@ -16,6 +16,7 @@ export class AlbumDetailComponent implements OnInit {
   max = 10;
   rate = 0;
   isReadonly = false;
+  isUserLogged = false;
 
   overStar: number | undefined;
   percent: number;
@@ -33,7 +34,12 @@ export class AlbumDetailComponent implements OnInit {
       this.album = data['album'];
     });
 
-    this.loadRate();
+    if (this.authService.loggedIn()) {
+      this.isUserLogged = true;
+      this.loadRate();
+    } else {
+      this.isUserLogged = false;
+    }
   }
 
   hoveringOver(value: number): void {
@@ -49,21 +55,26 @@ export class AlbumDetailComponent implements OnInit {
   }
 
   saveRate(): void {
-    const albumRate: AlbumRate = {
-      rate: this.rate,
-      ratedDate: new Date(),
-      albumId: this.album.id,
-      userId: this.authService.decodedToken.nameid,
-    };
+    if (this.isUserLogged) {
+      const albumRate: AlbumRate = {
+        rate: this.rate,
+        ratedDate: new Date(),
+        albumId: this.album.id,
+        userId: this.authService.decodedToken.nameid,
+      };
 
-    this.ratesService.rateAlbum(albumRate).subscribe(
-      () => {
-        this.alertify.success('You have rated album: ' + this.album.name);
-      },
-      (error) => {
-        this.alertify.error(error);
-      }
-    );
+      this.ratesService.rateAlbum(albumRate).subscribe(
+        () => {
+          this.alertify.success('You have rated album: ' + this.album.name);
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
+    } else {
+      this.rate = 0;
+      this.alertify.warning('Log in if you want to rate this album.');
+    }
   }
 
   loadRate() {

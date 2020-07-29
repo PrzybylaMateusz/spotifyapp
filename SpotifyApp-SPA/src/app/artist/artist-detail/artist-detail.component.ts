@@ -16,6 +16,7 @@ export class ArtistDetailComponent implements OnInit {
   max = 10;
   rate = 0;
   isReadonly = false;
+  isUserLogged = false;
 
   overStar: number | undefined;
   percent: number;
@@ -31,7 +32,14 @@ export class ArtistDetailComponent implements OnInit {
       this.artist = data['artist'];
     });
 
-    this.loadRate();
+    if (this.authService.loggedIn()) {
+      this.isUserLogged = true;
+      this.loadRate();
+    } else {
+      this.isUserLogged = false;
+      this.rate = 0;
+      this.overStar = null;
+    }
   }
 
   hoveringOver(value: number): void {
@@ -46,20 +54,29 @@ export class ArtistDetailComponent implements OnInit {
     }
   }
 
-  saveRate(): void {
-    const artistRate: ArtistRate = {
-      rate: this.rate,
-      ratedDate: new Date(),
-      artistId: this.artist.id,
-      userId: this.authService.decodedToken.nameid,
-    };
+  saveRate(rate: any): void {
+    if (this.isUserLogged) {
+      this.rate = rate;
+      const artistRate: ArtistRate = {
+        rate: this.rate,
+        ratedDate: new Date(),
+        artistId: this.artist.id,
+        userId: this.authService.decodedToken.nameid,
+      };
 
-    this.ratesService.rateArtist(artistRate).subscribe(
-      () => {},
-      (error) => {
-        this.alertify.error(error);
-      }
-    );
+      this.ratesService.rateArtist(artistRate).subscribe(
+        () => {
+          this.alertify.success('You have rated artist: ' + this.artist.name);
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
+    } else {
+      this.rate = 0;
+      this.overStar = void 0;
+      this.alertify.warning('Log in if you want to rate this artist.');
+    }
   }
 
   loadRate() {
